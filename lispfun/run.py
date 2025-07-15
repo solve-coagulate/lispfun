@@ -4,6 +4,21 @@ from .interpreter import (
     parse, parse_multiple, eval_lisp, standard_env, to_string
 )
 
+# Enable command history and up-arrow navigation if readline is available
+try:
+    import readline  # type: ignore
+    import atexit
+
+    HISTORY_FILE = os.path.join(os.path.expanduser("~"), ".lispfun_history")
+    readline.parse_and_bind("tab: complete")
+    try:
+        readline.read_history_file(HISTORY_FILE)
+    except FileNotFoundError:
+        pass
+    atexit.register(readline.write_history_file, HISTORY_FILE)
+except Exception:  # pragma: no cover - optional enhancement
+    readline = None  # fallback when readline isn't available
+
 EVAL_FILE = os.path.join(os.path.dirname(__file__), "evaluator.lisp")
 
 
@@ -36,6 +51,8 @@ def repl(env):
             line = input("lispfun> ")
             if not line:
                 continue
+            if readline:
+                readline.add_history(line)
             exp = parse(line)
             val = eval_with_eval2(exp, env)
             if val is not None:

@@ -38,3 +38,7 @@ python -m lispfun [path/to/script.lisp]
 Running without a file starts an interactive REPL. Executing `run.py` directly
 (`python lispfun/run.py`) will fail because it relies on relative imports.
 
+The REPL supports command history if Python's `readline` module is available.
+Use the up and down arrow keys to navigate through previous inputs, similar to
+the bash shell.
+
