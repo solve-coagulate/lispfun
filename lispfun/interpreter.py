@@ -76,11 +76,23 @@ def standard_env() -> Environment:
         'max': max,
         'min': min,
         'print': print,
+        # list utilities
+        'list': lambda *x: list(x),
+        'car': lambda x: x[0],
+        'cdr': lambda x: x[1:],
+        'cons': lambda x, y: [x] + y,
+        'list?': lambda x: isinstance(x, list),
+        'symbol?': lambda x: isinstance(x, str),
+        'apply': lambda f, args: f(*args),
+        'map': lambda f, lst: [f(item) for item in lst],
+    })
+    # helpers for the self-hosted evaluator
+    env.update({
+        'env-get': lambda env, var: env.find(var)[var],
+        'env-set!': lambda env, var, val: env.__setitem__(var, val),
+        'make-procedure': Procedure,
     })
     return env
-
-
-global_env = standard_env()
 
 
 class Procedure:
@@ -94,6 +106,9 @@ class Procedure:
     def __call__(self, *args):
         local_env = Environment(self.params, args, self.env)
         return eval_lisp(self.body, local_env)
+
+
+global_env = standard_env()
 
 
 def eval_lisp(x: Any, env: Environment = global_env) -> Any:
