@@ -64,6 +64,21 @@ Available scripts:
 - `fibonacci.lisp` – compute Fibonacci numbers
 - `list-demo.lisp` – demonstrate `length`, `map` and `filter`
 - `macro-example.lisp` – use a simple `when` macro
+- `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp
+
+### Toy Interpreter Usage
+
+Run the Lisp-based interpreter itself and then use `run-file` to execute other
+examples:
+
+```bash
+python -m lispfun examples/toy-interpreter.lisp
+; now inside the REPL
+(run-file "examples/factorial.lisp")
+```
+
+The helper `read-file` function is available to slurp a file's contents as a
+string, which `run-file` relies on.
 
 ## Self-hosted Evaluator
 
