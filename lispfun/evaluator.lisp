@@ -52,5 +52,29 @@
                                                 (eval2 op env))))))))))
              )
              (car x)
-             (cdr x))
+            (cdr x))
             x))))
+
+(define null?
+  (lambda (x)
+    (= x (quote ()))) )
+
+(define length
+  (lambda (lst)
+    (if (null? lst)
+        0
+        (+ 1 (length (cdr lst))))))
+
+(define map
+  (lambda (f lst)
+    (if (null? lst)
+        (quote ())
+        (cons (f (car lst)) (map f (cdr lst))))) )
+
+(define filter
+  (lambda (pred lst)
+    (if (null? lst)
+        (quote ())
+        (if (pred (car lst))
+            (cons (car lst) (filter pred (cdr lst)))
+            (filter pred (cdr lst))))) )

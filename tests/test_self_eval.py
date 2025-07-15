@@ -76,3 +76,17 @@ def test_self_macro():
     assert eval_lisp(parse("(eval2 (quote (when (> 3 2) 42)) env)"), env) == 42
 
 
+def test_self_list_utilities():
+    env = setup_env()
+    assert eval_lisp(parse("(eval2 (quote (null? (quote ())) ) env)"), env)
+    assert eval_lisp(parse("(eval2 (quote (length (list 1 2 3))) env)"), env) == 3
+
+
+def test_self_map_filter():
+    env = setup_env()
+    eval_lisp(parse("(eval2 (quote (define add1 (lambda (x) (+ x 1))) ) env)"), env)
+    assert eval_lisp(parse("(eval2 (quote (map add1 (list 1 2 3))) env)"), env) == [2, 3, 4]
+    expr = "(filter (lambda (x) (> x 2)) (list 1 2 3 4))"
+    assert eval_lisp(parse(f"(eval2 (quote {expr}) env)"), env) == [3, 4]
+
+

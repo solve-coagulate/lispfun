@@ -14,4 +14,7 @@
 (begin
   (define-macro when (lambda (test expr) (list (quote if) test expr 0)))
   (assert-equal (when (> 3 2) 42) 42))
+(assert-equal (length (list 1 2 3)) 3)
+(assert-equal (map (lambda (x) (+ x 1)) (list 1 2 3)) (list 2 3 4))
+(assert-equal (filter (lambda (x) (> x 2)) (list 1 2 3 4)) (list 3 4))
 pass
