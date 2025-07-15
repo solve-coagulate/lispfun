@@ -8,6 +8,7 @@ EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "lispfun", "evaluator.
 BASIC_TEST = os.path.join(os.path.dirname(__file__), "lisp", "basic.lisp")
 BOOTSTRAP_TEST = os.path.join(os.path.dirname(__file__), "lisp", "bootstrap.lisp")
 SELFTEST_FILE = os.path.join(os.path.dirname(__file__), "lisp", "selftest.lisp")
+STRINGPARSE_FILE = os.path.join(os.path.dirname(__file__), "lisp", "stringparse.lisp")
 
 
 def run_file_with_eval(file_path):
@@ -52,5 +53,9 @@ def test_basic_file_eval2():
 
 def test_selftest_script():
     assert run_file_with_eval2(SELFTEST_FILE) == 1
+
+
+def test_stringparse_script():
+    assert run_file_with_eval2(STRINGPARSE_FILE) == 1
 
 
