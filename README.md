@@ -69,3 +69,6 @@ Currently, the interpreter in `lispfun/interpreter.py` still tokenizes and parse
 4. creation of symbol objects inside the Lisp environment.
 
 Once these components exist in Lisp, Python's role can shrink to simply loading the evaluator and starting the REPL.
+
+For a concrete checklist toward building a self-hosted parser, see
+`docs/pure_lisp_plan.md`.
