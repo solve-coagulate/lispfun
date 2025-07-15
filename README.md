@@ -27,3 +27,14 @@ This repository aims to develop a minimal Lisp interpreter in Python and gradual
    - Explore self-hosting (running the interpreter written in Lisp using itself).
    - Consider building a small standard library in Lisp for common utilities.
 
+## Running the Interpreter
+
+Use Python's `-m` option from the repository root so that package imports resolve correctly:
+
+```bash
+python -m lispfun [path/to/script.lisp]
+```
+
+Running without a file starts an interactive REPL. Executing `run.py` directly
+(`python lispfun/run.py`) will fail because it relies on relative imports.
+
