@@ -17,4 +17,5 @@
 (assert-equal (length (list 1 2 3)) 3)
 (assert-equal (map (lambda (x) (+ x 1)) (list 1 2 3)) (list 2 3 4))
 (assert-equal (filter (lambda (x) (> x 2)) (list 1 2 3 4)) (list 3 4))
+(assert-equal (quote "hello") "hello")
 pass

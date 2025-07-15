@@ -2,17 +2,61 @@ from functools import reduce
 import operator as op
 from typing import Any, List
 
-Symbol = str
+
+class Symbol(str):
+    """Represents a Lisp symbol."""
+    pass
+
+
+class String(str):
+    """Represents a Lisp string literal."""
+    pass
+
 ListType = list
 
 
 def tokenize(chars: str) -> List[str]:
-    """Convert a string into a list of tokens."""
-    return chars.replace('(', ' ( ').replace(')', ' ) ').split()
+    """Convert a string into a list of tokens, keeping string literals intact."""
+    tokens = []
+    token = ''
+    in_string = False
+    i = 0
+    while i < len(chars):
+        c = chars[i]
+        if in_string:
+            token += c
+            if c == '"':
+                tokens.append(token)
+                token = ''
+                in_string = False
+        else:
+            if c.isspace():
+                if token:
+                    tokens.append(token)
+                    token = ''
+            elif c == '(' or c == ')':
+                if token:
+                    tokens.append(token)
+                    token = ''
+                tokens.append(c)
+            elif c == '"':
+                if token:
+                    tokens.append(token)
+                    token = ''
+                token = '"'
+                in_string = True
+            else:
+                token += c
+        i += 1
+    if token:
+        tokens.append(token)
+    return tokens
 
 
 def atom(token: str) -> Any:
-    """Numbers become numbers; every other token is a symbol."""
+    """Numbers become numbers; quoted tokens become strings; everything else is a symbol."""
+    if token.startswith('"') and token.endswith('"'):
+        return String(token[1:-1])
     try:
         return int(token)
     except ValueError:
@@ -91,7 +135,7 @@ def standard_env() -> Environment:
         'cdr': lambda x: x[1:],
         'cons': lambda x, y: [x] + y,
         'list?': lambda x: isinstance(x, list),
-        'symbol?': lambda x: isinstance(x, str),
+        'symbol?': lambda x: isinstance(x, Symbol),
         'apply': lambda f, args: f(*args),
         'map': lambda f, lst: [f(item) for item in lst],
     })
@@ -124,6 +168,8 @@ def eval_lisp(x: Any, env: Environment = global_env) -> Any:
     """Evaluate an expression in an environment."""
     if isinstance(x, Symbol):
         return env.find(x)[x]
+    elif isinstance(x, String):
+        return str(x)
     elif not isinstance(x, ListType):
         return x
     op_, *args = x
@@ -171,5 +217,7 @@ def repl(prompt: str = 'lispy> '):
 def to_string(exp: Any) -> str:
     if isinstance(exp, ListType):
         return '(' + ' '.join(map(to_string, exp)) + ')'
+    elif isinstance(exp, String):
+        return '"' + str(exp) + '"'
     else:
         return str(exp)
