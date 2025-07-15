@@ -7,6 +7,7 @@ from lispfun.interpreter import parse_multiple, eval_lisp, standard_env, to_stri
 EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "lispfun", "evaluator.lisp")
 BASIC_TEST = os.path.join(os.path.dirname(__file__), "lisp", "basic.lisp")
 BOOTSTRAP_TEST = os.path.join(os.path.dirname(__file__), "lisp", "bootstrap.lisp")
+SELFTEST_FILE = os.path.join(os.path.dirname(__file__), "lisp", "selftest.lisp")
 
 
 def run_file_with_eval(file_path):
@@ -47,5 +48,9 @@ def test_bootstrap_file_eval2():
 
 def test_basic_file_eval2():
     assert run_file_with_eval2(BASIC_TEST) == [6, 4, 5, 7, 1, 1, [2, 3], [0, 1, 2, 3], [1, 2]]
+
+
+def test_selftest_script():
+    assert run_file_with_eval2(SELFTEST_FILE) == 1
 
 

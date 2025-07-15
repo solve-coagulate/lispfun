@@ -11,6 +11,7 @@ This repository aims to develop a minimal Lisp interpreter in Python and gradual
 2. **Testing Basic Programs**
    - Provide unit tests demonstrating that simple Lisp programs evaluate correctly.
    - Example programs: arithmetic computations, defining and calling functions.
+   - A Lisp test script (`selftest.lisp`) returns 1 when all tests pass, allowing Python to verify functionality by running it through the Lisp evaluator.
 
 3. **Self-hosted Evaluator (Lisp)**
    - Write a Lisp evaluator in Lisp, running on the Python interpreter.
