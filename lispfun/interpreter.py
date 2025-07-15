@@ -43,6 +43,15 @@ def parse(program: str) -> Any:
     return read_from_tokens(tokenize(program))
 
 
+def parse_multiple(program: str) -> List[Any]:
+    """Parse multiple expressions from a program string."""
+    tokens = tokenize(program)
+    expressions = []
+    while tokens:
+        expressions.append(read_from_tokens(tokens))
+    return expressions
+
+
 class Environment(dict):
     """An environment: a dict of {'var': val} pairs, with an optional outer env."""
 
