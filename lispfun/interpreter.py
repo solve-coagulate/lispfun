@@ -137,9 +137,6 @@ def eval_lisp(x: Any, env: Environment = global_env) -> Any:
     elif op_ == 'define':
         var, exp = args
         env[var] = eval_lisp(exp, env)
-    elif op_ == 'set!':
-        var, exp = args
-        env.find(var)[var] = eval_lisp(exp, env)
     elif op_ == 'begin':
         val = None
         for exp in args:
