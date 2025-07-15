@@ -46,6 +46,10 @@ python -m lispfun [path/to/script.lisp]
 Running without a file starts an interactive REPL. Executing `run.py` directly
 (`python lispfun/run.py`) will fail because it relies on relative imports.
 
+The REPL supports command history if Python's `readline` module is available.
+Use the up and down arrow keys to navigate through previous inputs, similar to
+the bash shell.
+
 ## Self-hosted Evaluator
 
 The self-hosted interpreter lives in `lispfun/evaluator.lisp`. It is loaded by `load_eval` in `lispfun/run.py` (lines 10-15) so that the Lisp version of the evaluator can run within the Python environment. Expressions are then executed by calling `eval_with_eval2` (lines 18-20) which invokes the Lisp function `eval2` rather than Python's `eval_lisp`.
