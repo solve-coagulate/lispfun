@@ -46,3 +46,10 @@ python -m lispfun [path/to/script.lisp]
 Running without a file starts an interactive REPL. Executing `run.py` directly
 (`python lispfun/run.py`) will fail because it relies on relative imports.
 
+## Self-hosted Evaluator
+
+The self-hosted interpreter lives in `lispfun/evaluator.lisp`. It is loaded by `load_eval` in `lispfun/run.py` (lines 10-15) so that the Lisp version of the evaluator can run within the Python environment. Expressions are then executed by calling `eval_with_eval2` (lines 18-20) which invokes the Lisp function `eval2` rather than Python's `eval_lisp`.
+
+The `eval2` procedure is defined in `lispfun/evaluator.lisp` on lines 21-56 and provides the Lisp-level implementation of evaluation. This function is separate from Python's `eval_lisp` located in `lispfun/interpreter.py` (lines 123-151).
+
+To handle the `begin` special form without colliding with Python's implementation, `eval-begin` is defined on lines 1-7 of `lispfun/evaluator.lisp` and is used internally by `eval2`.
