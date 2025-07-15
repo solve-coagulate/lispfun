@@ -1,3 +1,11 @@
+(define eval-begin
+  (lambda (es env)
+    (if (= (cdr es) (quote ()))
+        (eval2 (car es) env)
+        (begin
+          (eval2 (car es) env)
+          (eval-begin (cdr es) env)))) )
+
 (define eval2
   (lambda (x env)
     (if (symbol? x)
@@ -13,10 +21,14 @@
                               env)
                        (if (= op (quote define))
                            (env-set! env (car args) (eval2 (car (cdr args)) env))
-                           (if (= op (quote lambda))
-                               (make-procedure (car args) (car (cdr args)) env)
-                               (apply (eval2 op env)
-                                      (map (lambda (a) (eval2 a env)) args))))))
+                           (if (= op (quote set!))
+                               (env-set! env (car args) (eval2 (car (cdr args)) env))
+                               (if (= op (quote lambda))
+                                   (make-procedure (car args) (car (cdr args)) env)
+                                   (if (= op (quote begin))
+                                       (eval-begin args env)
+                                       (apply (eval2 op env)
+                                              (map (lambda (a) (eval2 a env)) args))))))))
              )
              (car x)
              (cdr x))

@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from lispfun.interpreter import parse, eval_lisp, standard_env
+from lispfun.interpreter import parse, parse_multiple, eval_lisp, standard_env
 
 EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "lispfun", "evaluator.lisp")
 
@@ -11,7 +11,8 @@ def setup_env():
     env = standard_env()
     with open(EVAL_FILE) as f:
         code = f.read()
-    eval_lisp(parse(code), env)
+    for exp in parse_multiple(code):
+        eval_lisp(exp, env)
     env['env'] = env
     return env
 
@@ -54,5 +55,11 @@ def test_self_list_operations():
     assert eval_lisp(parse("(eval2 (quote (cdr (list 1 2 3))) env)"), env) == [2, 3]
     assert eval_lisp(parse("(eval2 (quote (cons 0 (list 1 2 3))) env)"), env) == [0, 1, 2, 3]
     assert eval_lisp(parse("(eval2 (quote (list? (list 1 2))) env)"), env)
+
+
+def test_self_set_and_begin():
+    env = setup_env()
+    eval_lisp(parse("(eval2 (quote (define z 1)) env)"), env)
+    assert eval_lisp(parse("(eval2 (quote (begin (set! z 4) z)) env)"), env) == 4
 
 

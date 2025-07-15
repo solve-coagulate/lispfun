@@ -3,6 +3,7 @@
 (define lst (list 1 2 3))
 (list (+ 1 2 3)
       x
+      (begin (set! x 5) x)
       (add2 3 4)
       (if (> 3 2) 1 0)
       (car lst)

@@ -23,7 +23,8 @@ def run_file_with_eval2(file_path):
     env = standard_env()
     with open(EVAL_FILE) as f:
         evaluator_code = f.read()
-    eval_lisp(parse(evaluator_code), env)
+    for exp in parse_multiple(evaluator_code):
+        eval_lisp(exp, env)
     env['env'] = env
     with open(file_path) as f:
         code = f.read()
@@ -36,10 +37,10 @@ def run_file_with_eval2(file_path):
 
 
 def test_lisp_file_base_eval():
-    assert run_file_with_eval(LISP_TEST) == [6, 4, 7, 1, 1, [2, 3], [0, 1, 2, 3], [1, 2]]
+    assert run_file_with_eval(LISP_TEST) == [6, 4, 5, 7, 1, 1, [2, 3], [0, 1, 2, 3], [1, 2]]
 
 
 def test_lisp_file_eval2():
-    assert run_file_with_eval2(LISP_TEST) == [6, 4, 7, 1, 1, [2, 3], [0, 1, 2, 3], [1, 2]]
+    assert run_file_with_eval2(LISP_TEST) == [6, 4, 5, 7, 1, 1, [2, 3], [0, 1, 2, 3], [1, 2]]
 
 

@@ -42,3 +42,9 @@ def test_list_operations():
     assert eval_lisp(parse("(cons 0 (list 1 2 3))"), env) == [0, 1, 2, 3]
     assert eval_lisp(parse("(list? (list 1 2))"), env)
 
+
+def test_set_and_begin():
+    env = standard_env()
+    eval_lisp(parse("(define x 1)"), env)
+    assert eval_lisp(parse("(begin (set! x 3) x)"), env) == 3
+
