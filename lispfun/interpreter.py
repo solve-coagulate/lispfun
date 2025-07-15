@@ -138,6 +138,13 @@ def standard_env() -> Environment:
         'symbol?': lambda x: isinstance(x, Symbol),
         'apply': lambda f, args: f(*args),
         'map': lambda f, lst: [f(item) for item in lst],
+        # string utilities
+        'string-length': len,
+        'string-slice': lambda s, start, end: s[start:end],
+        'string-concat': lambda a, b: a + b,
+        'make-string': String,
+        'char-code': lambda s: ord(s[0]),
+        'chr': chr,
     })
     # helpers for the self-hosted evaluator
     env.update({
