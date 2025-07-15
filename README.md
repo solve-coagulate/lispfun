@@ -57,3 +57,15 @@ The self-hosted interpreter lives in `lispfun/evaluator.lisp`. It is loaded by `
 The `eval2` procedure is defined in `lispfun/evaluator.lisp` on lines 21-56 and provides the Lisp-level implementation of evaluation. This function is separate from Python's `eval_lisp` located in `lispfun/interpreter.py` (lines 123-151).
 
 To handle the `begin` special form without colliding with Python's implementation, `eval-begin` is defined on lines 1-7 of `lispfun/evaluator.lisp` and is used internally by `eval2`.
+
+## Future Self-Hosting Goals
+
+The long-term vision is for Python to serve purely as a thin loader and REPL interface.  All parsing and evaluation will ultimately happen in Lisp.
+Currently, the interpreter in `lispfun/interpreter.py` still tokenizes and parses source code in Python and represents identifiers using the Python `Symbol` class.  To shift these responsibilities into Lisp we need to reimplement several pieces:
+
+1. a tokenizer that splits program text into Lisp tokens,
+2. a reader for building lists and atoms from those tokens,
+3. numeric conversion utilities to create integers and floats, and
+4. creation of symbol objects inside the Lisp environment.
+
+Once these components exist in Lisp, Python's role can shrink to simply loading the evaluator and starting the REPL.
