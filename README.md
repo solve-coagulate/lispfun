@@ -64,6 +64,7 @@ Available scripts:
 - `fibonacci.lisp` – compute Fibonacci numbers
 - `list-demo.lisp` – demonstrate `length`, `map` and `filter`
 - `macro-example.lisp` – use a simple `when` macro
+- `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp
 
 ## Self-hosted Evaluator
 
