@@ -22,6 +22,11 @@ This repository aims to develop a minimal Lisp interpreter in Python and gradual
    - Gradually reduce Python's role to just parsing and initial bootstrapping.
    - Current progress: the Lisp evaluator now supports the `cond` form and `define-macro` for basic macros.
 
+4.5 **Testing Expanded Lisp Features**
+   - Extend the test suite to exercise new Lisp features as they are added.
+   - The `tests/lisp/selftest.lisp` script performs assertions for `cond`, macros, and list operations and returns `1` when they succeed.
+   - Python tests run this script via the Lisp evaluator to ensure feature parity.
+
 5. **Documentation and Examples**
    - Document usage of the interpreter and provide example Lisp programs.
 
