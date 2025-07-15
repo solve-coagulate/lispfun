@@ -48,6 +48,10 @@ def test_self_quote():
     assert eval_self("(quote hello)") == 'hello'
     assert eval_self("(quote (1 2))") == [1, 2]
 
+
+def test_self_string_literal():
+    assert eval_self('(quote "hello world")') == 'hello world'
+
 def test_self_list_operations():
     env = setup_env()
     assert eval_lisp(parse("(eval2 (quote (list 1 2 3)) env)"), env) == [1, 2, 3]

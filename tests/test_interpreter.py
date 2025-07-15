@@ -42,3 +42,11 @@ def test_list_operations():
     assert eval_lisp(parse("(cons 0 (list 1 2 3))"), env) == [0, 1, 2, 3]
     assert eval_lisp(parse("(list? (list 1 2))"), env)
 
+
+def test_string_literal_and_print(capsys):
+    env = standard_env()
+    eval_lisp(parse('(print "hello world")'), env)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == 'hello world'
+    assert eval_lisp(parse('(quote "hi there")'), env) == 'hi there'
+
