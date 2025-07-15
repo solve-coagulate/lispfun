@@ -20,7 +20,7 @@ This repository aims to develop a minimal Lisp interpreter in Python and gradual
 4. **Expanding Features in Lisp**
    - Add more language features implemented in Lisp: conditionals, lists, higher-order functions, and macros.
    - Gradually reduce Python's role to just parsing and initial bootstrapping.
-   - Current progress: the Lisp evaluator now supports the `cond` form, `define-macro` for basic macros, Lisp implementations of `null?`, `length`, `map`, and `filter`, basic string literals, includes a Lisp `parse-string` routine for reading string tokens, and a Python-level `(import "file")` function for loading additional Lisp code.
+  - Current progress: the Lisp evaluator now supports the `cond` form, `define-macro` for basic macros, Lisp implementations of `null?`, `length`, `map`, and `filter`, basic string literals, includes a Lisp `parse-string` routine for reading string tokens, and a Python-level `(import "file")` function for loading additional Lisp code.  The evaluator itself is split into multiple files that are loaded via `(import ...)` from `evaluator.lisp`.
 
 4.5 **Testing Expanded Lisp Features**
    - Extend the test suite to exercise new Lisp features as they are added.
@@ -67,11 +67,9 @@ Available scripts:
 
 ## Self-hosted Evaluator
 
-The self-hosted interpreter lives in `lispfun/evaluator.lisp`. It is loaded by `load_eval` in `lispfun/run.py` (lines 10-15) so that the Lisp version of the evaluator can run within the Python environment. Expressions are then executed by calling `eval_with_eval2` (lines 18-20) which invokes the Lisp function `eval2` rather than Python's `eval_lisp`.
+The self-hosted interpreter now spans several Lisp files in the `lispfun/` directory.  The entry point `evaluator.lisp` loads helper modules using the Lisp `(import ...)` function.  `load_eval` in `lispfun/run.py` reads this entry file so that the Lisp evaluator can run within the Python environment.  Expressions are then executed by calling `eval_with_eval2`, which invokes the Lisp function `eval2` defined in `eval_core.lisp` rather than Python's `eval_lisp`.
 
-The `eval2` procedure is defined in `lispfun/evaluator.lisp` on lines 21-56 and provides the Lisp-level implementation of evaluation. This function is separate from Python's `eval_lisp` located in `lispfun/interpreter.py` (lines 123-151).
-
-To handle the `begin` special form without colliding with Python's implementation, `eval-begin` is defined on lines 1-7 of `lispfun/evaluator.lisp` and is used internally by `eval2`.
+List utilities live in `list_utils.lisp` and the string helper `parse-string` resides in `string_utils.lisp`.  These modules are imported automatically when `evaluator.lisp` is loaded.
 
 ## Future Self-Hosting Goals
 
