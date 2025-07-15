@@ -65,6 +65,7 @@ Available scripts:
 - `list-demo.lisp` – demonstrate `length`, `map` and `filter`
 - `macro-example.lisp` – use a simple `when` macro
 - `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp
+- `toy-runner.lisp` – load the toy interpreter and run all other examples
 
 ### Toy Interpreter Usage
 
