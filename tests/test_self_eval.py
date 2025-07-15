@@ -42,3 +42,17 @@ def test_self_if():
     env = setup_env()
     assert eval_lisp(parse("(eval2 (quote (if (> 3 2) 1 0)) env)"), env) == 1
 
+
+def test_self_quote():
+    assert eval_self("(quote hello)") == 'hello'
+    assert eval_self("(quote (1 2))") == [1, 2]
+
+def test_self_list_operations():
+    env = setup_env()
+    assert eval_lisp(parse("(eval2 (quote (list 1 2 3)) env)"), env) == [1, 2, 3]
+    assert eval_lisp(parse("(eval2 (quote (car (list 1 2 3))) env)"), env) == 1
+    assert eval_lisp(parse("(eval2 (quote (cdr (list 1 2 3))) env)"), env) == [2, 3]
+    assert eval_lisp(parse("(eval2 (quote (cons 0 (list 1 2 3))) env)"), env) == [0, 1, 2, 3]
+    assert eval_lisp(parse("(eval2 (quote (list? (list 1 2))) env)"), env)
+
+

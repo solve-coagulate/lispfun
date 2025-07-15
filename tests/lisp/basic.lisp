@@ -1,3 +1,11 @@
 (define x 4)
 (define add2 (lambda (a b) (+ a b)))
-(list (+ 1 2 3) x (add2 3 4) (if (> 3 2) 1 0))
+(define lst (list 1 2 3))
+(list (+ 1 2 3)
+      x
+      (add2 3 4)
+      (if (> 3 2) 1 0)
+      (car lst)
+      (cdr lst)
+      (cons 0 lst)
+      (quote (1 2)))

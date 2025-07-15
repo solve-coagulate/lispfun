@@ -28,3 +28,17 @@ def test_lambda_call():
 def test_if_expression():
     env = standard_env()
     assert eval_lisp(parse("(if (> 3 2) 1 0)"), env) == 1
+
+def test_quote():
+    env = standard_env()
+    assert eval_lisp(parse("(quote hello)"), env) == 'hello'
+    assert eval_lisp(parse("(quote (1 2))"), env) == [1, 2]
+
+def test_list_operations():
+    env = standard_env()
+    assert eval_lisp(parse("(list 1 2 3)"), env) == [1, 2, 3]
+    assert eval_lisp(parse("(car (list 1 2 3))"), env) == 1
+    assert eval_lisp(parse("(cdr (list 1 2 3))"), env) == [2, 3]
+    assert eval_lisp(parse("(cons 0 (list 1 2 3))"), env) == [0, 1, 2, 3]
+    assert eval_lisp(parse("(list? (list 1 2))"), env)
+

@@ -36,8 +36,10 @@ def run_file_with_eval2(file_path):
 
 
 def test_lisp_file_base_eval():
-    assert run_file_with_eval(LISP_TEST) == [6, 4, 7, 1]
+    assert run_file_with_eval(LISP_TEST) == [6, 4, 7, 1, 1, [2, 3], [0, 1, 2, 3], [1, 2]]
 
 
 def test_lisp_file_eval2():
-    assert run_file_with_eval2(LISP_TEST) == [6, 4, 7, 1]
+    assert run_file_with_eval2(LISP_TEST) == [6, 4, 7, 1, 1, [2, 3], [0, 1, 2, 3], [1, 2]]
+
+
