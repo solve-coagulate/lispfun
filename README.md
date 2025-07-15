@@ -33,4 +33,5 @@ This repository aims to develop a minimal Lisp interpreter in Python and gradual
 6. **Future Ideas**
    - Explore self-hosting (running the interpreter written in Lisp using itself).
    - Consider building a small standard library in Lisp for common utilities.
+   - See `IDEAS.md` for additional ideas to explore.
 
