@@ -50,6 +50,21 @@ The REPL supports command history if Python's `readline` module is available.
 Use the up and down arrow keys to navigate through previous inputs, similar to
 the bash shell.
 
+## Example Programs
+
+Several small example scripts live in the `examples` directory. Run them with
+
+```bash
+python -m lispfun examples/<script>.lisp
+```
+
+Available scripts:
+
+- `factorial.lisp` – recursive factorial calculation
+- `fibonacci.lisp` – compute Fibonacci numbers
+- `list-demo.lisp` – demonstrate `length`, `map` and `filter`
+- `macro-example.lisp` – use a simple `when` macro
+
 ## Self-hosted Evaluator
 
 The self-hosted interpreter lives in `lispfun/evaluator.lisp`. It is loaded by `load_eval` in `lispfun/run.py` (lines 10-15) so that the Lisp version of the evaluator can run within the Python environment. Expressions are then executed by calling `eval_with_eval2` (lines 18-20) which invokes the Lisp function `eval2` rather than Python's `eval_lisp`.
