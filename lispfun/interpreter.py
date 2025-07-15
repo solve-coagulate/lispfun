@@ -152,6 +152,18 @@ def standard_env() -> Environment:
         'env-set!': lambda env, var, val: env.__setitem__(var, val),
         'make-procedure': Procedure,
     })
+    # ability to load additional Lisp files
+    def import_file(fname: str):
+        with open(str(fname)) as f:
+            code = f.read()
+        result = None
+        for exp in parse_multiple(code):
+            result = eval_lisp(exp, env)
+        return result
+
+    env.update({
+        'import': import_file,
+    })
     return env
 
 
