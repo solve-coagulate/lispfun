@@ -50,3 +50,14 @@ def test_string_literal_and_print(capsys):
     assert captured.out.strip() == 'hello world'
     assert eval_lisp(parse('(quote "hi there")'), env) == 'hi there'
 
+
+def test_parse_helpers():
+    env = standard_env()
+    parsed = eval_lisp(parse('(parse "(+ 1 2)")'), env)
+    assert eval_lisp(parsed, env) == 3
+    exprs = eval_lisp(parse('(parse-multiple "(define x 5) (+ x 1)")'), env)
+    result = None
+    for exp in exprs:
+        result = eval_lisp(exp, env)
+    assert result == 6
+

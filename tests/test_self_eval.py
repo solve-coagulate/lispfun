@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from lispfun.interpreter import parse, parse_multiple, eval_lisp, standard_env
+from lispfun.interpreter import parse, parse_multiple, eval_lisp, standard_env, to_string
 
 EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "lispfun", "evaluator.lisp")
 
@@ -92,5 +92,17 @@ def test_self_map_filter():
     assert eval_lisp(parse("(eval2 (quote (map add1 (list 1 2 3))) env)"), env) == [2, 3, 4]
     expr = "(filter (lambda (x) (> x 2)) (list 1 2 3 4))"
     assert eval_lisp(parse(f"(eval2 (quote {expr}) env)"), env) == [3, 4]
+
+
+def test_self_parse_helpers():
+    env = setup_env()
+    parsed = eval_lisp(parse("(eval2 (quote (parse \"(+ 1 2)\") ) env)"), env)
+    result = eval_lisp(parse(f"(eval2 (quote {to_string(parsed)}) env)"), env)
+    assert result == 3
+    exprs = eval_lisp(parse("(eval2 (quote (parse-multiple \"(define y 5) (+ y 1)\") ) env)"), env)
+    result = None
+    for e in exprs:
+        result = eval_lisp(parse(f"(eval2 (quote {to_string(e)}) env)"), env)
+    assert result == 6
 
 
