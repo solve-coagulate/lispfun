@@ -146,9 +146,31 @@
 
 ; Simple global environment with arithmetic primitives
 (define global-env
-  (list (list "+" +) (list "-" -) (list "*" *) (list "/" /) (list "=" =)))
+  (list
+    (list "+" +)
+    (list "-" -)
+    (list "*" *)
+    (list "/" /)
+    (list "=" =)
+    (list "<" <)
+    (list ">" >)
+    (list "list" list)
+    (list "car" car)
+    (list "cdr" cdr)
+    (list "cons" cons)
+    (list "print" print)
+    (list "null?" null?)
+    (list "length" length)
+    (list "map" map)
+    (list "filter" filter)
+    (list "read-file" read-file)))
 
 ; Convenience to evaluate a program string using the toy interpreter
 (define eval-string
   (lambda (source)
     (eval-expr (parse source) global-env)))
+
+; Evaluate an entire file using the toy interpreter
+(define run-file
+  (lambda (path)
+    (eval-string (read-file path))))

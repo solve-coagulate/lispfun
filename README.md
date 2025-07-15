@@ -66,6 +66,20 @@ Available scripts:
 - `macro-example.lisp` – use a simple `when` macro
 - `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp
 
+### Toy Interpreter Usage
+
+Run the Lisp-based interpreter itself and then use `run-file` to execute other
+examples:
+
+```bash
+python -m lispfun examples/toy-interpreter.lisp
+; now inside the REPL
+(run-file "examples/factorial.lisp")
+```
+
+The helper `read-file` function is available to slurp a file's contents as a
+string, which `run-file` relies on.
+
 ## Self-hosted Evaluator
 
 The self-hosted interpreter now spans several Lisp files in the `lispfun/` directory.  The entry point `evaluator.lisp` loads helper modules using the Lisp `(import ...)` function.  `load_eval` in `lispfun/run.py` reads this entry file so that the Lisp evaluator can run within the Python environment.  Expressions are then executed by calling `eval_with_eval2`, which invokes the Lisp function `eval2` defined in `eval_core.lisp` rather than Python's `eval_lisp`.
