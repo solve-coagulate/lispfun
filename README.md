@@ -50,10 +50,8 @@ Available scripts include:
 - `fibonacci.lisp` – compute Fibonacci numbers
 - `list-demo.lisp` – demonstrate list utilities
 - `macro-example.lisp` – use a simple `when` macro
-- `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp. See
-  [docs/toy_interpreter.md](docs/toy_interpreter.md) for usage. The
-  interpreter's code lives in `toy-tokenizer.lisp`, `toy-parser.lisp` and
-  `toy-evaluator.lisp`, which `toy-interpreter.lisp` loads via `(import ...)`.
+- `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp.
+  See [docs/toy_interpreter.md](docs/toy_interpreter.md) for usage.
 - `toy-runner.lisp` – load the toy interpreter and run all other examples.
   This script exercises the toy interpreter by running each example file.
   With comment parsing support you can execute it directly:
@@ -68,10 +66,6 @@ python -m lispfun examples/toy-repl.lisp
 ```
 - `run-tests.lisp` – defines a `run-test` helper and runs each script in `tests/lisp`
 
-
-## Self-hosted Evaluator Details
-
-`evaluator.lisp` loads helper modules such as `list_utils.lisp`, `string_utils.lisp` and `eval_core.lisp`.  `load_eval` in `lispfun/run.py` reads this entry file so the evaluator can run in the Python environment.  Expressions are executed by calling `eval_with_eval2`, which invokes the Lisp function `eval2` defined in `eval_core.lisp`.
 
 ## Work Remaining
 
