@@ -13,8 +13,10 @@ def main() -> None:
     load_eval(env)
     load_toy(env)
     if len(sys.argv) > 1:
+        env["args"] = sys.argv[2:]
         toy_run_file(sys.argv[1], env)
     else:
+        env["args"] = []
         toy_run_file(TOY_REPL_FILE, env)
 
 

@@ -29,7 +29,7 @@ Example:
 Run the interpreter with:
 
 ```bash
-python -m lispfun toy/toy-interpreter.lisp
+python -m lispfun toy/toy-interpreter.lisp [args...]
 ```
-
-Inside the REPL you can execute scripts using `(run-file "path/to/file.lisp")`.
+Arguments after the file name are stored in the `args` list for use by the Lisp
+program. Inside the REPL you can execute scripts using `(run-file "path/to/file.lisp")`.

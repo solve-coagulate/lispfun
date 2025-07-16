@@ -1,7 +1,11 @@
 import os
 import sys
 from .bootstrap.interpreter import (
-    parse, parse_multiple, eval_lisp, standard_env, to_string,
+    parse,
+    parse_multiple,
+    eval_lisp,
+    standard_env,
+    to_string,
 )
 
 # Enable command history and up-arrow navigation if readline is available
@@ -84,8 +88,10 @@ def main():
     env = standard_env()
     load_eval(env)
     if len(sys.argv) > 1:
+        env["args"] = sys.argv[2:]
         toy_run_file(sys.argv[1], env)
     else:
+        env["args"] = []
         repl(env)
 
 

@@ -23,6 +23,7 @@ The repository now separates the main components for clarity:
   - Loop macros `while` and `for` allow simple iterative code in the toy interpreter.
   - Toy interpreter now parses string literals.
   - Semicolon comments are recognized by the parser.
+  - Command line arguments after the script name are available as the `args` list.
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing, macros and loops.
 - A comprehensive unit test suite with Lisp programs stored alongside each interpreter.
 
@@ -51,6 +52,9 @@ launch the Python REPL, while `run_toy.py` starts the toy REPL written in Lisp.
 `python -m lispfun` behaves like `run_hosted.py` but only loads the toy
 interpreter when executing a file. History support is enabled if the `readline`
 module is available.
+
+Any arguments provided after the script name are stored in the `args` variable
+within the Lisp environment so scripts can access their command line parameters.
 
 The interpreters are now organized as separate applications. The bootstrap
 Python interpreter lives in `run_bootstrap.py`, the hosted evaluator is started
