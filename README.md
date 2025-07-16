@@ -12,6 +12,7 @@ LispFun is a small Lisp interpreter written in Python with an increasing amount 
   - String helpers: `parse-string`, `string-for-each`, `build-string`.
   - `read-line` primitive for interactive input.
   - `(import "file")` for loading additional Lisp code.
+  - Toy interpreter supports `define-macro` so macros work when running example scripts.
 - Semicolon comments are recognized by the parser.
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing and macros.
 - A comprehensive unit test suite including a `selftest.lisp` script executed by the evaluator.

@@ -37,10 +37,18 @@
                  (extend-env global-env (list (cadr x))
                              (list (eval-expr (caddr x) env))))
            (quote ok)))
+        ((= (car x) 'define-macro)
+         (begin
+           (set! global-env
+                 (extend-env global-env (list (cadr x))
+                             (list (list 'macro (eval-expr (caddr x) env)))))
+           (quote ok)))
         (else
-          (let ((proc (eval-expr (car x) env))
-                (args (map (lambda (e) (eval-expr e env)) (cdr x))))
-            (apply-closure proc args))))
+         (let ((proc (eval-expr (car x) env)))
+           (if (and (list? proc) (= (car proc) 'macro))
+               (eval-expr (apply-closure (cadr proc) (cdr x)) env)
+               (let ((args (map (lambda (e) (eval-expr e env)) (cdr x))))
+                 (apply-closure proc args))))))
       (else
        (if (number? x)
            x
