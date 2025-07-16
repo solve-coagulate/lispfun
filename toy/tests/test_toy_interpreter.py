@@ -2,7 +2,8 @@ import os, sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from lispfun.interpreter import standard_env
-from lispfun.run import load_eval, load_toy, toy_run_file, eval_with_eval2
+from run_hosted import load_eval, eval_with_eval2
+from run_toy import load_toy, toy_run_file
 from lispfun.interpreter import parse
 
 

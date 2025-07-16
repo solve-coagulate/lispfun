@@ -5,12 +5,28 @@ import os
 from lispfun.bootstrap.interpreter import (
     standard_env,
     parse,
+    parse_multiple,
     to_string,
-    eval_lisp,
 )
-from lispfun.run import load_eval, load_toy, toy_run_file, eval_with_eval2
+from run_hosted import load_eval, eval_with_eval2
 
 TOY_REPL_FILE = os.path.join(os.path.dirname(__file__), "toy", "toy-repl.lisp")
+TOY_FILE = os.path.join(os.path.dirname(__file__), "toy", "toy-interpreter.lisp")
+
+
+def load_toy(env):
+    """Load the toy interpreter implemented in Lisp."""
+    with open(TOY_FILE) as f:
+        code = f.read()
+    for exp in parse_multiple(code):
+        eval_with_eval2(exp, env)
+
+
+def toy_run_file(filename, env):
+    """Execute a Lisp script using the toy interpreter."""
+    load_toy(env)
+    program = parse(f'(run-file "{filename}")')
+    return eval_with_eval2(program, env)
 
 
 def python_toy_repl(env) -> None:
