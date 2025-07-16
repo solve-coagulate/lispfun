@@ -1,6 +1,6 @@
 # LispFun Overview
 
-LispFun is a small Lisp interpreter written in Python with an increasing amount of functionality implemented in Lisp itself.  The project began with a minimal evaluator in Python and now includes a self-hosted evaluator written in Lisp.
+LispFun is a small Lisp interpreter written in Python with an increasing amount of functionality implemented in Lisp itself. The project began with a minimal evaluator in Python and now includes a self-hosted evaluator written in Lisp.
 
 The repository now separates the main components for clarity:
 
@@ -76,8 +76,7 @@ Available scripts include:
 - `list-demo.lisp` – demonstrate list utilities
 - `loop-demo.lisp` – illustrate `while` and `for` macros
 - `macro-example.lisp` – use a simple `when` macro
-- `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp.
-  See [docs/toy_interpreter.md](docs/toy_interpreter.md) for usage.
+- `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp. See [docs/toy_interpreter.md](docs/toy_interpreter.md) for usage.
 - `toy-runner.lisp` – load the toy interpreter and run all other examples.
   This script exercises the toy interpreter by running each example file.
   With comment parsing support you can execute it directly:
@@ -95,5 +94,5 @@ python -m lispfun toy/toy-repl.lisp
 
 ## Work Remaining
 
-Python still handles tokenizing and parsing in `interpreter.py`.  The long term goal is to move these pieces to Lisp.  `docs/pure_lisp_plan.md` contains a checklist for building a tokenizer and reader in Lisp.  See `toy/IDEAS.md` for additional future enhancements such as loop constructs, modules and full self-hosting.
+Python still handles tokenizing and parsing in `interpreter.py`. The long term goal is to move these pieces to Lisp. See `toy/IDEAS.md` for additional future enhancements such as loop constructs, modules and full self-hosting.
 
