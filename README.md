@@ -65,19 +65,37 @@ cat <<'EOF' | ./run_toy.py /dev/stdin
 EOF
 ```
 
-To send input to the toy REPL itself, run the REPL script and pipe a
-string or here-document into standard input. The REPL now exits cleanly
+You can also feed a single expression to the toy interpreter by piping it
+directly into `run_toy.py`. The program will execute the input and exit
 when it reaches end-of-file:
 
 ```bash
-./run_toy.py toy/toy-repl.lisp <<< '(print "hi")'
+./run_toy.py <<< '(print "hi")'
 ```
 
-When running without a file, `run_toy.py` starts a minimal REPL that only
-prints the result of side-effecting operations like `print`.
+A small helper script `run_hi.sh` demonstrates the same idea (no `toy>` prompt
+because it is not running the interactive REPL):
+
+```bash
+./run_hi.sh
+# => hi
+```
+
+When launched without a file and an interactive terminal is attached,
+`run_toy.py` starts the toy REPL. If standard input is redirected it
+executes the provided code instead of starting the REPL.  A quick REPL
+session looks like this:
+
+```bash
+$ ./run_toy.py
+toy> (print "hi")
+hi
+toy>
+```
 
 Running without a file starts a REPL. `run_bootstrap.py` and `run_hosted.py`
-launch the Python REPL, while `run_toy.py` starts the toy REPL written in Lisp.
+launch the Python REPL, while `run_toy.py` starts a REPL for the toy
+interpreter.
 `python -m lispfun` behaves like `run_hosted.py` but only loads the toy
 interpreter when executing a file. History support is enabled if the `readline`
 module is available.
