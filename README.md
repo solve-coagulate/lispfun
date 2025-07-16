@@ -115,7 +115,7 @@ python -m lispfun toy/toy-runner.lisp
 ```bash
 python -m lispfun toy/toy-repl.lisp
 ```
-- `run-tests.lisp` – runs all Lisp tests from the interpreter-specific `tests/lisp` folders; run it with `python -m lispfun examples/run-tests.lisp`
+- `run-tests.lisp` – executes all Lisp-based unit tests across the bootstrap, hosted and toy interpreters. Each file reports `PASS` or `FAIL` similar to a Python test runner. Run it with `python -m lispfun examples/run-tests.lisp`
 
 
 ## Work Remaining
