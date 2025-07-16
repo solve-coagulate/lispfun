@@ -97,6 +97,29 @@
   (lambda (x)
     (if x 0 1)))
 
+; Basic looping macros implemented without evaluator changes
+(define-macro while
+  (lambda (test body)
+    (list (quote begin)
+          (list (quote define) (quote while-loop)
+                (list (quote lambda) (quote ())
+                      (list (quote if) test
+                            (list (quote begin) body (list (quote while-loop)))
+                            0)))
+          (list (quote while-loop)))) )
+
+(define-macro for
+  (lambda (var start end body)
+    (list (quote begin)
+          (list (quote define) (quote for-loop)
+                (list (quote lambda) (list var)
+                      (list (quote if) (list (quote <) var end)
+                            (list (quote begin) body
+                                  (list (quote for-loop)
+                                        (list (quote +) var 1)))
+                            0)))
+          (list (quote for-loop) start))) )
+
 ; List access helpers used by the evaluator and parser
 (define cadr (lambda (lst) (car (cdr lst))))
 (define caddr (lambda (lst) (car (cdr (cdr lst)))))

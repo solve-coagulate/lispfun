@@ -24,6 +24,8 @@ SELFTEST_FILE = os.path.join(os.path.dirname(__file__), "lisp", "selftest.lisp")
 STRINGPARSE_FILE = os.path.join(os.path.dirname(__file__), "lisp", "stringparse.lisp")
 STRINGUTILS_FILE = os.path.join(os.path.dirname(__file__), "lisp", "stringutils.lisp")
 TOY_RUNNER_FILE = os.path.join(os.path.dirname(__file__), "..", "examples", "toy-runner.lisp")
+LOOP_DEMO_FILE = os.path.join(os.path.dirname(__file__), "..", "examples", "loop-demo.lisp")
+TOY_FILE = os.path.join(os.path.dirname(__file__), "..", "examples", "toy-interpreter.lisp")
 
 
 def run_file_with_eval(file_path):
@@ -44,6 +46,29 @@ def run_file_with_eval2(file_path):
     for exp in parse_multiple(evaluator_code):
         eval_lisp(exp, env)
     env['env'] = env
+    with open(file_path) as f:
+        code = f.read()
+    exprs = parse_multiple(code)
+    result = None
+    for exp in exprs:
+        program = f"(eval2 (quote {to_string(exp)}) env)"
+        result = eval_lisp(parse(program), env)
+    return result
+
+
+def run_file_with_eval2_toy(file_path):
+    """Run a file using eval2 after loading the toy interpreter."""
+    env = standard_env()
+    with open(EVAL_FILE) as f:
+        evaluator_code = f.read()
+    for exp in parse_multiple(evaluator_code):
+        eval_lisp(exp, env)
+    env["env"] = env
+    with open(TOY_FILE) as f:
+        toy_code = f.read()
+    for exp in parse_multiple(toy_code):
+        program = f"(eval2 (quote {to_string(exp)}) env)"
+        eval_lisp(parse(program), env)
     with open(file_path) as f:
         code = f.read()
     exprs = parse_multiple(code)
@@ -108,6 +133,12 @@ def test_stringutils_script():
 
 def test_toy_runner_script():
     # Running the toy interpreter and all example programs should succeed
-    assert run_file_with_eval2(TOY_RUNNER_FILE) is None
+    assert run_file_with_eval2(TOY_RUNNER_FILE) == 0
+
+
+def test_loop_demo_script():
+    # New example exercising while/for macros
+    assert run_file_with_eval2_toy(LOOP_DEMO_FILE) == 0
+
 
 
