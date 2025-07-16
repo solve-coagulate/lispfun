@@ -99,7 +99,8 @@ def test_basic_file_eval2_lisp_parser():
 def test_selftest_script_lisp_parser():
     assert run_file_with_eval2_lisp_parser(SELFTEST_FILE) == 1
 
-    def test_stringparse_script():
+
+def test_stringparse_script():
     assert run_file_with_eval2(STRINGPARSE_FILE) == 1
 
 def test_stringutils_script():

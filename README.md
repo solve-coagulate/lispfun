@@ -57,7 +57,7 @@ python -m lispfun examples/toy-runner.lisp
 ```bash
 python -m lispfun examples/toy-repl.lisp
 ```
-- `run-tests.lisp` – run all test scripts in `tests/lisp`
+- `run-tests.lisp` – defines a `run-test` helper and runs each script in `tests/lisp`
 
 ### Toy Interpreter Usage
 
