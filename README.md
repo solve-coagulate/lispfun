@@ -2,6 +2,12 @@
 
 LispFun is a small Lisp interpreter written in Python with an increasing amount of functionality implemented in Lisp itself.  The project began with a minimal evaluator in Python and now includes a self-hosted evaluator written in Lisp.
 
+The repository now separates the main components for clarity:
+
+- `lispfun/bootstrap` contains the Python interpreter used for bootstrapping.
+- `lispfun/hosted` holds the Lisp code implementing the `eval2` evaluator.
+- `toy/` provides a pure Lisp toy interpreter.
+
 ## Completed Features
 
 - **Python bootstrap interpreter** with a REPL and basic arithmetic, variables and functions.

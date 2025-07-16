@@ -2,7 +2,7 @@
 """Run the toy interpreter implemented in Lisp."""
 import sys
 import os
-from lispfun.interpreter import standard_env
+from lispfun.bootstrap.interpreter import standard_env
 from lispfun.run import load_eval, load_toy, toy_run_file
 
 TOY_REPL_FILE = os.path.join(os.path.dirname(__file__), "toy", "toy-repl.lisp")

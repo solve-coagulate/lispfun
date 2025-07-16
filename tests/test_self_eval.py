@@ -11,7 +11,7 @@ except ImportError:  # pragma: no cover - parser not implemented yet
     parse_lisp = parse
     parse_multiple_lisp = parse_multiple
 
-EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "lispfun", "evaluator.lisp")
+EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "lispfun", "hosted", "evaluator.lisp")
 
 
 def setup_env():

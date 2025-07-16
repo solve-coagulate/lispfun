@@ -1,7 +1,7 @@
 import os
 import sys
-from .interpreter import (
-    parse, parse_multiple, eval_lisp, standard_env, to_string
+from .bootstrap.interpreter import (
+    parse, parse_multiple, eval_lisp, standard_env, to_string,
 )
 
 # Enable command history and up-arrow navigation if readline is available
@@ -19,7 +19,7 @@ try:
 except Exception:  # pragma: no cover - optional enhancement
     readline = None  # fallback when readline isn't available
 
-EVAL_FILE = os.path.join(os.path.dirname(__file__), "evaluator.lisp")
+EVAL_FILE = os.path.join(os.path.dirname(__file__), "hosted", "evaluator.lisp")
 TOY_FILE = os.path.join(os.path.dirname(__file__), "..", "toy", "toy-interpreter.lisp")
 
 
