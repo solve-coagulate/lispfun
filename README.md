@@ -22,7 +22,7 @@ The repository now separates the main components for clarity:
   - Loop macros `while` and `for` allow simple iterative code in the toy interpreter.
 - Semicolon comments are recognized by the parser.
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing, macros and loops.
-- A comprehensive unit test suite including a `selftest.lisp` script executed by the evaluator.
+- A comprehensive unit test suite with Lisp programs stored alongside each interpreter.
 
 ## Documentation
 
@@ -83,7 +83,7 @@ python -m lispfun toy/toy-runner.lisp
 ```bash
 python -m lispfun toy/toy-repl.lisp
 ```
-- `run-tests.lisp` – defines a `run-test` helper and runs each script in the interpreter `tests/lisp` directories
+- `run-tests.lisp` – runs all Lisp tests from the interpreter-specific `tests/lisp` folders; run it with `python -m lispfun examples/run-tests.lisp`
 
 
 ## Work Remaining

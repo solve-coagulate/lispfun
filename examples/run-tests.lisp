@@ -1,5 +1,6 @@
 ; Run all Lisp tests using the built-in import facility.
 ; Define a helper that announces each file before importing it so
+; Tests reside in interpreter-specific directories under lispfun/<interpreter>/tests/lisp.
 ; it's clear which tests execute.
 
 (define run-test
