@@ -2,6 +2,12 @@ from functools import reduce
 import operator as op
 from typing import Any, List
 
+
+def read_file(fname: str) -> str:
+    """Return the contents of *fname* as a string."""
+    with open(str(fname)) as f:
+        return f.read()
+
 from .parser import (
     Symbol,
     String,
@@ -38,7 +44,7 @@ def standard_env() -> Environment:
         'symbol?': lambda x: isinstance(x, Symbol),
         'apply': lambda f, args: f(*args),
         'map': lambda f, lst: [f(item) for item in lst],
-        'read-file': lambda fname: open(str(fname)).read(),
+        'read-file': read_file,
         'read-line': lambda prompt='': input(prompt),
         # string utilities
         'string-length': len,

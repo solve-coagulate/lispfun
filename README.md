@@ -95,7 +95,8 @@ python -m lispfun examples/toy-interpreter.lisp
 ```
 
 The helper `read-file` function is available to slurp a file's contents as a
-string, which `run-file` relies on.
+string, which `run-file` relies on. It now uses a context manager so files are
+closed properly.
 
 `toy-repl.lisp` uses the new `read-line` primitive to provide a minimal REPL:
 
