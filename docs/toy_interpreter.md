@@ -10,6 +10,19 @@ The toy interpreter demonstrates how a complete Lisp system can be built in Lisp
 
 The evaluator supports `define-macro` so macros can be expanded when running code entirely in Lisp.
 
+`toy-evaluator.lisp` also defines simple `while` and `for` macros so iterative
+loops can be written without modifying the evaluator.
+
+Example:
+
+```lisp
+(define n 3)
+(define total 0)
+(for i 1 n
+  (set! total (+ total i)))
+(print total) ; => 6
+```
+
 Run the interpreter with:
 
 ```bash
