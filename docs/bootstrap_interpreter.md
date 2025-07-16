@@ -5,7 +5,7 @@ The bootstrap interpreter in `interpreter.py` is the initial Python implementati
 Run the interpreter directly with:
 
 ```bash
-python -m lispfun
+python run_bootstrap.py [path/to/file.lisp]
 ```
 
-Passing a path will execute that file using the built-in parser and evaluator.
+Omit the path to start the REPL.
