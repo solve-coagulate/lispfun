@@ -38,8 +38,10 @@ def repl(env) -> None:
 def main() -> None:
     env = standard_env()
     if len(sys.argv) > 1:
+        env["args"] = sys.argv[2:]
         run_file(sys.argv[1], env)
     else:
+        env["args"] = []
         repl(env)
 
 
