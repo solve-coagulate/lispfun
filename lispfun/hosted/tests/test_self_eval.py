@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
 
 from lispfun.interpreter import parse, parse_multiple, eval_lisp, standard_env
 
@@ -11,7 +11,7 @@ except ImportError:  # pragma: no cover - parser not implemented yet
     parse_lisp = parse
     parse_multiple_lisp = parse_multiple
 
-EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "lispfun", "hosted", "evaluator.lisp")
+EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "evaluator.lisp")
 
 
 def setup_env():

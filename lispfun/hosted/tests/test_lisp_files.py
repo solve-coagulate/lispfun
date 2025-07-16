@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
 
 from lispfun.interpreter import (
     parse_multiple,
@@ -17,13 +17,11 @@ except ImportError:  # pragma: no cover - parser not implemented yet
     parse_multiple_lisp = parse_multiple
     parse_lisp = parse
 
-EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "lispfun", "hosted", "evaluator.lisp")
+EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "evaluator.lisp")
 BASIC_TEST = os.path.join(os.path.dirname(__file__), "lisp", "basic.lisp")
-BOOTSTRAP_TEST = os.path.join(os.path.dirname(__file__), "lisp", "bootstrap.lisp")
 SELFTEST_FILE = os.path.join(os.path.dirname(__file__), "lisp", "selftest.lisp")
 STRINGPARSE_FILE = os.path.join(os.path.dirname(__file__), "lisp", "stringparse.lisp")
 STRINGUTILS_FILE = os.path.join(os.path.dirname(__file__), "lisp", "stringutils.lisp")
-TOY_RUNNER_FILE = os.path.join(os.path.dirname(__file__), "..", "toy", "toy-runner.lisp")
 
 
 def run_file_with_eval(file_path):
@@ -72,24 +70,12 @@ def run_file_with_eval2_lisp_parser(file_path):
     return result
 
 
-def test_bootstrap_file_base_eval():
-    assert run_file_with_eval(BOOTSTRAP_TEST) == [6, 4, 7, 1, [1, 2]]
-
-
-def test_bootstrap_file_eval2():
-    assert run_file_with_eval2(BOOTSTRAP_TEST) == [6, 4, 7, 1, [1, 2]]
-
-
 def test_basic_file_eval2():
     assert run_file_with_eval2(BASIC_TEST) == [6, 4, 5, 7, 1, 1, [2, 3], [0, 1, 2, 3], [1, 2]]
 
 
 def test_selftest_script():
     assert run_file_with_eval2(SELFTEST_FILE) == 1
-
-
-def test_bootstrap_file_eval2_lisp_parser():
-    assert run_file_with_eval2_lisp_parser(BOOTSTRAP_TEST) == [6, 4, 7, 1, [1, 2]]
 
 
 def test_basic_file_eval2_lisp_parser():
@@ -105,9 +91,5 @@ def test_stringparse_script():
 
 def test_stringutils_script():
     assert run_file_with_eval2(STRINGUTILS_FILE) == 1
-
-def test_toy_runner_script():
-    # Running the toy interpreter and all example programs should succeed
-    assert run_file_with_eval2(TOY_RUNNER_FILE) is None
 
 

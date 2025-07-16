@@ -83,10 +83,10 @@ python -m lispfun toy/toy-runner.lisp
 ```bash
 python -m lispfun toy/toy-repl.lisp
 ```
-- `run-tests.lisp` – defines a `run-test` helper and runs each script in `tests/lisp`
+- `run-tests.lisp` – defines a `run-test` helper and runs each script in the interpreter `tests/lisp` directories
 
 
 ## Work Remaining
 
-Python still handles tokenizing and parsing in `interpreter.py`.  The long term goal is to move these pieces to Lisp.  `docs/pure_lisp_plan.md` contains a checklist for building a tokenizer and reader in Lisp.  See `IDEAS.md` for additional future enhancements such as loop constructs, modules and full self-hosting.
+Python still handles tokenizing and parsing in `interpreter.py`.  The long term goal is to move these pieces to Lisp.  `docs/pure_lisp_plan.md` contains a checklist for building a tokenizer and reader in Lisp.  See `toy/IDEAS.md` for additional future enhancements such as loop constructs, modules and full self-hosting.
 

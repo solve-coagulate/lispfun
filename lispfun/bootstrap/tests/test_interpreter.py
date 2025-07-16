@@ -1,5 +1,5 @@
 import os, sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
 import pytest
 from lispfun.interpreter import parse, eval_lisp, standard_env
 from lispfun.parser import Symbol
