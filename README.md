@@ -146,13 +146,20 @@ python -m lispfun toy/toy-repl.lisp
 - `hosted-tests.lisp` – run tests using the self-hosted evaluator:
 
 ```bash
-python -m lispfun examples/hosted-tests.lisp
+./run_hosted.py examples/hosted-tests.lisp
 ```
 - `toy-tests.lisp` – run tests for the toy interpreter:
 
 ```bash
 ./run_toy.py examples/toy-tests.lisp
 ```
+
+The helper scripts load progressively more Lisp code. `run_bootstrap.py`
+only supports programs that work with the Python evaluator so it fails on
+the hosted and toy example tests. `run_hosted.py` adds the self-hosted
+evaluator and runs both the bootstrap and hosted tests, while `run_toy.py`
+runs them all. The new tests under `examples/tests` exercise this behaviour.
+Run `./run_example_tests.sh` from the repository root to try each interpreter on the example test suites.
 
 
 ## Work Remaining
