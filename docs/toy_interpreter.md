@@ -13,7 +13,7 @@ The evaluator supports `define-macro` so macros can be expanded when running cod
 Run the interpreter with:
 
 ```bash
-python -m lispfun examples/toy-interpreter.lisp
+python -m lispfun toy/toy-interpreter.lisp
 ```
 
 Inside the REPL you can execute scripts using `(run-file "path/to/file.lisp")`.

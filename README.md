@@ -42,6 +42,11 @@ launch the Python REPL, while `run_toy.py` starts the toy REPL written in Lisp.
 interpreter when executing a file. History support is enabled if the `readline`
 module is available.
 
+The interpreters are now organized as separate applications. The bootstrap
+Python interpreter lives in `run_bootstrap.py`, the hosted evaluator is started
+with `run_hosted.py`, and the toy interpreter sources reside in the `toy/`
+directory and are launched via `run_toy.py`.
+
 ## Example Programs
 
 Example scripts live in the `examples` directory and can be run with:
@@ -63,12 +68,12 @@ Available scripts include:
   With comment parsing support you can execute it directly:
 
 ```bash
-python -m lispfun examples/toy-runner.lisp
+python -m lispfun toy/toy-runner.lisp
 ```
 - `toy-repl.lisp` – simple REPL built on the toy interpreter. Run it with:
 
 ```bash
-python -m lispfun examples/toy-repl.lisp
+python -m lispfun toy/toy-repl.lisp
 ```
 - `run-tests.lisp` – defines a `run-test` helper and runs each script in `tests/lisp`
 

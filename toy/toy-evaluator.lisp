@@ -1,5 +1,5 @@
 (import "lispfun/list_utils.lisp")
-(import "examples/toy-parser.lisp")
+(import "toy/toy-parser.lisp")
 
 ; Environment utilities as association list
 (define lookup

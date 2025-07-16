@@ -20,7 +20,7 @@ except Exception:  # pragma: no cover - optional enhancement
     readline = None  # fallback when readline isn't available
 
 EVAL_FILE = os.path.join(os.path.dirname(__file__), "evaluator.lisp")
-TOY_FILE = os.path.join(os.path.dirname(__file__), "..", "examples", "toy-interpreter.lisp")
+TOY_FILE = os.path.join(os.path.dirname(__file__), "..", "toy", "toy-interpreter.lisp")
 
 
 def load_eval(env):

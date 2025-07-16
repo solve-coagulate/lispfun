@@ -2,6 +2,6 @@
 ; This code does not rely on the existing interpreter implementation.
 ; It illustrates how a simple self-hosted evaluator could look.
 
-(import "examples/toy-tokenizer.lisp")
-(import "examples/toy-parser.lisp")
-(import "examples/toy-evaluator.lisp")
+(import "toy/toy-tokenizer.lisp")
+(import "toy/toy-parser.lisp")
+(import "toy/toy-evaluator.lisp")

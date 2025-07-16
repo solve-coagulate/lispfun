@@ -23,7 +23,7 @@ BOOTSTRAP_TEST = os.path.join(os.path.dirname(__file__), "lisp", "bootstrap.lisp
 SELFTEST_FILE = os.path.join(os.path.dirname(__file__), "lisp", "selftest.lisp")
 STRINGPARSE_FILE = os.path.join(os.path.dirname(__file__), "lisp", "stringparse.lisp")
 STRINGUTILS_FILE = os.path.join(os.path.dirname(__file__), "lisp", "stringutils.lisp")
-TOY_RUNNER_FILE = os.path.join(os.path.dirname(__file__), "..", "examples", "toy-runner.lisp")
+TOY_RUNNER_FILE = os.path.join(os.path.dirname(__file__), "..", "toy", "toy-runner.lisp")
 
 
 def run_file_with_eval(file_path):
