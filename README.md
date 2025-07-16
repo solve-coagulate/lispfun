@@ -16,11 +16,13 @@ The repository now separates the main components for clarity:
   - `cond` form and `define-macro` for simple macros.
   - List utilities: `null?`, `length`, `map` and `filter`.
   - String helpers: `parse-string`, `string-for-each`, `build-string`.
+  - Predicates `number?` and `string?` for identifying literal types.
   - `read-line` primitive for interactive input.
   - `(import "file")` for loading additional Lisp code.
   - Toy interpreter supports `define-macro` so macros work when running example scripts.
   - Loop macros `while` and `for` allow simple iterative code in the toy interpreter.
-- Semicolon comments are recognized by the parser.
+  - Toy interpreter now parses string literals.
+  - Semicolon comments are recognized by the parser.
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing, macros and loops.
 - A comprehensive unit test suite with Lisp programs stored alongside each interpreter.
 

@@ -50,7 +50,7 @@
                (let ((args (map (lambda (e) (eval-expr e env)) (cdr x))))
                  (apply-closure proc args))))))
       (else
-       (if (number? x)
+       (if (or (number? x) (string? x))
            x
            (lookup env x))))))
 )
@@ -76,6 +76,8 @@
     (list "car" car)
     (list "cdr" cdr)
     (list "cons" cons)
+    (list "number?" number?)
+    (list "string?" string?)
     (list "print" print)
     (list "null?" null?)
     (list "length" length)
