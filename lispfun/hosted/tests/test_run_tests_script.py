@@ -17,7 +17,14 @@ except ImportError:  # pragma: no cover - parser not implemented yet
     parse_lisp = parse
 
 EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "evaluator.lisp")
-RUN_TESTS_FILE = os.path.join(os.path.dirname(__file__), "..", "..", "..", "examples", "run-tests.lisp")
+RUN_TESTS_FILE = os.path.join(
+    os.path.dirname(__file__),
+    "..",
+    "..",
+    "..",
+    "examples",
+    "hosted-tests.lisp",
+)
 
 
 def run_file_with_eval2(file_path):
