@@ -1,6 +1,8 @@
 # Future LispFun Enhancements
 
-This file collects ideas for features we would like to implement but have not yet addressed.
+This file collects ideas for features we would like to implement. Development is
+now focused on improving the Lisp toy interpreter found in
+`docs/toy_interpreter.md`.
 
 - **Loop constructs** such as `while` or `for` to complement recursive iteration.
 - **Quasiquote and unquote** to simplify macro writing.
