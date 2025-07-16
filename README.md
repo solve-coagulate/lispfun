@@ -16,6 +16,14 @@ LispFun is a small Lisp interpreter written in Python with an increasing amount 
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing and macros.
 - A comprehensive unit test suite including a `selftest.lisp` script executed by the evaluator.
 
+## Documentation
+
+Separate documents describe each interpreter:
+
+- [Python bootstrap interpreter](docs/bootstrap_interpreter.md)
+- [Self-hosted evaluator](docs/self_hosted_evaluator.md)
+- [Lisp toy interpreter](docs/toy_interpreter.md)
+
 ## Running the Interpreter
 
 From the repository root use Python's `-m` switch so package imports resolve correctly:
@@ -43,8 +51,7 @@ Available scripts include:
 - `list-demo.lisp` – demonstrate list utilities
 - `macro-example.lisp` – use a simple `when` macro
 - `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp.
-  The interpreter's code lives in `toy-tokenizer.lisp`, `toy-parser.lisp`
-  and `toy-evaluator.lisp`, which `toy-interpreter.lisp` loads via `(import ...)`.
+  See [docs/toy_interpreter.md](docs/toy_interpreter.md) for usage.
 - `toy-runner.lisp` – load the toy interpreter and run all other examples.
   This script exercises the toy interpreter by running each example file.
   With comment parsing support you can execute it directly:
@@ -59,27 +66,6 @@ python -m lispfun examples/toy-repl.lisp
 ```
 - `run-tests.lisp` – defines a `run-test` helper and runs each script in `tests/lisp`
 
-### Toy Interpreter Usage
-
-The `toy-*.lisp` files implement a complete tokenizer, parser, and evaluator
-written in Lisp. After Python loads the minimal `eval2` evaluator, the toy
-interpreter runs entirely in Lisp to execute programs. This approach shows how
-the project can bootstrap toward a fully self-hosted implementation.
-
-Run the Lisp-based interpreter itself and then use `run-file` to execute other
-examples:
-
-```bash
-python -m lispfun examples/toy-interpreter.lisp
-; once inside the REPL
-(run-file "examples/factorial.lisp")
-```
-
-The helper `read-file` function reads a file into a string and is used by `run-file`.
-
-## Self-hosted Evaluator Details
-
-`evaluator.lisp` loads helper modules such as `list_utils.lisp`, `string_utils.lisp` and `eval_core.lisp`.  `load_eval` in `lispfun/run.py` reads this entry file so the evaluator can run in the Python environment.  Expressions are executed by calling `eval_with_eval2`, which invokes the Lisp function `eval2` defined in `eval_core.lisp`.
 
 ## Work Remaining
 
