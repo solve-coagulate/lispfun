@@ -76,6 +76,34 @@
     (list "read-file" read-file)
     (list "read-line" read-line)))
 
+; Basic boolean operators used by the tokenizer and parser
+(define or
+  (lambda (a b)
+    (if a a b)))
+
+(define and
+  (lambda (a b)
+    (if a b a)))
+
+(define not
+  (lambda (x)
+    (if x 0 1)))
+
+; List access helpers used by the evaluator and parser
+(define cadr (lambda (lst) (car (cdr lst))))
+(define caddr (lambda (lst) (car (cdr (cdr lst)))))
+(define cadddr (lambda (lst) (car (cdr (cdr (cdr lst))))))
+
+; Reverse a list - helper for the parser
+(define reverse
+  (lambda (lst)
+    (define iter
+      (lambda (xs acc)
+        (if (null? xs)
+            acc
+            (iter (cdr xs) (cons (car xs) acc)))))
+    (iter lst (quote ()))))
+
 ; Convenience to evaluate a program string using the toy interpreter
 (define eval-string
   (lambda (source)
@@ -84,4 +112,4 @@
 ; Evaluate an entire file using the toy interpreter
 (define run-file
   (lambda (path)
-    (eval-string (read-file path))))
+    (import path)))
