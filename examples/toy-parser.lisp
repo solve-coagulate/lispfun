@@ -18,6 +18,7 @@
              (loop tokens (quote ())))
             ((= token ")") (list (quote error) tokens))
             (else (list token tokens))))))
+))
 
 (define parse
   (lambda (text)

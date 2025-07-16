@@ -10,6 +10,7 @@ BOOTSTRAP_TEST = os.path.join(os.path.dirname(__file__), "lisp", "bootstrap.lisp
 SELFTEST_FILE = os.path.join(os.path.dirname(__file__), "lisp", "selftest.lisp")
 STRINGPARSE_FILE = os.path.join(os.path.dirname(__file__), "lisp", "stringparse.lisp")
 STRINGUTILS_FILE = os.path.join(os.path.dirname(__file__), "lisp", "stringutils.lisp")
+TOY_RUNNER_FILE = os.path.join(os.path.dirname(__file__), "..", "examples", "toy-runner.lisp")
 
 
 def run_file_with_eval(file_path):
@@ -62,5 +63,10 @@ def test_stringparse_script():
 
 def test_stringutils_script():
     assert run_file_with_eval2(STRINGUTILS_FILE) == 1
+
+
+def test_toy_runner_script():
+    # Running the toy interpreter and all example programs should succeed
+    assert run_file_with_eval2(TOY_RUNNER_FILE) is None
 
 

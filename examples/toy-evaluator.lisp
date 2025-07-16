@@ -1,4 +1,4 @@
-(import "list_utils.lisp")
+(import "lispfun/list_utils.lisp")
 (import "examples/toy-parser.lisp")
 
 ; Environment utilities as association list
@@ -29,9 +29,15 @@
           (if (eval-expr (cadr x) env)
               (eval-expr (caddr x) env)
               (eval-expr (cadddr x) env)))
-         ((= (car x) 'lambda)
-          (list 'closure (cadr x) (caddr x) env))
-         (else
+        ((= (car x) 'lambda)
+         (list 'closure (cadr x) (caddr x) env))
+        ((= (car x) 'define)
+         (begin
+           (set! global-env
+                 (extend-env global-env (list (cadr x))
+                             (list (eval-expr (caddr x) env))))
+           (quote ok)))
+        (else
           (let ((proc (eval-expr (car x) env))
                 (args (map (lambda (e) (eval-expr e env)) (cdr x))))
             (apply-closure proc args))))
@@ -39,6 +45,7 @@
        (if (number? x)
            x
            (lookup env x))))))
+)
 
 (define apply-closure
   (lambda (proc args)

@@ -112,8 +112,12 @@ def eval_lisp(x: Any, env: Environment = global_env) -> Any:
             val = eval_lisp(exp, env)
         return val
     elif op_ == 'lambda':
-        params, body = args
-        return Procedure(params, body, env)
+        params, *body = args
+        if len(body) == 1:
+            body_expr = body[0]
+        else:
+            body_expr = ['begin'] + list(body)
+        return Procedure(params, body_expr, env)
     else:
         proc = eval_lisp(op_, env)
         values = [eval_lisp(arg, env) for arg in args]
