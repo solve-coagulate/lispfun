@@ -20,7 +20,7 @@ This repository aims to develop a minimal Lisp interpreter in Python and gradual
 4. **Expanding Features in Lisp**
    - Add more language features implemented in Lisp: conditionals, lists, higher-order functions, and macros.
    - Gradually reduce Python's role to just parsing and initial bootstrapping.
-  - Current progress: the Lisp evaluator now supports the `cond` form, `define-macro` for basic macros, Lisp implementations of `null?`, `length`, `map`, and `filter`, basic string literals, includes a Lisp `parse-string` routine for reading string tokens, and a Python-level `(import "file")` function for loading additional Lisp code.  The evaluator itself is split into multiple files that are loaded via `(import ...)` from `evaluator.lisp`.
+  - Current progress: the Lisp evaluator now supports the `cond` form, `define-macro` for basic macros, Lisp implementations of `null?`, `length`, `map`, and `filter`, basic string literals, utilities like `parse-string`, `string-for-each`, and `build-string` for working with text, and a Python-level `(import "file")` function for loading additional Lisp code.  The evaluator itself is split into multiple files that are loaded via `(import ...)` from `evaluator.lisp`.
 
 4.5 **Testing Expanded Lisp Features**
    - Extend the test suite to exercise new Lisp features as they are added.
@@ -85,17 +85,15 @@ string, which `run-file` relies on.
 
 The self-hosted interpreter now spans several Lisp files in the `lispfun/` directory.  The entry point `evaluator.lisp` loads helper modules using the Lisp `(import ...)` function.  `load_eval` in `lispfun/run.py` reads this entry file so that the Lisp evaluator can run within the Python environment.  Expressions are then executed by calling `eval_with_eval2`, which invokes the Lisp function `eval2` defined in `eval_core.lisp` rather than Python's `eval_lisp`.
 
-List utilities live in `list_utils.lisp` and the string helper `parse-string` resides in `string_utils.lisp`.  These modules are imported automatically when `evaluator.lisp` is loaded.
+List utilities live in `list_utils.lisp` and string helpers such as `parse-string`, `string-for-each`, and `build-string` reside in `string_utils.lisp`.  These modules are imported automatically when `evaluator.lisp` is loaded.
 
 ## Future Self-Hosting Goals
 
 The long-term vision is for Python to serve purely as a thin loader and REPL interface.  All parsing and evaluation will ultimately happen in Lisp.
-Currently, the interpreter in `lispfun/interpreter.py` still tokenizes and parses source code in Python and represents identifiers using the Python `Symbol` class.  To shift these responsibilities into Lisp we need to reimplement several pieces:
+Currently, the interpreter in `lispfun/interpreter.py` still tokenizes and parses source code in Python.  Helpers now exist to create `Symbol` objects and convert digit sequences to numbers from Lisp code.  To finish moving the parser we must implement:
 
 1. a tokenizer that splits program text into Lisp tokens,
-2. a reader for building lists and atoms from those tokens,
-3. numeric conversion utilities to create integers and floats, and
-4. creation of symbol objects inside the Lisp environment.
+2. a reader for building lists and atoms from those tokens.
 
 Once these components exist in Lisp, Python's role can shrink to simply loading the evaluator and starting the REPL.
 

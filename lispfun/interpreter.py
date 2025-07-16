@@ -46,6 +46,9 @@ def standard_env() -> Environment:
         'make-string': String,
         'char-code': lambda s: ord(s[0]),
         'chr': chr,
+        # primitives used by Lisp parsing code
+        'make-symbol': lambda name: Symbol(str(name)),
+        'digits->number': lambda s: int(s) if '.' not in s else float(s),
     })
     # helpers for the self-hosted evaluator
     env.update({
