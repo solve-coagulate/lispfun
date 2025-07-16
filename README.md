@@ -120,5 +120,5 @@ python -m lispfun toy/toy-repl.lisp
 
 ## Work Remaining
 
-Python still handles tokenizing and parsing in `interpreter.py`. The long term goal is to move these pieces to Lisp. See `toy/IDEAS.md` for additional future enhancements such as loop constructs, modules and full self-hosting.
+Python still handles tokenizing and parsing in `interpreter.py`. The long term goal is to move these pieces to Lisp. See `toy/IDEAS.md` for additional future enhancements such as a module system and full self-hosting.
 
