@@ -4,6 +4,8 @@ LispFun is a small Lisp interpreter written in Python with an increasing amount 
 
 ## Completed Features
 
+# <<<<<<< codex/refactor-toy-interpreter-for-clarity
+=======
 # <<<<<<< codex/ensure-toy-repl-example-works
 1. **Bootstrap Interpreter (Python)**
    - Implement a small Lisp interpreter in Python capable of parsing and evaluating simple expressions: arithmetic operations, variable bindings, and function calls.
@@ -36,6 +38,7 @@ LispFun is a small Lisp interpreter written in Python with an increasing amount 
    - Consider building a small standard library in Lisp for common utilities.
    - See `IDEAS.md` for additional ideas to explore.
 =======
+# >>>>>>> main
 - **Python bootstrap interpreter** with a REPL and basic arithmetic, variables and functions.
 - **Self-hosted evaluator** written in Lisp loaded by `run.py` via `(import ...)`.
 - Lisp features implemented in Lisp:
@@ -47,6 +50,9 @@ LispFun is a small Lisp interpreter written in Python with an increasing amount 
 - Semicolon comments are recognized by the parser.
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing and macros.
 - A comprehensive unit test suite including a `selftest.lisp` script executed by the evaluator.
+# <<<<<<< codex/refactor-toy-interpreter-for-clarity
+=======
+# >>>>>>> main
 # >>>>>>> main
 
 ## Running the Interpreter
@@ -77,16 +83,35 @@ Available scripts include:
 - `macro-example.lisp` – use a simple `when` macro
 # <<<<<<< codex/ensure-toy-repl-example-works
 - `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp.
-  The interpreter's code now lives in `toy-tokenizer.lisp`, `toy-parser.lisp`,
+  The interpreter's code lives in `toy-tokenizer.lisp`, `toy-parser.lisp`
   and `toy-evaluator.lisp`, which `toy-interpreter.lisp` loads via `(import ...)`.
+# <<<<<<< codex/refactor-toy-interpreter-for-clarity
+- `toy-runner.lisp` – load the toy interpreter and run all other examples.
+  This script exercises the toy interpreter by running each example file.
+  With comment parsing support you can execute it directly:
+=======
 - `toy-runner.lisp` – load the toy interpreter and run all other examples
 -  This script exercises the toy interpreter by running each example file.
 -  With comment parsing support you can now execute it directly:
+# >>>>>>> main
 
 ```bash
 python -m lispfun examples/toy-runner.lisp
 ```
 - `toy-repl.lisp` – simple REPL built on the toy interpreter
+# <<<<<<< codex/refactor-toy-interpreter-for-clarity
+- `run-tests.lisp` – run all test scripts in `tests/lisp`
+
+### Toy Interpreter Usage
+
+The `toy-*.lisp` files implement a complete tokenizer, parser, and evaluator
+written in Lisp. After Python loads the minimal `eval2` evaluator, the toy
+interpreter runs entirely in Lisp to execute programs. This approach shows how
+the project can bootstrap toward a fully self-hosted implementation.
+
+Run the Lisp-based interpreter itself and then use `run-file` to execute other
+examples:
+=======
 =======
 - `toy-interpreter.lisp` – illustrative interpreter in Lisp that loads `toy-tokenizer.lisp`, `toy-parser.lisp` and `toy-evaluator.lisp`
 - `toy-runner.lisp` – run every example using the toy interpreter
@@ -97,6 +122,7 @@ python -m lispfun examples/toy-runner.lisp
 ### Toy Interpreter Usage
 
 To experiment directly with the interpreter written in Lisp:
+# >>>>>>> main
 
 ```bash
 python -m lispfun examples/toy-interpreter.lisp
