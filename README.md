@@ -25,6 +25,8 @@ The repository now separates the main components for clarity:
   - Semicolon comments are recognized by the parser.
   - Command line arguments after the script name are available as the `args` list.
   - `(require "file")` loads Lisp files once to support a basic module system.
+  - `(error "msg")` raises an exception and `(trap-error thunk handler)`
+    invokes `handler` with the message if evaluating `thunk` fails.
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing, macros and loops.
 - A comprehensive unit test suite with Lisp programs stored alongside each interpreter.
 

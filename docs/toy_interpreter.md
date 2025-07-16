@@ -17,6 +17,8 @@ Basic predicates `number?` and `string?` are available and the tokenizer handles
 quoted strings.
 The `(require "file.lisp")` form loads a Lisp file only once so modules aren't
 imported multiple times.
+`(error "msg")` raises an exception and `(trap-error thunk handler)` can be
+used to recover from runtime errors.
 
 Example:
 
