@@ -20,7 +20,7 @@ This repository aims to develop a minimal Lisp interpreter in Python and gradual
 4. **Expanding Features in Lisp**
    - Add more language features implemented in Lisp: conditionals, lists, higher-order functions, and macros.
    - Gradually reduce Python's role to just parsing and initial bootstrapping.
-  - Current progress: the Lisp evaluator now supports the `cond` form, `define-macro` for basic macros, Lisp implementations of `null?`, `length`, `map`, and `filter`, basic string literals, utilities like `parse-string`, `string-for-each`, and `build-string` for working with text, and a Python-level `(import "file")` function for loading additional Lisp code.  The evaluator itself is split into multiple files that are loaded via `(import ...)` from `evaluator.lisp`.
+  - Current progress: the Lisp evaluator now supports the `cond` form, `define-macro` for basic macros, Lisp implementations of `null?`, `length`, `map`, and `filter`, basic string literals, utilities like `parse-string`, `string-for-each`, and `build-string` for working with text, a `read-line` primitive for interactive input, and a Python-level `(import "file")` function for loading additional Lisp code.  The evaluator itself is split into multiple files that are loaded via `(import ...)` from `evaluator.lisp`.
 
 4.5 **Testing Expanded Lisp Features**
    - Extend the test suite to exercise new Lisp features as they are added.
@@ -68,6 +68,7 @@ Available scripts:
   The interpreter's code now lives in `toy-tokenizer.lisp`, `toy-parser.lisp`,
   and `toy-evaluator.lisp`, which `toy-interpreter.lisp` loads via `(import ...)`.
 - `toy-runner.lisp` – load the toy interpreter and run all other examples
+- `toy-repl.lisp` – simple REPL built on the toy interpreter
 
 ### Toy Interpreter Usage
 
@@ -82,6 +83,12 @@ python -m lispfun examples/toy-interpreter.lisp
 
 The helper `read-file` function is available to slurp a file's contents as a
 string, which `run-file` relies on.
+
+`toy-repl.lisp` uses the new `read-line` primitive to provide a minimal REPL:
+
+```bash
+python -m lispfun examples/toy-repl.lisp
+```
 
 ## Self-hosted Evaluator
 
