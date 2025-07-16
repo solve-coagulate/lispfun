@@ -18,6 +18,7 @@ The repository now separates the main components for clarity:
   - String helpers: `parse-string`, `string-for-each`, `build-string`.
   - Predicates `number?` and `string?` for identifying literal types.
   - `read-line` primitive for interactive input.
+  - Toy REPL prints evaluation results and accepts `'bye` as a shortcut to exit.
   - `(import "file")` for loading additional Lisp code.
   - Toy interpreter supports `define-macro` so macros work when running example scripts.
   - Loop macros `while` and `for` allow simple iterative code in the toy interpreter.
