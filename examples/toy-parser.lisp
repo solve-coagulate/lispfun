@@ -23,4 +23,4 @@
 
 (define parse
   (lambda (text)
-    (car (read-from-tokens (tokenize text)))) )
+    (car (read-from-tokens (tokenize text)))))
