@@ -27,14 +27,17 @@ Separate documents describe each interpreter:
 
 ## Running the Interpreter
 
-From the repository root use Python's `-m` switch so package imports resolve correctly:
+There are several helper scripts for running LispFun depending on how much Lisp code
+you wish to bootstrap:
 
 ```bash
-python -m lispfun [path/to/script.lisp]
+python run_bootstrap.py [file]   # pure Python interpreter
+python run_hosted.py [file]      # load evaluator.lisp and use eval2
+python run_toy.py [file]         # load evaluator and toy interpreter
 ```
 
-Running without a file starts the REPL.  When a script path is supplied the toy interpreter written in Lisp is loaded and its `run-file` function executes the program.
-
+Running without a file starts a REPL. `python -m lispfun` behaves like
+`run_hosted.py` but only loads the toy interpreter when executing a file.
 History support is enabled if the `readline` module is available.
 
 ## Example Programs
