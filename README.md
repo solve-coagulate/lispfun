@@ -81,6 +81,7 @@ python -m lispfun examples/toy-runner.lisp
 ```
 =======
 - `toy-repl.lisp` – simple REPL built on the toy interpreter
+- `run-tests.lisp` – run all test scripts in `tests/lisp`
 # >>>>>>> main
 
 ### Toy Interpreter Usage
