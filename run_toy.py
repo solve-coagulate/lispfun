@@ -13,6 +13,8 @@ from lispfun.run import load_eval, load_toy, toy_run_file, eval_with_eval2
 TOY_REPL_FILE = os.path.join(os.path.dirname(__file__), "toy", "toy-repl.lisp")
 
 
+
+
 def python_toy_repl(env) -> None:
     """Interactive REPL implemented in Python using the toy interpreter."""
     while True:
@@ -32,6 +34,11 @@ def python_toy_repl(env) -> None:
             print(f"Error: {exc}")
 
 
+def lisp_toy_repl(env) -> None:
+    """Run the toy REPL implemented entirely in Lisp."""
+    toy_run_file(TOY_REPL_FILE, env)
+
+
 def main() -> None:
     env = standard_env()
     load_eval(env)
@@ -43,7 +50,7 @@ def main() -> None:
         toy_run_file("/dev/stdin", env)
     else:
         env["args"] = []
-        python_toy_repl(env)
+        lisp_toy_repl(env)
 
 
 if __name__ == "__main__":

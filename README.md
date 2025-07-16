@@ -82,7 +82,7 @@ because it is not running the interactive REPL):
 ```
 
 When launched without a file and an interactive terminal is attached,
-`run_toy.py` starts the toy REPL. If standard input is redirected it
+`run_toy.py` starts the toy REPL implemented in Lisp. If standard input is redirected it
 executes the provided code instead of starting the REPL.  A quick REPL
 session looks like this:
 
@@ -94,8 +94,10 @@ toy>
 ```
 
 Running without a file starts a REPL. `run_bootstrap.py` and `run_hosted.py`
-launch the Python REPL, while `run_toy.py` starts a REPL for the toy
-interpreter.
+launch the Python REPL, while `run_toy.py` starts a REPL executed by the toy
+interpreter itself. The previous Python implementation of the REPL is still
+available as the `python_toy_repl` function in `run_toy.py` for debugging or
+experimentation.
 `python -m lispfun` behaves like `run_hosted.py` but only loads the toy
 interpreter when executing a file. History support is enabled if the `readline`
 module is available.
