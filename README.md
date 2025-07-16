@@ -46,6 +46,13 @@ you wish to bootstrap:
 ```
 Each script is executable so you can invoke it directly from the shell.
 
+You can also pipe a short snippet into the toy interpreter by passing
+`/dev/stdin` as the file path:
+
+```bash
+echo '(print "hi")' | ./run_toy.py /dev/stdin
+```
+
 Running without a file starts a REPL. `run_bootstrap.py` and `run_hosted.py`
 launch the Python REPL, while `run_toy.py` starts the toy REPL written in Lisp.
 `python -m lispfun` behaves like `run_hosted.py` but only loads the toy
