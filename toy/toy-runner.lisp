@@ -1,4 +1,4 @@
-(import "examples/toy-interpreter.lisp")
+(import "toy/toy-interpreter.lisp")
 
 ; Load and execute each example using the toy interpreter's run-file
 (run-file "examples/factorial.lisp")

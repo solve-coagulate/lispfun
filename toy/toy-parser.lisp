@@ -1,4 +1,4 @@
-(import "examples/toy-tokenizer.lisp")
+(import "toy/toy-tokenizer.lisp")
 
 ; Parse tokens into an expression
 (define read-from-tokens

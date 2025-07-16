@@ -1,4 +1,4 @@
-(import "examples/toy-interpreter.lisp")
+(import "toy/toy-interpreter.lisp")
 
 ; Minimal REPL using the toy evaluator.  Type "exit" to quit.
 (define toy-repl

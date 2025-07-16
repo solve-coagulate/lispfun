@@ -5,7 +5,7 @@ import os
 from lispfun.interpreter import standard_env
 from lispfun.run import load_eval, load_toy, toy_run_file
 
-TOY_REPL_FILE = os.path.join(os.path.dirname(__file__), "examples", "toy-repl.lisp")
+TOY_REPL_FILE = os.path.join(os.path.dirname(__file__), "toy", "toy-repl.lisp")
 
 
 def main() -> None:
