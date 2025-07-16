@@ -45,11 +45,24 @@
         (if (and (< k len)
                  (not (whitespace? (string-slice text k (+ k 1))))
                  (not (= (string-slice text k (+ k 1)) "("))
-                 (not (= (string-slice text k (+ k 1)) ")")))
+                 (not (= (string-slice text k (+ k 1)) ")"))
+                 (not (= (string-slice text k (+ k 1)) (chr 34))))
             (loop (+ k 1))
             k)))
     (set! j (loop j))
     (list j (string-slice text idx j))))
+
+; Read a string token starting at index idx
+(define read-string
+  (lambda (text idx len)
+    (define j (+ idx 1))
+    (define loop
+      (lambda (k acc)
+        (if (or (>= k len) (= (string-slice text k (+ k 1)) (chr 34)))
+            (list (+ k 1) (make-string acc))
+            (loop (+ k 1)
+                  (string-concat acc (string-slice text k (+ k 1)))))))
+    (loop j "")))
 
 ; Tokenize a program string
 (define tokenize
@@ -64,11 +77,15 @@
                 ((whitespace? c) (iter (+ i 1) acc))
                 ((= c "(") (iter (+ i 1) (cons "(" acc)))
                 ((= c ")") (iter (+ i 1) (cons ")" acc)))
+                ((= c (chr 34))
+                 (let ((res (read-string text i len)))
+                   (iter (car res) (cons (cadr res) acc))))
                 ((digit? c)
                  (let ((res (read-number text i len)))
                    (iter (car res) (cons (cadr res) acc))))
                 (else
                  (let ((res (read-symbol text i len)))
                    (iter (car res) (cons (cadr res) acc))))))))
-    (iter 0 (quote ()))) )
+    (iter 0 (quote ())))
+)
 )
