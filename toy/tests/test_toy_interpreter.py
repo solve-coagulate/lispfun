@@ -8,6 +8,7 @@ from lispfun.run import load_eval, load_toy, toy_run_file
 BASIC_TEST = os.path.join(os.path.dirname(__file__), "..", "..", "lispfun", "hosted", "tests", "lisp", "basic.lisp")
 LOOP_TEST = os.path.join(os.path.dirname(__file__), "lisp", "loops.lisp")
 STRING_TEST = os.path.join(os.path.dirname(__file__), "lisp", "toy-strings.lisp")
+REQUIRE_TEST = os.path.join(os.path.dirname(__file__), "lisp", "require-test.lisp")
 
 
 def setup_env():
@@ -33,4 +34,10 @@ def test_toy_run_strings():
     env = setup_env()
     result = toy_run_file(STRING_TEST, env)
     assert result == [True, True]
+
+
+def test_toy_require_module():
+    env = setup_env()
+    result = toy_run_file(REQUIRE_TEST, env)
+    assert result == 1
 

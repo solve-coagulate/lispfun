@@ -15,6 +15,8 @@ loops can be written without modifying the evaluator.
 
 Basic predicates `number?` and `string?` are available and the tokenizer handles
 quoted strings.
+The `(require "file.lisp")` form loads a Lisp file only once so modules aren't
+imported multiple times.
 
 Example:
 

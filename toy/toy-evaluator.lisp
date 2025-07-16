@@ -141,3 +141,24 @@
                 (list (quote begin)
                       body
                       (list (quote set!) var (list (quote +) var 1)))))) )
+
+; --- Simple module system -------------------------------------------------
+
+; Track which files have been loaded so require only imports once
+(define loaded-modules (quote ()))
+
+(define member
+  (lambda (item lst)
+    (if (null? lst)
+        0
+        (if (= (car lst) item)
+            1
+            (member item (cdr lst))))))
+
+(define require
+  (lambda (path)
+    (if (member path loaded-modules)
+        0
+        (begin
+          (set! loaded-modules (cons path loaded-modules))
+          (import path)))) )
