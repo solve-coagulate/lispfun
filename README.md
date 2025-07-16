@@ -33,12 +33,14 @@ you wish to bootstrap:
 ```bash
 python run_bootstrap.py [file]   # pure Python interpreter
 python run_hosted.py [file]      # load evaluator.lisp and use eval2
-python run_toy.py [file]         # load evaluator and toy interpreter
+python run_toy.py [file]         # load evaluator and toy interpreter (toy REPL)
 ```
 
-Running without a file starts a REPL. `python -m lispfun` behaves like
-`run_hosted.py` but only loads the toy interpreter when executing a file.
-History support is enabled if the `readline` module is available.
+Running without a file starts a REPL. `run_bootstrap.py` and `run_hosted.py`
+launch the Python REPL, while `run_toy.py` starts the toy REPL written in Lisp.
+`python -m lispfun` behaves like `run_hosted.py` but only loads the toy
+interpreter when executing a file. History support is enabled if the `readline`
+module is available.
 
 ## Example Programs
 
