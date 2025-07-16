@@ -20,6 +20,7 @@ except Exception:  # pragma: no cover - optional enhancement
     readline = None  # fallback when readline isn't available
 
 EVAL_FILE = os.path.join(os.path.dirname(__file__), "evaluator.lisp")
+TOY_FILE = os.path.join(os.path.dirname(__file__), "..", "examples", "toy-interpreter.lisp")
 
 
 def load_eval(env):
@@ -30,9 +31,24 @@ def load_eval(env):
     env["env"] = env
 
 
+def load_toy(env):
+    """Load the toy interpreter implemented in Lisp."""
+    with open(TOY_FILE) as f:
+        code = f.read()
+    for exp in parse_multiple(code):
+        eval_with_eval2(exp, env)
+
+
 def eval_with_eval2(exp, env):
     program = f"(eval2 (quote {to_string(exp)}) env)"
     return eval_lisp(parse(program), env)
+
+
+def toy_run_file(filename, env):
+    """Execute a Lisp script using the toy interpreter."""
+    load_toy(env)
+    program = parse(f'(run-file "{filename}")')
+    return eval_with_eval2(program, env)
 
 
 def run_file(filename, env):
@@ -68,7 +84,7 @@ def main():
     env = standard_env()
     load_eval(env)
     if len(sys.argv) > 1:
-        run_file(sys.argv[1], env)
+        toy_run_file(sys.argv[1], env)
     else:
         repl(env)
 
