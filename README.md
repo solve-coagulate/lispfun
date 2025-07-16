@@ -50,6 +50,10 @@ The REPL supports command history if Python's `readline` module is available.
 Use the up and down arrow keys to navigate through previous inputs, similar to
 the bash shell.
 
+The parser now understands semicolon comments, ignoring text from `;` to the end
+of a line. This lets example files include explanatory comments without causing
+parse errors.
+
 ## Example Programs
 
 Several small example scripts live in the `examples` directory. Run them with
@@ -68,7 +72,16 @@ Available scripts:
   The interpreter's code now lives in `toy-tokenizer.lisp`, `toy-parser.lisp`,
   and `toy-evaluator.lisp`, which `toy-interpreter.lisp` loads via `(import ...)`.
 - `toy-runner.lisp` – load the toy interpreter and run all other examples
+# <<<<<<< codex/get-toy-runner-example-running-on-eval2
+  This script exercises the toy interpreter by running each example file.
+  With comment parsing support you can now execute it directly:
+
+```bash
+python -m lispfun examples/toy-runner.lisp
+```
+=======
 - `toy-repl.lisp` – simple REPL built on the toy interpreter
+# >>>>>>> main
 
 ### Toy Interpreter Usage
 

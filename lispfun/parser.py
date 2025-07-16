@@ -28,7 +28,14 @@ def tokenize(chars: str) -> List[str]:
                 token = ''
                 in_string = False
         else:
-            if c.isspace():
+            if c == ';':
+                # skip comment until end of line
+                if token:
+                    tokens.append(token)
+                    token = ''
+                while i < len(chars) and chars[i] != '\n':
+                    i += 1
+            elif c.isspace():
                 if token:
                     tokens.append(token)
                     token = ''
