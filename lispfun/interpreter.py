@@ -105,12 +105,36 @@ def eval_lisp(x: Any, env: Environment = global_env) -> Any:
         exp = (conseq if eval_lisp(test, env) else alt)
         return eval_lisp(exp, env)
     elif op_ == 'define':
-        var, exp = args
+        if len(args) < 2:
+            raise ValueError(f'define expects at least 2 arguments, got {len(args)}: {args}')
+        var, exp, *rest = args
         env[var] = eval_lisp(exp, env)
+        val = None
+        for extra in rest:
+            val = eval_lisp(extra, env)
+        return val
+    elif op_ == 'set!':
+        var, exp = args
+        env.find(var)[var] = eval_lisp(exp, env)
     elif op_ == 'begin':
         val = None
         for exp in args:
             val = eval_lisp(exp, env)
+        return val
+    elif op_ == 'cond':
+        for clause in args:
+            test, expr = clause
+            if test == 'else' or eval_lisp(test, env):
+                return eval_lisp(expr, env)
+        return None
+    elif op_ == 'let':
+        bindings, *body = args
+        vars = [var for var, _ in bindings]
+        vals = [eval_lisp(exp, env) for _, exp in bindings]
+        local_env = Environment(vars, vals, env)
+        val = None
+        for exp in body:
+            val = eval_lisp(exp, local_env)
         return val
     elif op_ == 'lambda':
         params, *body = args
