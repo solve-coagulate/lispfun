@@ -8,6 +8,8 @@ The toy interpreter demonstrates how a complete Lisp system can be built in Lisp
 
 `toy-interpreter.lisp` loads these pieces and exposes helper functions such as `run-file` and a small REPL.
 
+The evaluator supports `define-macro` so macros can be expanded when running code entirely in Lisp.
+
 Run the interpreter with:
 
 ```bash

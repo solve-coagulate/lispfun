@@ -24,3 +24,16 @@
 (define parse
   (lambda (text)
     (car (read-from-tokens (tokenize text)))))
+
+; Parse all expressions from a program string
+(define parse-multiple
+  (lambda (text)
+    (begin
+      (define tokens (tokenize text))
+      (define loop
+        (lambda (ts acc)
+          (if (null? ts)
+              (reverse acc)
+              (let ((res (read-from-tokens ts)))
+                (loop (cadr res) (cons (car res) acc))))))
+      (loop tokens (quote ())))))

@@ -68,8 +68,13 @@ def standard_env() -> Environment:
         with open(str(fname)) as f:
             code = f.read()
         result = None
-        for exp in parse_multiple(code):
-            result = eval_lisp(exp, env)
+        exprs = parse_multiple(code)
+        for exp in exprs:
+            if "eval2" in env:
+                program = f"(eval2 (quote {to_string(exp)}) env)"
+                result = eval_lisp(parse(program), env)
+            else:
+                result = eval_lisp(exp, env)
         return result
 
     env.update({
