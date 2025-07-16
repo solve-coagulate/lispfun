@@ -21,3 +21,9 @@
         (if (pred (car lst))
             (cons (car lst) (filter pred (cdr lst)))
             (filter pred (cdr lst))))) )
+
+(define append
+  (lambda (a b)
+    (if (null? a)
+        b
+        (cons (car a) (append (cdr a) b)))) )

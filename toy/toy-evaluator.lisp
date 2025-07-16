@@ -121,3 +121,21 @@
 (define run-file
   (lambda (path)
     (import path)))
+
+; Simple loop macros built entirely in Lisp
+(define-macro while
+  (lambda (test body)
+    (list (quote if) test
+          (list (quote begin)
+                body
+                (list (quote while) test body))
+          0)))
+
+(define-macro for
+  (lambda (var start end body)
+    (list (quote begin)
+          (list (quote define) var start)
+          (list (quote while) (list (quote <=) var end)
+                (list (quote begin)
+                      body
+                      (list (quote set!) var (list (quote +) var 1)))))) )

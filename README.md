@@ -13,8 +13,9 @@ LispFun is a small Lisp interpreter written in Python with an increasing amount 
   - `read-line` primitive for interactive input.
   - `(import "file")` for loading additional Lisp code.
   - Toy interpreter supports `define-macro` so macros work when running example scripts.
+  - Loop macros `while` and `for` allow simple iterative code in the toy interpreter.
 - Semicolon comments are recognized by the parser.
-- Example scripts demonstrate factorials, Fibonacci numbers, list processing and macros.
+- Example scripts demonstrate factorials, Fibonacci numbers, list processing, macros and loops.
 - A comprehensive unit test suite including a `selftest.lisp` script executed by the evaluator.
 
 ## Documentation
@@ -60,6 +61,7 @@ Available scripts include:
 - `factorial.lisp` – recursive factorial calculation
 - `fibonacci.lisp` – compute Fibonacci numbers
 - `list-demo.lisp` – demonstrate list utilities
+- `loop-demo.lisp` – illustrate `while` and `for` macros
 - `macro-example.lisp` – use a simple `when` macro
 - `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp.
   See [docs/toy_interpreter.md](docs/toy_interpreter.md) for usage.
