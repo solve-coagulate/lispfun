@@ -10,7 +10,7 @@ The repository now separates the main components for clarity:
 
 ## Completed Features
 
-- **Python bootstrap interpreter** with a REPL and basic arithmetic, variables and functions.
+- **Python bootstrap interpreter** with a REPL, basic arithmetic, variables and functions. The environment now provides built-in list utilities `null?`, `length`, `map` and `filter`.
 - **Self-hosted evaluator** written in Lisp loaded by `run.py` via `(import ...)`.
 - Lisp features implemented in Lisp:
   - `cond` form and `define-macro` for simple macros.
