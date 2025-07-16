@@ -53,6 +53,17 @@ You can also pipe a short snippet into the toy interpreter by passing
 echo '(print "hi")' | ./run_toy.py /dev/stdin
 ```
 
+A here-document works as well:
+
+```bash
+cat <<'EOF' | ./run_toy.py /dev/stdin
+(print "hi")
+EOF
+```
+
+When running without a file, `run_toy.py` starts a minimal REPL that only
+prints the result of side-effecting operations like `print`.
+
 Running without a file starts a REPL. `run_bootstrap.py` and `run_hosted.py`
 launch the Python REPL, while `run_toy.py` starts the toy REPL written in Lisp.
 `python -m lispfun` behaves like `run_hosted.py` but only loads the toy

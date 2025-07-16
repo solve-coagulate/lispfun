@@ -7,7 +7,7 @@
     (if (= line "exit")
         'bye
         (begin
-          (print (eval-string line))
+          (eval-string line)
           (toy-repl)))))
 
 (toy-repl)
