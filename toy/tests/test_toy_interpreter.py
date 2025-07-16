@@ -2,7 +2,8 @@ import os, sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from lispfun.interpreter import standard_env
-from lispfun.run import load_eval, load_toy, toy_run_file
+from lispfun.run import load_eval, load_toy, toy_run_file, eval_with_eval2
+from lispfun.interpreter import parse
 
 
 BASIC_TEST = os.path.join(os.path.dirname(__file__), "..", "..", "lispfun", "hosted", "tests", "lisp", "basic.lisp")
@@ -40,4 +41,11 @@ def test_toy_require_module():
     env = setup_env()
     result = toy_run_file(REQUIRE_TEST, env)
     assert result == 1
+
+
+def test_trap_error():
+    env = setup_env()
+    exp = parse('(trap-error (lambda () (error "fail")) (lambda (m) m))')
+    result = eval_with_eval2(exp, env)
+    assert result == 'fail'
 

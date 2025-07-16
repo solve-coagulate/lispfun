@@ -16,6 +16,13 @@ def _read_line(prompt: str = "") -> str:
     except EOFError:
         return ""
 
+# helpers for error handling
+def _trap_error(thunk, handler):
+    try:
+        return thunk()
+    except Exception as e:
+        return handler(str(e))
+
 from .parser import (
     Symbol,
     String,
@@ -43,6 +50,9 @@ def standard_env() -> Environment:
         'max': max,
         'min': min,
         'print': print,
+        # error handling primitives
+        'error': lambda msg: (_ for _ in ()).throw(RuntimeError(str(msg))),
+        'trap-error': lambda thunk, handler: _trap_error(thunk, handler),
         # list utilities
         'list': lambda *x: list(x),
         'car': lambda x: x[0],
