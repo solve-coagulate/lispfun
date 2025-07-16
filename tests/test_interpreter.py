@@ -2,6 +2,7 @@ import os, sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import pytest
 from lispfun.interpreter import parse, eval_lisp, standard_env
+from lispfun.parser import Symbol
 
 
 def eval_prog(expr: str):
@@ -49,4 +50,15 @@ def test_string_literal_and_print(capsys):
     captured = capsys.readouterr()
     assert captured.out.strip() == 'hello world'
     assert eval_lisp(parse('(quote "hi there")'), env) == 'hi there'
+
+
+def test_symbol_and_digits_helpers():
+    env = standard_env()
+    make_sym = env['make-symbol']
+    digits_to_number = env['digits->number']
+    sym = make_sym('foo')
+    assert isinstance(sym, Symbol)
+    assert env['symbol?'](sym)
+    assert digits_to_number('123') == 123
+    assert digits_to_number('3.14') == 3.14
 

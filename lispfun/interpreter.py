@@ -3,114 +3,20 @@ import operator as op
 from typing import Any, List
 
 
-class Symbol(str):
-    """Represents a Lisp symbol."""
-    pass
+def read_file(fname: str) -> str:
+    """Return the contents of *fname* as a string."""
+    with open(str(fname)) as f:
+        return f.read()
 
-
-class String(str):
-    """Represents a Lisp string literal."""
-    pass
-
-ListType = list
-
-
-def tokenize(chars: str) -> List[str]:
-    """Convert a string into a list of tokens, keeping string literals intact."""
-    tokens = []
-    token = ''
-    in_string = False
-    i = 0
-    while i < len(chars):
-        c = chars[i]
-        if in_string:
-            token += c
-            if c == '"':
-                tokens.append(token)
-                token = ''
-                in_string = False
-        else:
-            if c.isspace():
-                if token:
-                    tokens.append(token)
-                    token = ''
-            elif c == '(' or c == ')':
-                if token:
-                    tokens.append(token)
-                    token = ''
-                tokens.append(c)
-            elif c == '"':
-                if token:
-                    tokens.append(token)
-                    token = ''
-                token = '"'
-                in_string = True
-            else:
-                token += c
-        i += 1
-    if token:
-        tokens.append(token)
-    return tokens
-
-
-def atom(token: str) -> Any:
-    """Numbers become numbers; quoted tokens become strings; everything else is a symbol."""
-    if token.startswith('"') and token.endswith('"'):
-        return String(token[1:-1])
-    try:
-        return int(token)
-    except ValueError:
-        try:
-            return float(token)
-        except ValueError:
-            return Symbol(token)
-
-
-def read_from_tokens(tokens: List[str]) -> Any:
-    if len(tokens) == 0:
-        raise SyntaxError('unexpected EOF while reading')
-    token = tokens.pop(0)
-    if token == '(':
-        L = []
-        while tokens[0] != ')':
-            L.append(read_from_tokens(tokens))
-        tokens.pop(0)
-        return L
-    elif token == ')':
-        raise SyntaxError('unexpected )')
-    else:
-        return atom(token)
-
-
-def parse(program: str) -> Any:
-    """Read a program into Python data structures."""
-    return read_from_tokens(tokenize(program))
-
-
-def parse_multiple(program: str) -> List[Any]:
-    """Parse multiple expressions from a program string."""
-    tokens = tokenize(program)
-    expressions = []
-    while tokens:
-        expressions.append(read_from_tokens(tokens))
-    return expressions
-
-
-class Environment(dict):
-    """An environment: a dict of {'var': val} pairs, with an optional outer env."""
-
-    def __init__(self, params=(), args=(), outer=None):
-        super().__init__(zip(params, args))
-        self.outer = outer
-
-    def find(self, var: Symbol) -> 'Environment':
-        """Find the innermost Env where var appears."""
-        if var in self:
-            return self
-        elif self.outer is not None:
-            return self.outer.find(var)
-        else:
-            raise NameError(f"Undefined symbol: {var}")
+from .parser import (
+    Symbol,
+    String,
+    ListType,
+    parse,
+    parse_multiple,
+    to_string,
+)
+from .env import Environment
 
 
 def standard_env() -> Environment:
@@ -138,12 +44,36 @@ def standard_env() -> Environment:
         'symbol?': lambda x: isinstance(x, Symbol),
         'apply': lambda f, args: f(*args),
         'map': lambda f, lst: [f(item) for item in lst],
+        'read-file': read_file,
+        'read-line': lambda prompt='': input(prompt),
+        # string utilities
+        'string-length': len,
+        'string-slice': lambda s, start, end: s[start:end],
+        'string-concat': lambda a, b: a + b,
+        'make-string': String,
+        'char-code': lambda s: ord(s[0]),
+        'chr': chr,
+        # primitives used by Lisp parsing code
+        'make-symbol': lambda name: Symbol(str(name)),
+        'digits->number': lambda s: int(s) if '.' not in s else float(s),
     })
     # helpers for the self-hosted evaluator
     env.update({
         'env-get': lambda env, var: env.find(var)[var],
         'env-set!': lambda env, var, val: env.__setitem__(var, val),
         'make-procedure': Procedure,
+    })
+    # ability to load additional Lisp files
+    def import_file(fname: str):
+        with open(str(fname)) as f:
+            code = f.read()
+        result = None
+        for exp in parse_multiple(code):
+            result = eval_lisp(exp, env)
+        return result
+
+    env.update({
+        'import': import_file,
     })
     return env
 
@@ -181,16 +111,44 @@ def eval_lisp(x: Any, env: Environment = global_env) -> Any:
         exp = (conseq if eval_lisp(test, env) else alt)
         return eval_lisp(exp, env)
     elif op_ == 'define':
-        var, exp = args
+        if len(args) < 2:
+            raise ValueError(f'define expects at least 2 arguments, got {len(args)}: {args}')
+        var, exp, *rest = args
         env[var] = eval_lisp(exp, env)
+        val = None
+        for extra in rest:
+            val = eval_lisp(extra, env)
+        return val
+    elif op_ == 'set!':
+        var, exp = args
+        env.find(var)[var] = eval_lisp(exp, env)
     elif op_ == 'begin':
         val = None
         for exp in args:
             val = eval_lisp(exp, env)
         return val
+    elif op_ == 'cond':
+        for clause in args:
+            test, expr = clause
+            if test == 'else' or eval_lisp(test, env):
+                return eval_lisp(expr, env)
+        return None
+    elif op_ == 'let':
+        bindings, *body = args
+        vars = [var for var, _ in bindings]
+        vals = [eval_lisp(exp, env) for _, exp in bindings]
+        local_env = Environment(vars, vals, env)
+        val = None
+        for exp in body:
+            val = eval_lisp(exp, local_env)
+        return val
     elif op_ == 'lambda':
-        params, body = args
-        return Procedure(params, body, env)
+        params, *body = args
+        if len(body) == 1:
+            body_expr = body[0]
+        else:
+            body_expr = ['begin'] + list(body)
+        return Procedure(params, body_expr, env)
     else:
         proc = eval_lisp(op_, env)
         values = [eval_lisp(arg, env) for arg in args]
@@ -214,10 +172,3 @@ def repl(prompt: str = 'lispy> '):
             print(f"Error: {e}")
 
 
-def to_string(exp: Any) -> str:
-    if isinstance(exp, ListType):
-        return '(' + ' '.join(map(to_string, exp)) + ')'
-    elif isinstance(exp, String):
-        return '"' + str(exp) + '"'
-    else:
-        return str(exp)
