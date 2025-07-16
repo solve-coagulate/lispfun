@@ -5,7 +5,7 @@ The bootstrap interpreter in `interpreter.py` is the initial Python implementati
 Run the interpreter directly with:
 
 ```bash
-python run_bootstrap.py [path/to/file.lisp]
+./run_bootstrap.py [path/to/file.lisp]
 ```
 
 Omit the path to start the REPL.

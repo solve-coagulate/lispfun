@@ -38,10 +38,11 @@ There are several helper scripts for running LispFun depending on how much Lisp 
 you wish to bootstrap:
 
 ```bash
-python run_bootstrap.py [file]   # pure Python interpreter
-python run_hosted.py [file]      # load evaluator.lisp and use eval2
-python run_toy.py [file]         # load evaluator and toy interpreter (toy REPL)
+./run_bootstrap.py [file]   # pure Python interpreter
+./run_hosted.py [file]      # load evaluator.lisp and use eval2
+./run_toy.py [file]         # load evaluator and toy interpreter (toy REPL)
 ```
+Each script is executable so you can invoke it directly from the shell.
 
 Running without a file starts a REPL. `run_bootstrap.py` and `run_hosted.py`
 launch the Python REPL, while `run_toy.py` starts the toy REPL written in Lisp.
