@@ -14,13 +14,18 @@ now focused on improving the Lisp toy interpreter found in
   supports semicolon comments.
 - **Command line arguments** are exposed via the `args` list when running
   scripts through `run_toy.py`.
+- **Interactive input**: `read-line` gracefully handles end-of-file so the
+  toy REPL can be used with piped input. `run_toy.py` automatically executes
+  code provided on standard input.
+- **File reading**: a `read-file` primitive allows Lisp code to load other
+  source files or data.
 
 
 ## Remaining Ideas
 
 - **Quasiquote and unquote** to simplify macro writing.
 - **Module system** for organizing code and supporting imports.
-- **File I/O primitives** for reading from and writing to files within Lisp.
+- **File I/O primitives** for writing to files, complementing `read-file`.
 - **Exception handling** to manage runtime errors gracefully.
 - **Full self-hosting**: move the tokenizer and parser to Lisp so the interpreter can boot itself.
 - **Expanded standard library** providing utilities beyond the basic list functions.
