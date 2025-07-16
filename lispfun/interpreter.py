@@ -42,6 +42,8 @@ def standard_env() -> Environment:
         'cons': lambda x, y: [x] + y,
         'list?': lambda x: isinstance(x, list),
         'symbol?': lambda x: isinstance(x, Symbol),
+        'number?': lambda x: isinstance(x, (int, float)),
+        'string?': lambda x: isinstance(x, str),
         'apply': lambda f, args: f(*args),
         'map': lambda f, lst: [f(item) for item in lst],
         'read-file': read_file,
