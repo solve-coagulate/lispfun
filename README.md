@@ -64,7 +64,9 @@ Available scripts:
 - `fibonacci.lisp` – compute Fibonacci numbers
 - `list-demo.lisp` – demonstrate `length`, `map` and `filter`
 - `macro-example.lisp` – use a simple `when` macro
-- `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp
+- `toy-interpreter.lisp` – illustrative Lisp interpreter written in Lisp.
+  The interpreter's code now lives in `toy-tokenizer.lisp`, `toy-parser.lisp`,
+  and `toy-evaluator.lisp`, which `toy-interpreter.lisp` loads via `(import ...)`.
 - `toy-runner.lisp` – load the toy interpreter and run all other examples
 
 ### Toy Interpreter Usage
