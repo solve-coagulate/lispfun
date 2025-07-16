@@ -139,7 +139,7 @@ only supports programs that work with the Python evaluator so it fails on
 the hosted and toy example tests. `run_hosted.py` adds the self-hosted
 evaluator and runs both the bootstrap and hosted tests, while `run_toy.py`
 runs them all. The new tests under `examples/tests` exercise this behaviour.
-You can also run `./run_example_tests.sh` to try each interpreter on the example test suites.
+Run `./run_example_tests.sh` from the repository root to try each interpreter on the example test suites.
 
 
 ## Work Remaining

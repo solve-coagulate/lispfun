@@ -8,14 +8,14 @@
 set -e
 cd "$(dirname "$0")"
 
-python ./run_bootstrap.py examples/bootstrap-tests.lisp
-python ./run_bootstrap.py examples/hosted-tests.lisp || true
-python ./run_bootstrap.py examples/toy-tests.lisp || true
+./run_bootstrap.py examples/bootstrap-tests.lisp
+./run_bootstrap.py examples/hosted-tests.lisp || true
+./run_bootstrap.py examples/toy-tests.lisp || true
 
-python ./run_hosted.py examples/bootstrap-tests.lisp
-python ./run_hosted.py examples/hosted-tests.lisp
-python ./run_hosted.py examples/toy-tests.lisp || true
+./run_hosted.py examples/bootstrap-tests.lisp
+./run_hosted.py examples/hosted-tests.lisp
+./run_hosted.py examples/toy-tests.lisp || true
 
-python ./run_toy.py examples/bootstrap-tests.lisp
-python ./run_toy.py examples/hosted-tests.lisp
-python ./run_toy.py examples/toy-tests.lisp
+./run_toy.py examples/bootstrap-tests.lisp
+./run_toy.py examples/hosted-tests.lisp
+./run_toy.py examples/toy-tests.lisp
