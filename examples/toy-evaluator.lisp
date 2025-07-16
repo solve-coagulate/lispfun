@@ -73,7 +73,8 @@
     (list "length" length)
     (list "map" map)
     (list "filter" filter)
-    (list "read-file" read-file)))
+    (list "read-file" read-file)
+    (list "read-line" read-line)))
 
 ; Convenience to evaluate a program string using the toy interpreter
 (define eval-string

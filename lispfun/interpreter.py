@@ -39,6 +39,7 @@ def standard_env() -> Environment:
         'apply': lambda f, args: f(*args),
         'map': lambda f, lst: [f(item) for item in lst],
         'read-file': lambda fname: open(str(fname)).read(),
+        'read-line': lambda prompt='': input(prompt),
         # string utilities
         'string-length': len,
         'string-slice': lambda s, start, end: s[start:end],
