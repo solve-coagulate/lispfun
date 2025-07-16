@@ -135,5 +135,5 @@ python -m lispfun examples/hosted-tests.lisp
 
 ## Work Remaining
 
-Python still handles tokenizing and parsing in `interpreter.py`. The long term goal is to move these pieces to Lisp. See `toy/IDEAS.md` for additional future enhancements such as a module system and full self-hosting.
+Python still handles tokenizing and parsing in `interpreter.py`. The long term goal is to move these pieces to Lisp. See `toy/IDEAS.md` for additional future enhancements like full self-hosting and improved debugging.
 
