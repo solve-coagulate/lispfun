@@ -14,6 +14,8 @@ def main() -> None:
     load_toy(env)
     if len(sys.argv) > 1:
         toy_run_file(sys.argv[1], env)
+    elif not sys.stdin.isatty():
+        toy_run_file("/dev/stdin", env)
     else:
         toy_run_file(TOY_REPL_FILE, env)
 

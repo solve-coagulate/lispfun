@@ -61,6 +61,14 @@ cat <<'EOF' | ./run_toy.py /dev/stdin
 EOF
 ```
 
+To send input to the toy REPL itself, run the REPL script and pipe a
+string or here-document into standard input. The REPL now exits cleanly
+when it reaches end-of-file:
+
+```bash
+./run_toy.py toy/toy-repl.lisp <<< '(print "hi")'
+```
+
 When running without a file, `run_toy.py` starts a minimal REPL that only
 prints the result of side-effecting operations like `print`.
 
