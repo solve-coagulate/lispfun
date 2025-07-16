@@ -52,7 +52,11 @@ Available scripts include:
 ```bash
 python -m lispfun examples/toy-runner.lisp
 ```
-- `toy-repl.lisp` – simple REPL built on the toy interpreter
+- `toy-repl.lisp` – simple REPL built on the toy interpreter. Run it with:
+
+```bash
+python -m lispfun examples/toy-repl.lisp
+```
 - `run-tests.lisp` – run all test scripts in `tests/lisp`
 
 ### Toy Interpreter Usage
