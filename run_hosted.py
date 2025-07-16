@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Run the self-hosted evaluator via eval2."""
 import sys
-from lispfun.interpreter import standard_env
+from lispfun.bootstrap.interpreter import standard_env
 from lispfun.run import load_eval, run_file, repl
 
 

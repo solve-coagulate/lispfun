@@ -17,7 +17,7 @@ except ImportError:  # pragma: no cover - parser not implemented yet
     parse_multiple_lisp = parse_multiple
     parse_lisp = parse
 
-EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "lispfun", "evaluator.lisp")
+EVAL_FILE = os.path.join(os.path.dirname(__file__), "..", "lispfun", "hosted", "evaluator.lisp")
 BASIC_TEST = os.path.join(os.path.dirname(__file__), "lisp", "basic.lisp")
 BOOTSTRAP_TEST = os.path.join(os.path.dirname(__file__), "lisp", "bootstrap.lisp")
 SELFTEST_FILE = os.path.join(os.path.dirname(__file__), "lisp", "selftest.lisp")

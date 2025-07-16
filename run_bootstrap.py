@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Run the pure Python bootstrap interpreter."""
 import sys
-from lispfun.interpreter import (
+from lispfun.bootstrap.interpreter import (
     parse,
     parse_multiple,
     eval_lisp,

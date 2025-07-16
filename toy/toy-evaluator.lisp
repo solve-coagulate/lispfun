@@ -1,4 +1,4 @@
-(import "lispfun/list_utils.lisp")
+(import "lispfun/hosted/list_utils.lisp")
 (import "toy/toy-parser.lisp")
 
 ; Environment utilities as association list
