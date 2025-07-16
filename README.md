@@ -47,6 +47,32 @@ you wish to bootstrap:
 ```
 Each script is executable so you can invoke it directly from the shell.
 
+You can also pipe a short snippet into the toy interpreter by passing
+`/dev/stdin` as the file path:
+
+```bash
+echo '(print "hi")' | ./run_toy.py /dev/stdin
+```
+
+A here-document works as well:
+
+```bash
+cat <<'EOF' | ./run_toy.py /dev/stdin
+(print "hi")
+EOF
+```
+
+To send input to the toy REPL itself, run the REPL script and pipe a
+string or here-document into standard input. The REPL now exits cleanly
+when it reaches end-of-file:
+
+```bash
+./run_toy.py toy/toy-repl.lisp <<< '(print "hi")'
+```
+
+When running without a file, `run_toy.py` starts a minimal REPL that only
+prints the result of side-effecting operations like `print`.
+
 Running without a file starts a REPL. `run_bootstrap.py` and `run_hosted.py`
 launch the Python REPL, while `run_toy.py` starts the toy REPL written in Lisp.
 `python -m lispfun` behaves like `run_hosted.py` but only loads the toy

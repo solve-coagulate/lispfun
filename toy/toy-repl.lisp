@@ -4,10 +4,10 @@
 (define toy-repl
   (lambda ()
     (define line (read-line "toy> "))
-    (if (= line "exit")
+    (if (or (= line "exit") (= line ""))
         'bye
         (begin
-          (print (eval-string line))
+          (eval-string line)
           (toy-repl)))))
 
 (toy-repl)

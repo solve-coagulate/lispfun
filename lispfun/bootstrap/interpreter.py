@@ -8,6 +8,14 @@ def read_file(fname: str) -> str:
     with open(str(fname)) as f:
         return f.read()
 
+
+def _read_line(prompt: str = "") -> str:
+    """Read a line from stdin, returning an empty string on EOF."""
+    try:
+        return input(prompt)
+    except EOFError:
+        return ""
+
 from .parser import (
     Symbol,
     String,
@@ -47,7 +55,7 @@ def standard_env() -> Environment:
         'apply': lambda f, args: f(*args),
         'map': lambda f, lst: [f(item) for item in lst],
         'read-file': read_file,
-        'read-line': lambda prompt='': input(prompt),
+        'read-line': _read_line,
         # string utilities
         'string-length': len,
         'string-slice': lambda s, start, end: s[start:end],
