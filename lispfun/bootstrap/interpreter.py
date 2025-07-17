@@ -34,37 +34,44 @@ from .parser import (
 from .env import Environment
 
 
-def standard_env() -> Environment:
+def kernel_env() -> Environment:
+    """Return the minimal environment used during bootstrapping."""
     env = Environment()
     env.update({
-        "+": lambda *x: sum(x),
-        "-": lambda x, *rest: x - sum(rest) if rest else -x,
-        "*": lambda *x: reduce(op.mul, x, 1),
+        '+': lambda *x: sum(x),
+        '-': lambda x, *rest: x - sum(rest) if rest else -x,
+        '*': lambda *x: reduce(op.mul, x, 1),
         '/': lambda x, y: x / y,
         '>': op.gt,
         '<': op.lt,
         '>=': op.ge,
         '<=': op.le,
         '=': op.eq,
-        'abs': abs,
-        'max': max,
-        'min': min,
         'print': print,
-        # error handling primitives
-        'error': lambda msg: (_ for _ in ()).throw(RuntimeError(str(msg))),
-        'trap-error': lambda thunk, handler: _trap_error(thunk, handler),
-        # list utilities
         'list': lambda *x: list(x),
         'car': lambda x: x[0],
         'cdr': lambda x: x[1:],
         'cons': lambda x, y: [x] + y,
+        'apply': lambda f, args: f(*args),
+    })
+    return env
+
+
+def standard_env() -> Environment:
+    env = kernel_env()
+    env.update({
+        'abs': abs,
+        'max': max,
+        'min': min,
+        # error handling primitives
+        'error': lambda msg: (_ for _ in ()).throw(RuntimeError(str(msg))),
+        'trap-error': lambda thunk, handler: _trap_error(thunk, handler),
         'list?': lambda x: isinstance(x, list),
         'null?': lambda x: x == [],
         'length': lambda lst: len(lst),
         'symbol?': lambda x: isinstance(x, Symbol),
         'number?': lambda x: isinstance(x, (int, float)),
         'string?': lambda x: isinstance(x, str),
-        'apply': lambda f, args: f(*args),
         'map': lambda f, lst: [f(item) for item in lst],
         'filter': lambda pred, lst: [item for item in lst if pred(item)],
         'read-file': read_file,
