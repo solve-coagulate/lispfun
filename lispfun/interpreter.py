@@ -1,1 +1,1 @@
-from .bootstrap.interpreter import *
+from .bootstrap import *
