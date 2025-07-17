@@ -1,4 +1,3 @@
-import pytest
 import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
@@ -12,7 +11,8 @@ def test_kernel_basic_ops():
     assert eval_lisp(parse("(+ 1 2)"), env) == 3
 
 
-@pytest.mark.xfail(reason="kernel env missing 'import' for self-hosted evaluator")
-def test_load_eval_fails_in_kernel_env():
+def test_load_eval_in_kernel_env():
     env = kernel_env()
     load_eval(env)
+    assert "eval2" in env
+    assert "import" not in env

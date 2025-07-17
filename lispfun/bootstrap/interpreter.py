@@ -53,6 +53,11 @@ def kernel_env() -> Environment:
         'cdr': lambda x: x[1:],
         'cons': lambda x, y: [x] + y,
         'apply': lambda f, args: f(*args),
+        'list?': lambda x: isinstance(x, list),
+        'symbol?': lambda x: isinstance(x, Symbol),
+        'env-get': lambda env, var: env.find(var)[var],
+        'env-set!': lambda env, var, val: env.__setitem__(var, val),
+        'make-procedure': Procedure,
     })
     return env
 

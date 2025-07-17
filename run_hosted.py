@@ -16,11 +16,32 @@ EVAL_FILE = os.path.join(os.path.dirname(__file__), "lispfun", "hosted", "evalua
 
 
 def load_eval(env):
-    """Load ``eval2`` from :mod:`lispfun.hosted` into *env*."""
+    """Load ``eval2`` from :mod:`lispfun.hosted` into *env*.
+
+    If ``import`` is not defined in *env*, any import forms are processed
+    directly by this loader so the evaluator can bootstrap even in the
+    minimal ``kernel_env``.
+    """
+
+    def process_expr(exp):
+        if (
+            isinstance(exp, list)
+            and exp
+            and exp[0] == "import"
+            and "import" not in env
+        ):
+            path = str(exp[1])
+            with open(path) as f:
+                sub_code = f.read()
+            for sub_exp in parse_multiple(sub_code):
+                process_expr(sub_exp)
+        else:
+            eval_lisp(exp, env)
+
     with open(EVAL_FILE) as f:
         code = f.read()
     for exp in parse_multiple(code):
-        eval_lisp(exp, env)
+        process_expr(exp)
     env["env"] = env
 
 
