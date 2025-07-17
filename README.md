@@ -10,7 +10,7 @@ The repository now separates the main components for clarity:
 
 ## Completed Features
 
-- **Python bootstrap interpreter** with a REPL, basic arithmetic, variables and functions. A new `kernel_env` exposes only the minimal primitives used for bootstrapping. The full environment still provides list utilities `null?`, `length`, `map` and `filter`.
+ - **Python bootstrap interpreter** with a REPL, basic arithmetic, variables and functions. A new `kernel_env` exposes only the minimal primitives used for bootstrapping, and `run_bootstrap.py` accepts a `--kernel` flag to use it. The full environment still provides list utilities `null?`, `length`, `map` and `filter`.
 - **Self-hosted evaluator** written in Lisp loaded by `run_hosted.py` via `(import ...)`.
 - Lisp features implemented in Lisp:
   - `cond` form and `define-macro` for simple macros.
@@ -46,13 +46,13 @@ There are several helper scripts for running LispFun depending on how much Lisp 
 you wish to bootstrap:
 
 ```bash
-./run_bootstrap.py [file]   # pure Python interpreter
+./run_bootstrap.py [--kernel] [file]   # pure Python interpreter
 ./run_hosted.py [--kernel] [file]      # load evaluator.lisp and use eval2
 ./run_toy.py [file]         # load evaluator and toy interpreter (toy REPL)
 ```
 Each script is executable so you can invoke it directly from the shell.
-Pass the optional ``--kernel`` flag to run ``eval2`` in the minimal
-``kernel_env`` instead of the full ``standard_env``.
+Pass the optional ``--kernel`` flag to start either interpreter in the
+minimal ``kernel_env`` instead of the full ``standard_env``.
 
 You can also pipe a short snippet into the toy interpreter by passing
 `/dev/stdin` as the file path:
