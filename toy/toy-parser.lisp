@@ -21,12 +21,12 @@
             (else (list token tokens))))))
 ))
 
-(define parse
+(define toy-parse
   (lambda (text)
     (car (read-from-tokens (tokenize text)))))
 
 ; Parse all expressions from a program string
-(define parse-multiple
+(define toy-parse-multiple
   (lambda (text)
     (begin
       (define tokens (tokenize text))

@@ -30,6 +30,8 @@ The repository now separates the main components for clarity:
   - Predicates `number?` and `string?` for identifying literal types.
   - `read-line` primitive for interactive input.
   - Toy REPL prints evaluation results and accepts `'bye` as a shortcut to exit.
+  - The REPL now relies on the standard `parse` function so the separate
+    `py-parse` helper is no longer needed.
   - `(import "file")` for loading additional Lisp code.
   - Toy interpreter supports `define-macro` so macros work when running example scripts.
   - `lambda` forms now allow multiple expressions in the body.

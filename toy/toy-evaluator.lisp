@@ -117,7 +117,7 @@
 ; Convenience to evaluate a program string using the toy interpreter
 (define eval-string
   (lambda (source)
-    (eval-expr (parse source) global-env)))
+    (eval-expr (toy-parse source) global-env)))
 
 ; Evaluate an entire file using the toy interpreter
 (define run-file
