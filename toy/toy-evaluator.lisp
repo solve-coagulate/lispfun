@@ -57,9 +57,11 @@
 
 (define apply-closure
   (lambda (proc args)
-    (if (and (list? proc) (= (car proc) 'closure))
-        (eval-expr (caddr proc)
-                   (extend-env (cadddr proc) (cadr proc) args))
+    (if (list? proc)
+        (if (= (car proc) 'closure)
+            (eval-expr (caddr proc)
+                       (extend-env (cadddr proc) (cadr proc) args))
+            (apply proc args))
         (apply proc args))))
 
 ; Simple global environment with arithmetic primitives
@@ -101,11 +103,41 @@
   (lambda (a b)
     (if a b a)))
 
+
 (define not
   (lambda (x)
     (if x 0 1)))
 
 ; Extra primitives implemented in Lisp now that the environment exists
+
+; Check for the empty list without relying on Python
+(define null?
+  (lambda (x)
+    (= x (quote ()))))
+
+; Compute the length of a list recursively
+(define length
+  (lambda (lst)
+    (if (null? lst)
+        0
+        (+ 1 (length (cdr lst))))) )
+
+; Map a function over a list using apply-closure so closures work
+(define map
+  (lambda (f lst)
+    (if (null? lst)
+        (quote ())
+        (cons (apply-closure f (list (car lst)))
+              (map f (cdr lst))))))
+
+; Filter a list according to predicate f
+(define filter
+  (lambda (pred lst)
+    (if (null? lst)
+        (quote ())
+        (if (apply-closure pred (list (car lst)))
+            (cons (car lst) (filter pred (cdr lst)))
+            (filter pred (cdr lst))))))
 
 
 ; List access helpers used by the evaluator and parser

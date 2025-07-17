@@ -28,6 +28,14 @@ Pass `--kernel` to start in the restricted bootstrap environment.  See the
 individual documents under `docs/` and `lispfun/README.md` for full usage and
 development notes.
 
-The toy interpreter continues to grow. It now defines common primitives such as
-`<=`, `>=`, `abs`, `max`, `min` and a Lisp version of `apply` itself, though it
-still relies on Python for low level string operations and environment helpers.
+The toy interpreter continues to grow.  In addition to `<=`, `>=`, `abs`, `max`,
+`min` and a Lisp version of `apply`, several primitives from the Python
+environment are now reimplemented purely in Lisp:
+
+- `null?` – check for the empty list
+- `length` – compute list length
+- `map` – apply a function to each element
+- `filter` – select elements matching a predicate
+
+String operations and type predicates (`number?`, `string?`, `symbol?`,
+`list?`), along with file I/O, still rely on the Python runtime.
