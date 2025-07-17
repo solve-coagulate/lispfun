@@ -24,3 +24,7 @@ Helper scripts in the repository root run the different interpreters:
 Pass `--kernel` to start in the restricted bootstrap environment.  See the
 individual documents under `docs/` and `lispfun/README.md` for full usage and
 development notes.
+
+The toy interpreter continues to grow. It now defines common primitives such as
+`<=`, `>=`, `abs`, `max`, `min` and a Lisp version of `apply` itself, though it
+still relies on Python for low level string operations and environment helpers.

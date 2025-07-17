@@ -38,6 +38,10 @@ The repository now separates the main components for clarity:
   - Semicolon comments are recognized by the parser.
   - Command line arguments after the script name are available as the `args` list.
   - `(require "file")` loads Lisp files once to support a basic module system.
+  - Additional primitives `<=`, `>=`, `abs`, `max`, `min` and a Lisp
+    implementation of `apply` are now defined in `toy-evaluator.lisp`. The toy
+    interpreter still depends on the host environment for string utilities and
+    low level environment helpers.
   - `(error "msg")` raises an exception and `(trap-error thunk handler)`
     invokes `handler` with the message if evaluating `thunk` fails.
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing, macros and loops.
