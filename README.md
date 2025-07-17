@@ -32,6 +32,15 @@ The repository now separates the main components for clarity:
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing, macros and loops.
 - A comprehensive unit test suite with Lisp programs stored alongside each interpreter.
 
+## Bootstrapping vs Self-Hosting
+
+`run_bootstrap.py` always launches the initial Python implementation.  It reads
+`evaluator.lisp` and loads `eval2` into the environment.  Once `eval2` is
+available the interpreter can evaluate its own source code purely in Lisp.  This
+ability to execute itself is what we call *self&#8209;hosting*.  Python remains
+responsible for parsing and starting the system, but after bootstrapping all
+evaluation is handled by Lisp code.
+
 ## Documentation
 
 Separate documents describe each interpreter:
