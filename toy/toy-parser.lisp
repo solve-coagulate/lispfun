@@ -1,10 +1,10 @@
 (import "toy/toy-tokenizer.lisp")
 
-; Parse tokens into an expression
+; Parse tokens into an expression with simple error reporting
 (define read-from-tokens
   (lambda (tokens)
     (if (null? tokens)
-        (list (quote ()) (quote ()))
+        (error "unexpected EOF while reading")
         (let ((token (car tokens)))
           (set! tokens (cdr tokens))
           (cond
@@ -12,20 +12,25 @@
              (begin
                (define loop
                  (lambda (ts acc)
-                   (if (= (car ts) ")")
-                       (list (reverse acc) (cdr ts))
-                       (let ((res (read-from-tokens ts)))
-                         (loop (cadr res) (cons (car res) acc)))))
-               (loop tokens (quote ()))))
-            ((= token ")") (list (quote error) tokens))
+                   (if (null? ts)
+                       (error "unexpected EOF while reading list")
+                       (if (= (car ts) ")")
+                           (list (reverse acc) (cdr ts))
+                           (let ((res (read-from-tokens ts)))
+                             (loop (cadr res) (cons (car res) acc)))))))
+               (loop tokens (quote ())))
+            )
+            ((= token ")") (error "unexpected )"))
             (else (list token tokens))))))
-))
+)
 
 (define parse
   (lambda (text)
-    (car (read-from-tokens (tokenize text)))))
+    (let ((res (read-from-tokens (tokenize text))))
+      (if (null? (cadr res))
+          (car res)
+          (error "extra tokens after expression")))))
 
-; Parse all expressions from a program string
 (define parse-multiple
   (lambda (text)
     (begin
@@ -35,5 +40,8 @@
           (if (null? ts)
               (reverse acc)
               (let ((res (read-from-tokens ts)))
-                (loop (cadr res) (cons (car res) acc))))))
-      (loop tokens (quote ())))))
+                (loop (cadr res) (cons (car res) acc)))))
+      )
+      (loop tokens (quote ()))
+      ))
+)
