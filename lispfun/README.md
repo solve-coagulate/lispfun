@@ -66,6 +66,7 @@ Separate documents describe each interpreter:
 - [Python bootstrap interpreter](docs/bootstrap_interpreter.md)
 - [Self-hosted evaluator](docs/self_hosted_evaluator.md)
 - [Lisp toy interpreter](docs/toy_interpreter.md)
+- [Interpreter capabilities](docs/interpreter_capabilities.md)
 
 ## Running the Interpreter
 
