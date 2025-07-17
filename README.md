@@ -1,8 +1,11 @@
 # LispFun
 
-LispFun is a tiny Lisp system.  The Python code provides only a minimal
-bootstrap kernel able to load and run Lisp code.  Everything else, including the
-main evaluator and a small toy interpreter, lives in Lisp.
+LispFun is a tiny Lisp system.  The Python code supplies only a very small
+bootstrap kernel able to load and run Lisp code.  This kernel is purposely kept
+minimal—yet still Turing complete—so a Lisp bootstrap interpreter can build the
+rest of the system.  A bootstrap interpreter written in Lisp uses this kernel to
+construct the full evaluator so it can eventually run itself.  Everything else,
+including the main evaluator and a small toy interpreter, lives in Lisp.
 
 The repository layout is simple:
 
