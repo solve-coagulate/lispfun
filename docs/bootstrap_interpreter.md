@@ -5,8 +5,9 @@ The bootstrap interpreter in `interpreter.py` is the initial Python implementati
 Run the interpreter directly with:
 
 ```bash
-./run_bootstrap.py [path/to/file.lisp] [args...]
+./run_bootstrap.py [--kernel] [path/to/file.lisp] [args...]
 ```
 
-Omit the path to start the REPL. Any additional arguments after the file name
-are available inside the Lisp program via the `args` variable.
+Omit the path to start the REPL. Passing `--kernel` starts the interpreter with
+the minimal `kernel_env`. Any additional arguments after the file name are
+available inside the Lisp program via the `args` variable.
