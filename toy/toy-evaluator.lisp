@@ -72,6 +72,12 @@
     (list "=" =)
     (list "<" <)
     (list ">" >)
+    (list "<=" (lambda (a b) (or (< a b) (= a b))))
+    (list ">=" (lambda (a b) (or (> a b) (= a b))))
+    (list "abs" (lambda (x) (if (< x 0) (- 0 x) x)))
+    (list "max" (lambda (a b) (if (> a b) a b)))
+    (list "min" (lambda (a b) (if (< a b) a b)))
+    (list "apply" (lambda (f args) (apply-closure f args)))
     (list "list" list)
     (list "car" car)
     (list "cdr" cdr)
@@ -98,6 +104,9 @@
 (define not
   (lambda (x)
     (if x 0 1)))
+
+; Extra primitives implemented in Lisp now that the environment exists
+
 
 ; List access helpers used by the evaluator and parser
 (define cadr (lambda (lst) (car (cdr lst))))
