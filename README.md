@@ -26,5 +26,8 @@ individual documents under `docs/` and `lispfun/README.md` for full usage and
 development notes.
 
 The toy interpreter continues to grow. It now defines common primitives such as
-`<=`, `>=`, `abs`, `max`, `min` and a Lisp version of `apply` itself, though it
-still relies on Python for low level string operations and environment helpers.
+`<=`, `>=`, `abs`, `max`, `min` and a Lisp version of `apply` itself.  String
+helpers like `string-length`, `string-slice`, `string-concat`, `make-string`,
+`char-code` and `chr` are also exported so programs no longer access the Python
+versions directly.  The interpreter still relies on Python for low level I/O
+and environment manipulation.

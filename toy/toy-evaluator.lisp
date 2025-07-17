@@ -90,7 +90,17 @@
     (list "map" map)
     (list "filter" filter)
     (list "read-file" read-file)
-    (list "read-line" read-line)))
+    (list "read-line" read-line)
+    (list "string-length" string-length)
+    (list "string-slice" string-slice)
+    (list "string-concat" string-concat)
+    (list "make-string" make-string)
+    (list "char-code" char-code)
+    (list "chr" chr)
+    (list "make-symbol" make-symbol)
+    (list "digits->number" digits->number)
+    (list "list?" list?)
+    (list "symbol?" symbol?)))
 
 ; Basic boolean operators used by the tokenizer and parser
 (define or

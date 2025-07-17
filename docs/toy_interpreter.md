@@ -16,9 +16,23 @@ loops can be written without modifying the evaluator.
 Basic predicates `number?` and `string?` are available and the tokenizer handles
 quoted strings.
 Additional helpers like `<=`, `>=`, `abs`, `max`, `min` and a Lisp
-implementation of `apply` further reduce the reliance on Python.
-The interpreter still depends on the host for low level string primitives and
-environment manipulation.
+implementation of `apply` further reduce the reliance on Python.  Common string
+utilities such as `string-length`, `string-slice`, `string-concat`,
+`make-string`, `char-code`, `chr`, `make-symbol` and `digits->number` are now
+provided directly from Lisp as simple wrappers. The interpreter still depends on
+the host for low level I/O and environment manipulation.
+
+Currently the following primitives are defined in Lisp:
+
+- arithmetic operators `+`, `-`, `*`, `/`, comparisons and `apply`
+- list helpers like `null?`, `length`, `map`, `filter`, `append`
+- control flow macros `while` and `for`
+- module loader `(require path)`
+- string helpers `string-length`, `string-slice`, `string-concat`,
+  `make-string`, `char-code`, `chr`, `make-symbol`, `digits->number`
+
+Python still supplies the underlying string and file operations as well as
+`read-line` and environment manipulation.
 The `(require "file.lisp")` form loads a Lisp file only once so modules aren't
 imported multiple times.
 `(error "msg")` raises an exception and `(trap-error thunk handler)` can be
