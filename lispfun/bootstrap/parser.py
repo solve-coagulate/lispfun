@@ -108,3 +108,23 @@ def to_string(exp: Any) -> str:
         return '"' + str(exp) + '"'
     else:
         return str(exp)
+
+
+def kernel_parser_env() -> dict:
+    """Return the minimal parser operations used during bootstrapping."""
+    return {
+        'tokenize': tokenize,
+        'read-from-tokens': read_from_tokens,
+        'atom': atom,
+        'parse': parse,
+    }
+
+
+def parser_env() -> dict:
+    """Return the standard parser operations including helpers."""
+    env = kernel_parser_env().copy()
+    env.update({
+        'parse-multiple': parse_multiple,
+        'to-string': to_string,
+    })
+    return env
