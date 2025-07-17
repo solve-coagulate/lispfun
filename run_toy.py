@@ -4,8 +4,8 @@ import sys
 import os
 from lispfun.bootstrap.interpreter import (
     standard_env,
-    parse,
-    parse_multiple,
+    parse as py_parse,
+    parse_multiple as py_parse_multiple,
     to_string,
 )
 from run_hosted import load_eval, eval_with_eval2
@@ -27,43 +27,23 @@ def load_toy(env):
             path = str(exp[1])
             with open(path) as f:
                 sub_code = f.read()
-            for sub_exp in parse_multiple(sub_code):
+            for sub_exp in py_parse_multiple(sub_code):
                 process_expr(sub_exp)
         else:
             eval_with_eval2(exp, env)
 
     with open(TOY_FILE) as f:
         code = f.read()
-    for exp in parse_multiple(code):
+    for exp in py_parse_multiple(code):
         process_expr(exp)
 
 
 def toy_run_file(filename, env):
     """Execute a Lisp script using the toy interpreter."""
     load_toy(env)
-    program = parse(f'(run-file "{filename}")')
+    program = py_parse(f'(run-file "{filename}")')
     return eval_with_eval2(program, env)
 
-
-
-
-def python_toy_repl(env) -> None:
-    """Interactive REPL implemented in Python using the toy interpreter."""
-    while True:
-        try:
-            line = input("toy> ")
-        except EOFError:
-            print()
-            break
-        if line in {"", "exit"}:
-            break
-        try:
-            expr = parse(line)
-            result = eval_with_eval2(expr, env)
-            if result is not None:
-                print(to_string(result))
-        except Exception as exc:  # pragma: no cover - exercise REPL manually
-            print(f"Error: {exc}")
 
 
 def lisp_toy_repl(env) -> None:

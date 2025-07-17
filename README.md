@@ -25,6 +25,7 @@ Pass `--kernel` to start in the restricted bootstrap environment.  See the
 individual documents under `docs/` and `lispfun/README.md` for full usage and
 development notes.
 
-The toy interpreter continues to grow. It now defines common primitives such as
-`<=`, `>=`, `abs`, `max`, `min` and a Lisp version of `apply` itself, though it
-still relies on Python for low level string operations and environment helpers.
+The toy interpreter continues to grow. It defines common primitives such as
+`<=`, `>=`, `abs`, `max`, `min` and a Lisp version of `apply`.  The interactive
+REPL now runs entirely on the toy tokenizer, parser and evaluator, although
+Python is still used for low level string operations and environment helpers.

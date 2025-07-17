@@ -124,9 +124,7 @@ toy>
 
 Running without a file starts a REPL. `run_bootstrap.py` and `run_hosted.py`
 launch the Python REPL, while `run_toy.py` starts a REPL executed by the toy
-interpreter itself. The previous Python implementation of the REPL is still
-available as the `python_toy_repl` function in `run_toy.py` for debugging or
-experimentation.
+interpreter itself using the toy tokenizer and parser.
 `python -m lispfun` behaves like `run_hosted.py` but only loads the toy
 interpreter when executing a file. History support is enabled if the `readline`
 module is available.
