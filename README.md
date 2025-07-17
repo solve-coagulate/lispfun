@@ -40,6 +40,8 @@ The repository now separates the main components for clarity:
   - `(require "file")` loads Lisp files once to support a basic module system.
   - `(error "msg")` raises an exception and `(trap-error thunk handler)`
     invokes `handler` with the message if evaluating `thunk` fails.
+  - Toy interpreter can bootstrap from the minimal `kernel_env` by providing
+    missing standard primitives itself.
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing, macros and loops.
 - A comprehensive unit test suite with Lisp programs stored alongside each interpreter.
 
