@@ -21,6 +21,7 @@ The repository now separates the main components for clarity:
   - Toy REPL prints evaluation results and accepts `'bye` as a shortcut to exit.
   - `(import "file")` for loading additional Lisp code.
   - Toy interpreter supports `define-macro` so macros work when running example scripts.
+  - `lambda` forms now allow multiple expressions in the body.
   - Loop macros `while` and `for` allow simple iterative code in the toy interpreter.
   - Toy interpreter now parses string literals.
   - Semicolon comments are recognized by the parser.

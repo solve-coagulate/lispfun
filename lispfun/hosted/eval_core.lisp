@@ -12,9 +12,9 @@
         None
         ((lambda (clause)
            (if (= (car clause) (quote else))
-               (eval2 (car (cdr clause)) env)
+               (eval-begin (cdr clause) env)
                (if (eval2 (car clause) env)
-                   (eval2 (car (cdr clause)) env)
+                   (eval-begin (cdr clause) env)
                    (eval-cond (cdr clauses) env))))
          (car clauses)))) )
 
@@ -43,7 +43,12 @@
                 (if (= op (quote set!))
                     (env-set! env (car args) (eval2 (car (cdr args)) env))
                     (if (= op (quote lambda))
-                        (make-procedure (car args) (car (cdr args)) env)
+                        (make-procedure
+                          (car args)
+                          (if (= (cdr (cdr args)) (quote ()))
+                              (car (cdr args))
+                              (cons (quote begin) (cdr args)))
+                          env)
                         (if (= op (quote begin))
                             (eval-begin args env)
                             (if (= op (quote cond))
