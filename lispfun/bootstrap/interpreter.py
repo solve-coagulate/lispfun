@@ -52,7 +52,11 @@ def kernel_env() -> Environment:
         'car': lambda x: x[0],
         'cdr': lambda x: x[1:],
         'cons': lambda x, y: [x] + y,
-        'apply': lambda f, args: f(*args),
+        'apply': lambda f, args: (
+            eval_lisp(f.body, Environment(f.params, args, f.env))
+            if isinstance(f, Procedure)
+            else f(*args)
+        ),
         'list?': lambda x: isinstance(x, list),
         'symbol?': lambda x: isinstance(x, Symbol),
         'env-get': lambda env, var: env.find(var)[var],
@@ -135,67 +139,149 @@ global_env = standard_env()
 
 
 def eval_lisp(x: Any, env: Environment = global_env) -> Any:
-    """Evaluate an expression in an environment."""
-    if isinstance(x, Symbol):
-        return env.find(x)[x]
-    elif isinstance(x, String):
-        return str(x)
-    elif not isinstance(x, ListType):
-        return x
-    op_, *args = x
-    if op_ == 'quote':
-        (exp,) = args
-        return exp
-    elif op_ == 'if':
-        test, conseq, alt = args
-        exp = (conseq if eval_lisp(test, env) else alt)
-        return eval_lisp(exp, env)
-    elif op_ == 'define':
-        if len(args) < 2:
-            raise ValueError(f'define expects at least 2 arguments, got {len(args)}: {args}')
-        var, exp, *rest = args
-        env[var] = eval_lisp(exp, env)
-        val = None
-        for extra in rest:
-            val = eval_lisp(extra, env)
-        return val
-    elif op_ == 'set!':
-        var, exp = args
-        env.find(var)[var] = eval_lisp(exp, env)
-    elif op_ == 'begin':
-        val = None
-        for exp in args:
-            val = eval_lisp(exp, env)
-        return val
-    elif op_ == 'cond':
-        for clause in args:
-            test, *body = clause
-            if test == 'else' or eval_lisp(test, env):
-                val = None
-                for expr in body:
-                    val = eval_lisp(expr, env)
-                return val
-        return None
-    elif op_ == 'let':
-        bindings, *body = args
-        vars = [var for var, _ in bindings]
-        vals = [eval_lisp(exp, env) for _, exp in bindings]
-        local_env = Environment(vars, vals, env)
-        val = None
-        for exp in body:
-            val = eval_lisp(exp, local_env)
-        return val
-    elif op_ == 'lambda':
-        params, *body = args
-        if len(body) == 1:
-            body_expr = body[0]
+    """Evaluate an expression in an environment using an explicit stack."""
+    task_stack: List[tuple] = [('eval', x, env)]
+    value_stack: List[Any] = []
+
+    while task_stack:
+        op_, *data = task_stack.pop()
+
+        if op_ == 'eval':
+            expr, env = data
+            if isinstance(expr, Symbol):
+                value_stack.append(env.find(expr)[expr])
+            elif isinstance(expr, String):
+                value_stack.append(str(expr))
+            elif not isinstance(expr, ListType):
+                value_stack.append(expr)
+            else:
+                operator, *args = expr
+                if operator == 'quote':
+                    value_stack.append(args[0])
+                elif operator == 'if':
+                    test, conseq, alt = args
+                    task_stack.append(('if-branch', conseq, alt, env))
+                    task_stack.append(('eval', test, env))
+                elif operator == 'define':
+                    if len(args) < 2:
+                        raise ValueError(
+                            f'define expects at least 2 arguments, got {len(args)}: {args}'
+                        )
+                    var, exp, *rest = args
+                    task_stack.append(('define-after', var, rest, env))
+                    task_stack.append(('eval', exp, env))
+                elif operator == 'set!':
+                    var, exp = args
+                    task_stack.append(('set-after', var, env))
+                    task_stack.append(('eval', exp, env))
+                elif operator == 'begin':
+                    if not args:
+                        value_stack.append(None)
+                    else:
+                        task_stack.append(('begin-next', args[1:], env))
+                        task_stack.append(('eval', args[0], env))
+                elif operator == 'cond':
+                    task_stack.append(('cond-clauses', args, env))
+                elif operator == 'let':
+                    bindings, *body = args
+                    vars = [var for var, _ in bindings]
+                    exps = [exp for _, exp in bindings]
+                    task_stack.append(('let-bindings', vars, body, env, len(exps)))
+                    for b in reversed(exps):
+                        task_stack.append(('eval', b, env))
+                elif operator == 'lambda':
+                    params, *body = args
+                    body_expr = body[0] if len(body) == 1 else ['begin'] + list(body)
+                    value_stack.append(Procedure(params, body_expr, env))
+                else:
+                    task_stack.append(('apply', len(args)))
+                    for a in reversed(args):
+                        task_stack.append(('eval', a, env))
+                    task_stack.append(('eval', operator, env))
+
+        elif op_ == 'if-branch':
+            conseq, alt, env = data
+            condition = value_stack.pop()
+            task_stack.append(('eval', conseq if condition else alt, env))
+
+        elif op_ == 'define-after':
+            var, rest, env = data
+            val = value_stack.pop()
+            env[var] = val
+            if rest:
+                task_stack.append(('begin-next', rest[1:], env))
+                task_stack.append(('eval', rest[0], env))
+            else:
+                value_stack.append(val)
+
+        elif op_ == 'set-after':
+            var, env = data
+            val = value_stack.pop()
+            env.find(var)[var] = val
+            value_stack.append(None)
+
+        elif op_ == 'begin-next':
+            rest, env = data
+            last_val = value_stack.pop()
+            if not rest:
+                value_stack.append(last_val)
+            else:
+                task_stack.append(('begin-next', rest[1:], env))
+                task_stack.append(('eval', rest[0], env))
+
+        elif op_ == 'cond-clauses':
+            clauses, env = data
+            if not clauses:
+                value_stack.append(None)
+            else:
+                clause = clauses[0]
+                rest = clauses[1:]
+                test, *body = clause
+                if test == 'else':
+                    if not body:
+                        value_stack.append(None)
+                    else:
+                        task_stack.append(('begin-next', body[1:], env))
+                        task_stack.append(('eval', body[0], env))
+                else:
+                    task_stack.append(('cond-decision', body, rest, env))
+                    task_stack.append(('eval', test, env))
+
+        elif op_ == 'cond-decision':
+            body, rest, env = data
+            test_val = value_stack.pop()
+            if test_val:
+                if not body:
+                    value_stack.append(test_val)
+                else:
+                    task_stack.append(('begin-next', body[1:], env))
+                    task_stack.append(('eval', body[0], env))
+            else:
+                task_stack.append(('cond-clauses', rest, env))
+
+        elif op_ == 'let-bindings':
+            vars, body, env, count = data
+            values = [value_stack.pop() for _ in range(count)][::-1]
+            local_env = Environment(vars, values, env)
+            if not body:
+                value_stack.append(None)
+            else:
+                expr = body[0] if len(body) == 1 else ['begin'] + body
+                task_stack.append(('eval', expr, local_env))
+
+        elif op_ == 'apply':
+            count = data[0]
+            args = [value_stack.pop() for _ in range(count)][::-1]
+            proc = value_stack.pop()
+            if isinstance(proc, Procedure):
+                task_stack.append(('eval', proc.body, Environment(proc.params, args, proc.env)))
+            else:
+                value_stack.append(proc(*args))
+
         else:
-            body_expr = ['begin'] + list(body)
-        return Procedure(params, body_expr, env)
-    else:
-        proc = eval_lisp(op_, env)
-        values = [eval_lisp(arg, env) for arg in args]
-        return proc(*values)
+            raise ValueError(f'Unknown task {op_}')
+
+    return value_stack.pop() if value_stack else None
 
 
 def repl(prompt: str = 'lispy> '):
