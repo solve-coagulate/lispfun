@@ -13,3 +13,4 @@ def setup_env():
 def test_load_toy_does_not_define_py_parse():
     env = setup_env()
     assert 'py-parse' not in env
+    assert 'parse' not in env

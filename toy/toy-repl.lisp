@@ -5,15 +5,15 @@
   (lambda ()
     (define line (read-line "toy> "))
     (cond
-      ((or (= line "exit") (= line "") (= line "'bye"))
+      ((or (= line "exit") (or (= line "") (= line "'bye")))
        (begin
          (print "bye")
          (quote bye)))
       (else
        (begin
-         (let ((expr (parse line)))
+         (let ((expr (toy-parse line)))
            (let ((result (eval2 expr env)))
              (if result (print result) 0)))
-         (toy-repl))))))
+        (toy-repl))))))
 
 (toy-repl)

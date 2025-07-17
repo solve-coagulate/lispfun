@@ -3,7 +3,7 @@
 ; Basic string helpers
 (define whitespace?
   (lambda (c)
-    (or (= c " ") (= c "\n") (= c "\t"))))
+    (or (= c " ") (or (= c "\n") (= c "\t")))))
 
 (define digit?
   (lambda (c)
@@ -43,10 +43,10 @@
     (define loop
       (lambda (k)
         (if (and (< k len)
-                 (not (whitespace? (string-slice text k (+ k 1))))
-                 (not (= (string-slice text k (+ k 1)) "("))
-                 (not (= (string-slice text k (+ k 1)) ")"))
-                 (not (= (string-slice text k (+ k 1)) (chr 34))))
+                 (and (not (whitespace? (string-slice text k (+ k 1))))
+                      (and (not (= (string-slice text k (+ k 1)) "("))
+                           (and (not (= (string-slice text k (+ k 1)) ")"))
+                                (not (= (string-slice text k (+ k 1)) (chr 34)))))))
             (loop (+ k 1))
             k)))
     (set! j (loop j))

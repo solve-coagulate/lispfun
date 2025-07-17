@@ -16,8 +16,6 @@ TOY_FILE = os.path.join(os.path.dirname(__file__), "toy", "toy-interpreter.lisp"
 
 def load_toy(env):
     """Load the toy interpreter implemented in Lisp."""
-    # Provide the host parser as 'parse' for the toy REPL
-    env['parse'] = parse
     with open(TOY_FILE) as f:
         code = f.read()
     for exp in parse_multiple(code):
