@@ -9,19 +9,52 @@ from lispfun.bootstrap.interpreter import (
     kernel_env,
     standard_env,
     to_string,
+    Procedure,
 )
+from lispfun.bootstrap.parser import Symbol
 
 # Path to the evaluator implemented in Lisp
 EVAL_FILE = os.path.join(os.path.dirname(__file__), "lispfun", "hosted", "evaluator.lisp")
+IMPORT_FILE = os.path.join(os.path.dirname(__file__), "lispfun", "hosted", "import.lisp")
+LIST_UTILS = os.path.join(os.path.dirname(__file__), "lispfun", "hosted", "list_utils.lisp")
+STRING_UTILS = os.path.join(os.path.dirname(__file__), "lispfun", "hosted", "string_utils.lisp")
+EVAL_CORE = os.path.join(os.path.dirname(__file__), "lispfun", "hosted", "eval_core.lisp")
 
 
 def load_eval(env):
-    """Load ``eval2`` from :mod:`lispfun.hosted` into *env*."""
-    with open(EVAL_FILE) as f:
-        code = f.read()
-    for exp in parse_multiple(code):
-        eval_lisp(exp, env)
+    """Load ``eval2`` from :mod:`lispfun.hosted` into *env*.
+
+    If ``import`` is missing, ``(import ...)`` forms are handled directly until
+    the Lisp implementation defines it.
+    """
+
+    env["py-parse"] = parse
+    env["py-parse-multiple"] = parse_multiple
+
+    def import_file(path: str):
+        with open(str(path)) as f:
+            code = f.read()
+        result = None
+        exprs = parse_multiple(code)
+        for exp in exprs:
+            if "eval2" in env:
+                program = f"(eval2 (quote {to_string(exp)}) env)"
+                result = eval_lisp(parse(program), env)
+            else:
+                result = eval_lisp(exp, env)
+        return result
+
+    env["import"] = import_file
+
+    for path in [IMPORT_FILE, LIST_UTILS, STRING_UTILS, EVAL_CORE]:
+        import_file(path)
+        env["import"] = import_file
     env["env"] = env
+    if "eval2" in env:
+        import_file(IMPORT_FILE)
+    if not (isinstance(env.get("import"), Procedure) and "eval2" in env):
+        env["import"] = import_file
+
 
 
 def eval_with_eval2(exp, env):

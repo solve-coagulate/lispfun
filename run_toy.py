@@ -8,6 +8,7 @@ from lispfun.bootstrap.interpreter import (
     parse_multiple,
     to_string,
 )
+from lispfun.bootstrap.parser import Symbol
 from run_hosted import load_eval, eval_with_eval2
 
 TOY_REPL_FILE = os.path.join(os.path.dirname(__file__), "toy", "toy-repl.lisp")
@@ -18,10 +19,26 @@ def load_toy(env):
     """Load the toy interpreter implemented in Lisp."""
     # Expose the host parser for use by the Lisp REPL
     env['py-parse'] = parse
+    env['py-parse-multiple'] = parse_multiple
+    def import_file(path: str):
+        with open(str(path)) as f:
+            code = f.read()
+        for exp in parse_multiple(code):
+            eval_with_eval2(exp, env)
+
     with open(TOY_FILE) as f:
         code = f.read()
     for exp in parse_multiple(code):
-        eval_with_eval2(exp, env)
+        if (
+            "import" not in env
+            and isinstance(exp, list)
+            and len(exp) == 2
+            and exp[0] == Symbol("import")
+        ):
+            import_file(exp[1])
+            env["import"] = import_file
+        else:
+            eval_with_eval2(exp, env)
 
 
 def toy_run_file(filename, env):

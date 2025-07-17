@@ -7,7 +7,6 @@ from lispfun.interpreter import parse, kernel_env
 from run_hosted import load_eval, eval_with_eval2
 
 
-@pytest.mark.xfail(reason="self-hosted evaluator can't bootstrap with kernel env yet")
 def test_run_basic_with_kernel_env():
     env = kernel_env()
     load_eval(env)

@@ -53,6 +53,14 @@ def kernel_env() -> Environment:
         'cdr': lambda x: x[1:],
         'cons': lambda x, y: [x] + y,
         'apply': lambda f, args: f(*args),
+        'list?': lambda x: isinstance(x, list),
+        'symbol?': lambda x: isinstance(x, Symbol),
+        'env-get': lambda env, var: env.find(var)[var],
+        'env-set!': lambda env, var, val: env.__setitem__(var, val),
+        'make-procedure': Procedure,
+        'number?': lambda x: isinstance(x, (int, float)),
+        'string?': lambda x: isinstance(x, str),
+        'read-file': read_file,
     })
     return env
 
@@ -70,8 +78,6 @@ def standard_env() -> Environment:
         'null?': lambda x: x == [],
         'length': lambda lst: len(lst),
         'symbol?': lambda x: isinstance(x, Symbol),
-        'number?': lambda x: isinstance(x, (int, float)),
-        'string?': lambda x: isinstance(x, str),
         'map': lambda f, lst: [f(item) for item in lst],
         'filter': lambda pred, lst: [item for item in lst if pred(item)],
         'read-file': read_file,
@@ -86,12 +92,8 @@ def standard_env() -> Environment:
         # primitives used by Lisp parsing code
         'make-symbol': lambda name: Symbol(str(name)),
         'digits->number': lambda s: int(s) if '.' not in s else float(s),
-    })
-    # helpers for the self-hosted evaluator
-    env.update({
-        'env-get': lambda env, var: env.find(var)[var],
-        'env-set!': lambda env, var, val: env.__setitem__(var, val),
-        'make-procedure': Procedure,
+        'py-parse': parse,
+        'py-parse-multiple': parse_multiple,
     })
     # ability to load additional Lisp files
     def import_file(fname: str):
@@ -105,6 +107,8 @@ def standard_env() -> Environment:
                 result = eval_lisp(parse(program), env)
             else:
                 result = eval_lisp(exp, env)
+        if "eval2" not in env:
+            env["import"] = import_file
         return result
 
     env.update({

@@ -10,8 +10,8 @@ The repository now separates the main components for clarity:
 
 ## Completed Features
 
- - **Python bootstrap interpreter** with a REPL, basic arithmetic, variables and functions. A new `kernel_env` exposes only the minimal primitives used for bootstrapping, and `run_bootstrap.py` accepts a `--kernel` flag to use it. The full environment still provides list utilities `null?`, `length`, `map` and `filter`.
-- **Self-hosted evaluator** written in Lisp loaded by `run_hosted.py` via `(import ...)`.
+ - **Python bootstrap interpreter** with a REPL, basic arithmetic, variables and functions. A new `kernel_env` exposes only the minimal primitives used for bootstrapping, including `read-file` but **not** `import`. `run_bootstrap.py` accepts a `--kernel` flag to use it. The full environment still provides list utilities `null?`, `length`, `map` and `filter`.
+ - **Self-hosted evaluator** written in Lisp. `run_hosted.py` loads the evaluator and its helper modules automatically, even when starting from the minimal `kernel_env`.
 - Lisp features implemented in Lisp:
   - `cond` form and `define-macro` for simple macros.
   - List utilities: `null?`, `length`, `map` and `filter`.
