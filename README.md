@@ -17,7 +17,12 @@ The repository now separates the main components for clarity:
    `--kernel` flag to start in these restricted environments.  The full
    environment still provides list utilities `null?`, `length`, `map` and
    `filter`.
-- **Self-hosted evaluator** written in Lisp loaded by `run_hosted.py` via `(import ...)`.
+ - **Self-hosted evaluator** written in Lisp loaded by `run_hosted.py` via `(import ...)`.
+ - `load_eval` now processes imports itself when `import` is undefined so the
+   evaluator boots even in the minimal `kernel_env`.
+ - The minimal `kernel_env` exposes `list?`, `symbol?`, `env-get`, `env-set!`
+   and `make-procedure` primitives required by `eval2` so the hosted evaluator
+   can run without enabling `import` or other convenience functions.
 - Lisp features implemented in Lisp:
   - `cond` form and `define-macro` for simple macros.
   - List utilities: `null?`, `length`, `map` and `filter`.
