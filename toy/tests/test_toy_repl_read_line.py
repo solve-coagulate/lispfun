@@ -22,9 +22,8 @@ def test_python_toy_repl_reads_line(monkeypatch, capsys):
     assert 'hi' in out
 
 
-@pytest.mark.xfail(reason="toy REPL written in Lisp fails to handle read-line")
 def test_lisp_toy_repl_reads_line(monkeypatch, capsys):
-    """Current Lisp REPL does not echo a line read via read-line."""
+    """Lisp REPL implemented in toy interpreter should echo a line read via read-line."""
     env = setup_env()
     inputs = iter(['(print (read-line))', 'hi', 'exit'])
     monkeypatch.setattr(builtins, 'input', lambda prompt='': next(inputs))

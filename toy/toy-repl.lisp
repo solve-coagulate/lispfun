@@ -6,11 +6,14 @@
     (define line (read-line "toy> "))
     (cond
       ((or (= line "exit") (= line "") (= line "'bye"))
-       (print "bye")
-       'bye)
+       (begin
+         (print "bye")
+         (quote bye)))
       (else
-       (let ((result (eval-string line)))
-         (if result (print result)))
-       (toy-repl)))))
+       (begin
+         (let ((expr (py-parse line)))
+           (let ((result (eval2 expr env)))
+             (if result (print result) 0)))
+         (toy-repl))))))
 
 (toy-repl)

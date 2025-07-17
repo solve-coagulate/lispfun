@@ -164,9 +164,12 @@ def eval_lisp(x: Any, env: Environment = global_env) -> Any:
         return val
     elif op_ == 'cond':
         for clause in args:
-            test, expr = clause
+            test, *body = clause
             if test == 'else' or eval_lisp(test, env):
-                return eval_lisp(expr, env)
+                val = None
+                for expr in body:
+                    val = eval_lisp(expr, env)
+                return val
         return None
     elif op_ == 'let':
         bindings, *body = args
