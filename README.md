@@ -47,10 +47,12 @@ you wish to bootstrap:
 
 ```bash
 ./run_bootstrap.py [file]   # pure Python interpreter
-./run_hosted.py [file]      # load evaluator.lisp and use eval2
+./run_hosted.py [--kernel] [file]      # load evaluator.lisp and use eval2
 ./run_toy.py [file]         # load evaluator and toy interpreter (toy REPL)
 ```
 Each script is executable so you can invoke it directly from the shell.
+Pass the optional ``--kernel`` flag to run ``eval2`` in the minimal
+``kernel_env`` instead of the full ``standard_env``.
 
 You can also pipe a short snippet into the toy interpreter by passing
 `/dev/stdin` as the file path:
