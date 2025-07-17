@@ -16,9 +16,11 @@ loops can be written without modifying the evaluator.
 Basic predicates `number?` and `string?` are available and the tokenizer handles
 quoted strings.
 Additional helpers like `<=`, `>=`, `abs`, `max`, `min` and a Lisp
-implementation of `apply` further reduce the reliance on Python.
+implementation of `apply` further reduce the reliance on Python.  The
+operations `null?`, `length`, `map` and `filter` are also implemented in Lisp.
 The interpreter still depends on the host for low level string primitives and
-environment manipulation.
+type checks (`number?`, `string?`, `symbol?`, `list?`) as well as environment
+manipulation.
 The `(require "file.lisp")` form loads a Lisp file only once so modules aren't
 imported multiple times.
 `(error "msg")` raises an exception and `(trap-error thunk handler)` can be
