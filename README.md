@@ -14,11 +14,13 @@ The repository now separates the main components for clarity:
 - **Self-hosted evaluator** written in Lisp loaded by `run_hosted.py` via `(import ...)`.
 - Lisp features implemented in Lisp:
   - `cond` form and `define-macro` for simple macros.
+  - `cond` clauses may contain multiple expressions which are evaluated in order.
   - List utilities: `null?`, `length`, `map` and `filter`.
   - String helpers: `parse-string`, `string-for-each`, `build-string`.
   - Predicates `number?` and `string?` for identifying literal types.
   - `read-line` primitive for interactive input.
   - Toy REPL prints evaluation results and accepts `'bye` as a shortcut to exit.
+  - Interactive REPL input is parsed using the host parser so strings and macros work correctly.
   - `(import "file")` for loading additional Lisp code.
   - Toy interpreter supports `define-macro` so macros work when running example scripts.
   - `lambda` forms now allow multiple expressions in the body.
@@ -39,6 +41,7 @@ Separate documents describe each interpreter:
 - [Python bootstrap interpreter](docs/bootstrap_interpreter.md)
 - [Self-hosted evaluator](docs/self_hosted_evaluator.md)
 - [Lisp toy interpreter](docs/toy_interpreter.md)
+- [Toy REPL troubleshooting](docs/toy_repl_troubleshooting.md)
 
 ## Running the Interpreter
 
