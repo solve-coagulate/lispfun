@@ -11,7 +11,7 @@
          (quote bye)))
       (else
        (begin
-         (let ((expr (py-parse line)))
+         (let ((expr (parse line)))
            (let ((result (eval2 expr env)))
              (if result (print result) 0)))
          (toy-repl))))))
