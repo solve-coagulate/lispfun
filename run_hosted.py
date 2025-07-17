@@ -6,6 +6,7 @@ from lispfun.bootstrap.interpreter import (
     parse,
     parse_multiple,
     eval_lisp,
+    kernel_env,
     standard_env,
     to_string,
 )
@@ -58,11 +59,19 @@ def repl(env) -> None:
 
 
 def main() -> None:
-    env = standard_env()
+    """Run the hosted evaluator with optional ``--kernel`` flag."""
+    args = sys.argv[1:]
+    use_kernel = False
+    if args and args[0] == "--kernel":
+        use_kernel = True
+        args = args[1:]
+
+    env = kernel_env() if use_kernel else standard_env()
     load_eval(env)
-    if len(sys.argv) > 1:
-        env["args"] = sys.argv[2:]
-        run_file(sys.argv[1], env)
+
+    if args:
+        env["args"] = args[1:]
+        run_file(args[0], env)
     else:
         env["args"] = []
         repl(env)
