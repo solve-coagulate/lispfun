@@ -1,6 +1,6 @@
 # Python Bootstrap Interpreter
 
-The bootstrap interpreter in `interpreter.py` is the initial Python implementation of LispFun. It provides a REPL and basic evaluation of arithmetic, variables and functions. The standard environment exposes list and string helpers, `import` for loading Lisp files and primitives needed by the Lisp evaluator.  It now also includes simple list utilities like `null?`, `length`, `map` and `filter` so example programs run without additional modules.
+The bootstrap interpreter in `interpreter.py` is the initial Python implementation of LispFun. It provides a REPL and basic evaluation of arithmetic, variables and functions. A new `kernel_env` function returns only the primitives required for bootstrapping. The standard environment builds on top of this, exposing list and string helpers, `import` for loading Lisp files and other conveniences. It still includes simple list utilities like `null?`, `length`, `map` and `filter` so example programs run without additional modules.
 
 Run the interpreter directly with:
 

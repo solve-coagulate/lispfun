@@ -4,6 +4,6 @@ from .env import Environment
 from .parser import Symbol, String, ListType
 __all__ = [
     'parse', 'parse_multiple', 'to_string',
-    'eval_lisp', 'standard_env',
+    'eval_lisp', 'kernel_env', 'standard_env',
     'Environment', 'Symbol', 'String', 'ListType'
 ]
