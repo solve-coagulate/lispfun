@@ -1,3 +1,13 @@
+(define string-length
+  (lambda (s)
+    (begin
+      (define iter
+        (lambda (i)
+          (if (= (string-slice s i (+ i 1)) "")
+              i
+              (iter (+ i 1)))))
+      (iter 0))))
+
 (define parse-string
   (lambda (text idx)
     (begin

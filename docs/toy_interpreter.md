@@ -17,8 +17,9 @@ Basic predicates `number?` and `string?` are available and the tokenizer handles
 quoted strings.
 Additional helpers like `<=`, `>=`, `abs`, `max`, `min` and a Lisp
 implementation of `apply` further reduce the reliance on Python.  The
-operations `null?`, `length`, `map` and `filter` are also implemented in Lisp.
-The interpreter still depends on the host for low level string primitives and
+operations `null?`, `length`, `string-length`, `map` and `filter` are also
+implemented in Lisp. The interpreter still depends on the host for other low
+level string primitives and
 type checks (`number?`, `string?`, `symbol?`, `list?`) as well as environment
 manipulation.
 The `(require "file.lisp")` form loads a Lisp file only once so modules aren't

@@ -12,6 +12,8 @@
                                 (if (= i 0) "a" (if (= i 1) "b" "c")))))
 (assert-equal built "abc")
 
+(assert-equal (string-length "abc") 3)
+
 (assert-equal (digits->number "123") 123)
 (assert-equal (digits->number "3.5") 3.5)
 

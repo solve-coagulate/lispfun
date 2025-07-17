@@ -36,6 +36,7 @@ environment are now reimplemented purely in Lisp:
 - `length` – compute list length
 - `map` – apply a function to each element
 - `filter` – select elements matching a predicate
+- `string-length` – compute the length of a string
 
-String operations and type predicates (`number?`, `string?`, `symbol?`,
+Other string operations and type predicates (`number?`, `string?`, `symbol?`,
 `list?`), along with file I/O, still rely on the Python runtime.

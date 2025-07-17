@@ -28,7 +28,8 @@ The repository now separates the main components for clarity:
 - Lisp features implemented in Lisp:
   - `cond` form and `define-macro` for simple macros.
   - List utilities: `null?`, `length`, `map` and `filter`.
-  - String helpers: `parse-string`, `string-for-each`, `build-string`.
+  - String helpers: `parse-string`, `string-for-each`, `build-string`,
+    `string-length`.
   - Predicates `number?` and `string?` for identifying literal types.
   - `read-line` primitive for interactive input.
   - Toy REPL prints evaluation results and accepts `'bye` as a shortcut to exit.
@@ -43,8 +44,8 @@ The repository now separates the main components for clarity:
   - `(require "file")` loads Lisp files once to support a basic module system.
   - Additional primitives `<=`, `>=`, `abs`, `max`, `min` and a Lisp
     implementation of `apply` are now defined in `toy-evaluator.lisp`. The toy
-    interpreter still depends on the host environment for string utilities and
-    low level environment helpers.
+    interpreter still depends on the host environment for most string utilities
+    and low level environment helpers.
   - `(error "msg")` raises an exception and `(trap-error thunk handler)`
     invokes `handler` with the message if evaluating `thunk` fails.
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing, macros and loops.

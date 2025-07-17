@@ -21,6 +21,6 @@ This kernel is intentionally small but complete enough to load Lisp source code 
 
 ## Self-hosted Evaluator
 
-`evaluator.lisp` defines `eval2`, a Lisp implementation of the evaluator.  It uses the same parser functions provided by the bootstrap interpreter.  Once `eval2` is loaded, evaluation occurs purely in Lisp.  The self-hosted interpreter supports all of the above forms and additionally understands `define-macro` so macros expand before execution.  Helper modules in `lispfun/hosted` implement list and string utilities that are themselves written in Lisp.
+`evaluator.lisp` defines `eval2`, a Lisp implementation of the evaluator.  It uses the same parser functions provided by the bootstrap interpreter.  Once `eval2` is loaded, evaluation occurs purely in Lisp.  The self-hosted interpreter supports all of the above forms and additionally understands `define-macro` so macros expand before execution.  Helper modules in `lispfun/hosted` implement list and string utilities—now including a Lisp version of `string-length`—that are themselves written in Lisp.
 
 When run through `run_hosted.py`, the evaluator uses `eval2` for every expression but still relies on Python to tokenize and parse unless another parser is loaded.  Higher‑level code, including the toy interpreter in `toy/`, can then be built entirely in Lisp on top of this evaluator.
