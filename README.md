@@ -39,11 +39,12 @@ reimplemented purely in Lisp:
 - `map` – apply a function to each element
 - `filter` – select elements matching a predicate
 - `string-length` – compute the length of a string
+- `digits->number` – convert a string of digits to a number
 
 The remaining host-provided primitives are:
 - low level string helpers `string-slice`, `string-concat`, `make-string`,
   `char-code` and `chr`
 - type predicates `number?`, `string?`, `symbol?` and `list?`
-- symbol utilities `make-symbol` and `digits->number`
+- symbol utility `make-symbol`
 - environment helpers `env-get`, `env-set!` and `make-procedure`
 - file I/O primitives `read-file` and `read-line`

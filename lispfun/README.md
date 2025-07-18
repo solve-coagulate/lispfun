@@ -29,7 +29,7 @@ The repository now separates the main components for clarity:
   - `cond` form and `define-macro` for simple macros.
   - List utilities: `null?`, `length`, `map` and `filter`.
   - String helpers: `parse-string`, `string-for-each`, `build-string`,
-    `string-length`.
+    `string-length`, `digits->number`.
   - Predicates `number?` and `string?` for identifying literal types.
   - `read-line` primitive for interactive input.
   - Toy REPL prints evaluation results and accepts `'bye` as a shortcut to exit.

@@ -8,6 +8,53 @@
               (iter (+ i 1)))))
       (iter 0))))
 
+; Convert a string containing digits (and an optional decimal point)
+; into a number.  Handles a leading '-' for negative values.
+(define digits->number
+  (lambda (s)
+    (begin
+      (define len (string-length s))
+      (define start 0)
+      (define sign 1)
+      (if (> len 0)
+          (if (= (string-slice s 0 1) "-")
+              (begin
+                (set! start 1)
+                (set! sign -1))
+              0)
+          0)
+      (define find-dot
+        (lambda (i)
+          (if (>= i len)
+              -1
+              (if (= (string-slice s i (+ i 1)) ".")
+                  i
+                  (find-dot (+ i 1))))) )
+      (define dot (find-dot start))
+      (define parse-int
+        (lambda (i end acc)
+          (if (>= i end)
+              acc
+              (parse-int (+ i 1) end
+                         (+ (* acc 10)
+                            (- (char-code (string-slice s i (+ i 1)))
+                               (char-code "0")))))))
+      (define result
+        (if (= dot -1)
+            (parse-int start len 0)
+            (begin
+              (define whole (parse-int start dot 0))
+              (define frac-start (+ dot 1))
+              (define frac (parse-int frac-start len 0))
+              (define frac-len (- len frac-start))
+              (define pow10
+                (lambda (n acc)
+                  (if (= n 0)
+                      acc
+                      (pow10 (- n 1) (* acc 10)))))
+              (+ whole (/ frac (pow10 frac-len 1))))))
+      (* sign result))))
+
 (define parse-string
   (lambda (text idx)
     (begin

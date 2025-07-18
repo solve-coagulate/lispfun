@@ -17,7 +17,7 @@ Basic predicates `number?` and `string?` are available and the tokenizer handles
 quoted strings.
 Additional helpers like `<=`, `>=`, `abs`, `max`, `min` and a Lisp
 implementation of `apply` further reduce the reliance on Python.  The
-operations `null?`, `length`, `string-length`, `map` and `filter` are also
+operations `null?`, `length`, `string-length`, `digits->number`, `map` and `filter` are also
 implemented in Lisp.  The toy interpreter supplies its own tokenizer and parser
 so evaluation occurs entirely in Lisp once it is loaded.  Remaining host
 dependencies include low level string primitives (`string-slice`,

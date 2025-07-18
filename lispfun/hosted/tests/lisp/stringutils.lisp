@@ -16,6 +16,8 @@
 
 (assert-equal (digits->number "123") 123)
 (assert-equal (digits->number "3.5") 3.5)
+(assert-equal (digits->number "-42") -42)
+(assert-equal (digits->number "-7.25") -7.25)
 
 (define sym (make-symbol "foo"))
 (assert-equal (symbol? sym) 1)
