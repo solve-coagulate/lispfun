@@ -23,6 +23,7 @@ SELFTEST_FILE = os.path.join(os.path.dirname(__file__), "lisp", "selftest.lisp")
 STRINGPARSE_FILE = os.path.join(os.path.dirname(__file__), "lisp", "stringparse.lisp")
 STRINGUTILS_FILE = os.path.join(os.path.dirname(__file__), "lisp", "stringutils.lisp")
 NUMERIC_FILE = os.path.join(os.path.dirname(__file__), "lisp", "numeric.lisp")
+PRED_FILE = os.path.join(os.path.dirname(__file__), "lisp", "predicates.lisp")
 
 
 def run_file_with_eval(file_path):
@@ -96,5 +97,9 @@ def test_stringutils_script():
 
 def test_numeric_script():
     assert run_file_with_eval2(NUMERIC_FILE) == 1
+
+
+def test_predicates_script():
+    assert run_file_with_eval2(PRED_FILE) == 1
 
 

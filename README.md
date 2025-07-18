@@ -40,12 +40,14 @@ reimplemented purely in Lisp:
 - `filter` – select elements matching a predicate
 - `string-length` – compute the length of a string
 - `digits->number` – convert a string of digits to a number
+- `number?` – check if a value is numeric
+- `string?` – check if a value is a string
 - Numeric helpers `<=`, `>=`, `abs`, `max` and `min`
 
 The remaining host-provided primitives are:
 - low level string helpers `string-slice`, `string-concat`, `make-string`,
   `char-code` and `chr`
-- type predicates `number?`, `string?`, `symbol?` and `list?`
+- type predicates `symbol?` and `list?`
 - symbol utility `make-symbol`
 - environment helpers `env-get`, `env-set!` and `make-procedure`
 - file I/O primitives `read-file` and `read-line`

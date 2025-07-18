@@ -46,7 +46,7 @@ The repository now separates the main components for clarity:
   - `(require "file")` loads Lisp files once to support a basic module system.
   - A Lisp implementation of `apply` is provided in `toy-evaluator.lisp`.
     Low level primitives such as `string-slice`, `string-concat`, `make-string`,
-    `char-code`, `chr` and the type predicates still come from Python along with
+    `char-code`, `chr` and the remaining type predicates still come from Python along with
     environment helpers like `env-get` and `env-set!`.
   - `(error "msg")` raises an exception and `(trap-error thunk handler)`
     invokes `handler` with the message if evaluating `thunk` fails.
