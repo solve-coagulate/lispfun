@@ -38,7 +38,6 @@ reimplemented purely in Lisp:
 - `length` – compute list length
 - `map` – apply a function to each element
 - `filter` – select elements matching a predicate
-# <<<<<<< codex/document-unimplemented-environment-functions-in-toy-interpre
 - `string-length` – compute the length of a string
 - `digits->number` – convert a string of digits to a number
 - `number?` – check if a value is numeric
@@ -52,15 +51,10 @@ The remaining host-provided primitives are:
 - symbol utility `make-symbol`
 - environment helpers `env-get`, `env-set!` and `make-procedure`
 - file I/O primitives `read-file` and `read-line`
-# =======
 
-String operations and type predicates (`number?`, `string?`, `symbol?`,
-`list?`), along with file I/O, still rely on the Python runtime.  The
-`string?` predicate now only matches actual string literals so symbols
-are evaluated correctly by the toy interpreter.
-
-The Lisp parser includes basic error reporting so malformed input is handled
-gracefully inside the toy REPL without relying on Python exceptions.
-The tokenizer also now returns proper symbol objects so the REPL evaluates
-identifiers correctly when using the toy parser.
-# >>>>>>> main
+The `string?` predicate now only matches actual string literals so symbols
+are evaluated correctly by the toy interpreter.  The Lisp parser includes
+basic error reporting so malformed input is handled gracefully inside the
+toy REPL without relying on Python exceptions.  The tokenizer also returns
+proper symbol objects so the REPL evaluates identifiers correctly when using
+the toy parser.
