@@ -42,12 +42,13 @@ reimplemented purely in Lisp:
 - `digits->number` – convert a string of digits to a number
 - `number?` – check if a value is numeric
 - `string?` – check if a value is a string
+- `list?` – check if a value is a list
 - Numeric helpers `<=`, `>=`, `abs`, `max` and `min`
 
 The remaining host-provided primitives are:
 - low level string helpers `string-slice`, `string-concat`, `make-string`,
   `char-code` and `chr`
-- type predicates `symbol?` and `list?`
+- type predicates `symbol?`
 - symbol utility `make-symbol`
 - environment helpers `env-get`, `env-set!` and `make-procedure`
 - file I/O primitives `read-file` and `read-line`

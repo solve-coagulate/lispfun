@@ -9,6 +9,7 @@ from lispfun.bootstrap.interpreter import (
     kernel_env,
     standard_env,
     to_string,
+    _trap_error,
 )
 
 # Path to the evaluator implemented in Lisp
@@ -22,6 +23,9 @@ def load_eval(env):
     directly by this loader so the evaluator can bootstrap even in the
     minimal ``kernel_env``.
     """
+
+    if 'trap-error' not in env:
+        env['trap-error'] = lambda thunk, handler: _trap_error(thunk, handler)
 
     def process_expr(exp):
         if (

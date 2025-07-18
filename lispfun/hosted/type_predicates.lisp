@@ -13,3 +13,12 @@
         (string-length x)
         (< 0 1))
       (lambda (msg) (< 1 0)))))
+
+(define list?
+  (lambda (x)
+    (trap-error
+      (lambda ()
+        (cons 0 x)
+        (< 0 1))
+      (lambda (msg) (< 1 0))))
+)
