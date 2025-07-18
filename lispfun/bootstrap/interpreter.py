@@ -80,7 +80,7 @@ def standard_env() -> Environment:
         'length': lambda lst: len(lst),
         'symbol?': lambda x: isinstance(x, Symbol),
         'number?': lambda x: isinstance(x, (int, float)),
-        'string?': lambda x: isinstance(x, str),
+        'string?': lambda x: isinstance(x, String),
         'map': lambda f, lst: [f(item) for item in lst],
         'filter': lambda pred, lst: [item for item in lst if pred(item)],
         'read-file': read_file,
