@@ -38,7 +38,9 @@ environment are now reimplemented purely in Lisp:
 - `filter` – select elements matching a predicate
 
 String operations and type predicates (`number?`, `string?`, `symbol?`,
-`list?`), along with file I/O, still rely on the Python runtime.
+`list?`), along with file I/O, still rely on the Python runtime.  The
+`string?` predicate now only matches actual string literals so symbols
+are evaluated correctly by the toy interpreter.
 
 The Lisp parser includes basic error reporting so malformed input is handled
 gracefully inside the toy REPL without relying on Python exceptions.
