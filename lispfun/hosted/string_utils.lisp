@@ -94,8 +94,12 @@
                     (string-concat acc (f i))))) )
       (iter 0 ""))))
 
+; store the host implementations before overriding them
+(define host-char-code char-code)
+(define host-chr chr)
+
 ; capture the double quote character before redefining chr
-(define dq (chr 34))
+(define dq (host-chr 34))
 
 (define char-code
   (lambda (c)
@@ -111,7 +115,7 @@
       ((= c "7") 55)
       ((= c "8") 56)
       ((= c "9") 57)
-      (else 0))) )
+      (else (host-char-code c)))) )
 
 (define chr
   (lambda (code)
@@ -127,4 +131,4 @@
       ((= code 55) "7")
       ((= code 56) "8")
       ((= code 57) "9")
-      (else ""))))
+      (else (host-chr code)))) )
