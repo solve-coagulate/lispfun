@@ -44,3 +44,5 @@ are evaluated correctly by the toy interpreter.
 
 The Lisp parser includes basic error reporting so malformed input is handled
 gracefully inside the toy REPL without relying on Python exceptions.
+The tokenizer also now returns proper symbol objects so the REPL evaluates
+identifiers correctly when using the toy parser.
