@@ -28,7 +28,10 @@ The repository now separates the main components for clarity:
 - Lisp features implemented in Lisp:
   - `cond` form and `define-macro` for simple macros.
   - List utilities: `null?`, `length`, `map` and `filter`.
-  - String helpers: `parse-string`, `string-for-each`, `build-string`.
+  - String helpers: `parse-string`, `string-for-each`, `build-string`,
+    `string-length`, `digits->number`.
+  - Numeric helpers `<=`, `>=`, `abs`, `max` and `min` implemented in
+    `numeric_utils.lisp`.
   - Predicates `number?` and `string?` for identifying literal types.
   - `read-line` primitive for interactive input.
   - Toy REPL prints evaluation results and accepts `'bye` as a shortcut to exit.
@@ -41,10 +44,10 @@ The repository now separates the main components for clarity:
   - Semicolon comments are recognized by the parser.
   - Command line arguments after the script name are available as the `args` list.
   - `(require "file")` loads Lisp files once to support a basic module system.
-  - Additional primitives `<=`, `>=`, `abs`, `max`, `min` and a Lisp
-    implementation of `apply` are now defined in `toy-evaluator.lisp`. The toy
-    interpreter still depends on the host environment for string utilities and
-    low level environment helpers.
+  - A Lisp implementation of `apply` is provided in `toy-evaluator.lisp`.
+    Low level primitives such as `string-slice`, `string-concat`, `make-string`,
+    `char-code`, `chr` and the remaining type predicates still come from Python along with
+    environment helpers like `env-get` and `env-set!`.
   - `(error "msg")` raises an exception and `(trap-error thunk handler)`
     invokes `handler` with the message if evaluating `thunk` fails.
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing, macros and loops.
@@ -196,5 +199,9 @@ Run `./run_example_tests.sh` from the repository root to try each interpreter on
 
 ## Work Remaining
 
-Python still handles tokenizing and parsing in `interpreter.py`. The long term goal is to move these pieces to Lisp. See `toy/IDEAS.md` for additional future enhancements like full self-hosting and improved debugging.
+The bootstrap and hosted interpreters rely on the Python tokenizer and parser.
+The toy interpreter already provides Lisp versions of these components so it can
+run entirely in Lisp once bootstrapped.  Future work includes expanding the
+standard library and adding debugging tools.  See `toy/IDEAS.md` for more
+potential enhancements.
 

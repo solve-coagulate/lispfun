@@ -29,7 +29,6 @@ now focused on improving the Lisp toy interpreter found in
 - **File I/O primitives** for writing to files, complementing `read-file`.
 - **Exception handling** to manage runtime errors gracefully.
 - **Debugging tools** to trace evaluation and inspect program state.
-- **Full self-hosting**: move the tokenizer and parser to Lisp so the interpreter can boot itself.
 - **Expanded standard library** providing utilities beyond the basic list functions.
 
 ## Task List
@@ -38,5 +37,4 @@ The following items are still planned for the toy interpreter:
 - **Implement quasiquote/unquote** to simplify macro definitions.
 - **Add exception handling** so programs can recover from runtime errors.
 - **Introduce debugging tools** for easier troubleshooting of Lisp code.
-- **Complete self-hosting** by migrating the tokenizer and parser to Lisp.
 - **Expand the standard library** with additional list, string and numeric utilities.

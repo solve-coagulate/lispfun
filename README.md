@@ -28,14 +28,31 @@ Pass `--kernel` to start in the restricted bootstrap environment.  See the
 individual documents under `docs/` and `lispfun/README.md` for full usage and
 development notes.
 
-The toy interpreter continues to grow.  In addition to `<=`, `>=`, `abs`, `max`,
-`min` and a Lisp version of `apply`, several primitives from the Python
-environment are now reimplemented purely in Lisp:
+The toy interpreter is now completely self-hosted.  It ships with a tokenizer
+and parser written in Lisp so programs run without using the Python parser once
+bootstrapped.  In addition to `<=`, `>=`, `abs`, `max`, `min` and a Lisp version
+of `apply`, several primitives from the Python environment are now
+reimplemented purely in Lisp:
 
 - `null?` – check for the empty list
 - `length` – compute list length
 - `map` – apply a function to each element
 - `filter` – select elements matching a predicate
+# <<<<<<< codex/document-unimplemented-environment-functions-in-toy-interpre
+- `string-length` – compute the length of a string
+- `digits->number` – convert a string of digits to a number
+- `number?` – check if a value is numeric
+- `string?` – check if a value is a string
+- Numeric helpers `<=`, `>=`, `abs`, `max` and `min`
+
+The remaining host-provided primitives are:
+- low level string helpers `string-slice`, `string-concat`, `make-string`,
+  `char-code` and `chr`
+- type predicates `symbol?` and `list?`
+- symbol utility `make-symbol`
+- environment helpers `env-get`, `env-set!` and `make-procedure`
+- file I/O primitives `read-file` and `read-line`
+# =======
 
 String operations and type predicates (`number?`, `string?`, `symbol?`,
 `list?`), along with file I/O, still rely on the Python runtime.  The
@@ -46,3 +63,4 @@ The Lisp parser includes basic error reporting so malformed input is handled
 gracefully inside the toy REPL without relying on Python exceptions.
 The tokenizer also now returns proper symbol objects so the REPL evaluates
 identifiers correctly when using the toy parser.
+# >>>>>>> main
