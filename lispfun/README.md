@@ -43,9 +43,10 @@ The repository now separates the main components for clarity:
   - Command line arguments after the script name are available as the `args` list.
   - `(require "file")` loads Lisp files once to support a basic module system.
   - Additional primitives `<=`, `>=`, `abs`, `max`, `min` and a Lisp
-    implementation of `apply` are now defined in `toy-evaluator.lisp`. The toy
-    interpreter still depends on the host environment for most string utilities
-    and low level environment helpers.
+    implementation of `apply` are now defined in `toy-evaluator.lisp`.
+    Low level primitives such as `string-slice`, `string-concat`, `make-string`,
+    `char-code`, `chr` and the type predicates still come from Python along with
+    environment helpers like `env-get` and `env-set!`.
   - `(error "msg")` raises an exception and `(trap-error thunk handler)`
     invokes `handler` with the message if evaluating `thunk` fails.
 - Example scripts demonstrate factorials, Fibonacci numbers, list processing, macros and loops.
@@ -197,5 +198,9 @@ Run `./run_example_tests.sh` from the repository root to try each interpreter on
 
 ## Work Remaining
 
-Python still handles tokenizing and parsing in `interpreter.py`. The long term goal is to move these pieces to Lisp. See `toy/IDEAS.md` for additional future enhancements like full self-hosting and improved debugging.
+The bootstrap and hosted interpreters rely on the Python tokenizer and parser.
+The toy interpreter already provides Lisp versions of these components so it can
+run entirely in Lisp once bootstrapped.  Future work includes expanding the
+standard library and adding debugging tools.  See `toy/IDEAS.md` for more
+potential enhancements.
 

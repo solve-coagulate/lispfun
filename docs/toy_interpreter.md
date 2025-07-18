@@ -18,10 +18,11 @@ quoted strings.
 Additional helpers like `<=`, `>=`, `abs`, `max`, `min` and a Lisp
 implementation of `apply` further reduce the reliance on Python.  The
 operations `null?`, `length`, `string-length`, `map` and `filter` are also
-implemented in Lisp. The interpreter still depends on the host for other low
-level string primitives and
-type checks (`number?`, `string?`, `symbol?`, `list?`) as well as environment
-manipulation.
+implemented in Lisp.  The toy interpreter supplies its own tokenizer and parser
+so evaluation occurs entirely in Lisp once it is loaded.  Remaining host
+dependencies include low level string primitives (`string-slice`,
+`string-concat`, `make-string`, `char-code`, `chr`) and type checks (`number?`,
+`string?`, `symbol?`, `list?`) along with environment manipulation.
 The `(require "file.lisp")` form loads a Lisp file only once so modules aren't
 imported multiple times.
 `(error "msg")` raises an exception and `(trap-error thunk handler)` can be

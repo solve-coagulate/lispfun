@@ -28,9 +28,11 @@ Pass `--kernel` to start in the restricted bootstrap environment.  See the
 individual documents under `docs/` and `lispfun/README.md` for full usage and
 development notes.
 
-The toy interpreter continues to grow.  In addition to `<=`, `>=`, `abs`, `max`,
-`min` and a Lisp version of `apply`, several primitives from the Python
-environment are now reimplemented purely in Lisp:
+The toy interpreter is now completely self-hosted.  It ships with a tokenizer
+and parser written in Lisp so programs run without using the Python parser once
+bootstrapped.  In addition to `<=`, `>=`, `abs`, `max`, `min` and a Lisp version
+of `apply`, several primitives from the Python environment are now
+reimplemented purely in Lisp:
 
 - `null?` – check for the empty list
 - `length` – compute list length
@@ -38,5 +40,10 @@ environment are now reimplemented purely in Lisp:
 - `filter` – select elements matching a predicate
 - `string-length` – compute the length of a string
 
-Other string operations and type predicates (`number?`, `string?`, `symbol?`,
-`list?`), along with file I/O, still rely on the Python runtime.
+The remaining host-provided primitives are:
+- low level string helpers `string-slice`, `string-concat`, `make-string`,
+  `char-code` and `chr`
+- type predicates `number?`, `string?`, `symbol?` and `list?`
+- symbol utilities `make-symbol` and `digits->number`
+- environment helpers `env-get`, `env-set!` and `make-procedure`
+- file I/O primitives `read-file` and `read-line`
