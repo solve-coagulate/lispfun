@@ -62,3 +62,5 @@ basic error reporting so malformed input is handled gracefully inside the
 toy REPL without relying on Python exceptions.  The tokenizer also returns
 proper symbol objects so the REPL evaluates identifiers correctly when using
 the toy parser.
+
+See `docs/failed_primitive_attempts.md` for notes on unsuccessful experiments to port the remaining host primitives.
