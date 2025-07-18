@@ -24,3 +24,7 @@ poorly with other parts of the system.
 
 The host implementations have been restored until a more robust approach
 can be designed.
+
+## File I/O
+
+`read-file` and `read-line` were attempted in Lisp using simple string accumulation and looping over `(read-char)` from an input port. However reading from the filesystem ultimately relies on Python file handles, so the Lisp versions still needed host primitives for the actual data retrieval. Until the interpreter gains a Lisp-level file abstraction that can delegate to the host, these remain implemented in Python.
