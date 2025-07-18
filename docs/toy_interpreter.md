@@ -22,7 +22,7 @@ utilities live in `numeric_utils.lisp`.  The operations `null?`, `length`,
 implemented in Lisp.  The toy interpreter supplies its own tokenizer and parser
 so evaluation occurs entirely in Lisp once it is loaded.  Remaining host
 dependencies include low level string primitives (`string-slice`,
-`string-concat`, `make-string`, `char-code`, `chr`) and type checks (`symbol?`,
+`string-concat`, `make-string`) and type checks (`symbol?`,
 `list?`) along with environment manipulation.
 The `(require "file.lisp")` form loads a Lisp file only once so modules aren't
 imported multiple times.

@@ -93,3 +93,38 @@
               (iter (+ i 1)
                     (string-concat acc (f i))))) )
       (iter 0 ""))))
+
+; capture the double quote character before redefining chr
+(define dq (chr 34))
+
+(define char-code
+  (lambda (c)
+    (cond
+      ((= c dq) 34)
+      ((= c "0") 48)
+      ((= c "1") 49)
+      ((= c "2") 50)
+      ((= c "3") 51)
+      ((= c "4") 52)
+      ((= c "5") 53)
+      ((= c "6") 54)
+      ((= c "7") 55)
+      ((= c "8") 56)
+      ((= c "9") 57)
+      (else 0))) )
+
+(define chr
+  (lambda (code)
+    (cond
+      ((= code 34) dq)
+      ((= code 48) "0")
+      ((= code 49) "1")
+      ((= code 50) "2")
+      ((= code 51) "3")
+      ((= code 52) "4")
+      ((= code 53) "5")
+      ((= code 54) "6")
+      ((= code 55) "7")
+      ((= code 56) "8")
+      ((= code 57) "9")
+      (else ""))))
