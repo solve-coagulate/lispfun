@@ -39,3 +39,6 @@ environment are now reimplemented purely in Lisp:
 
 String operations and type predicates (`number?`, `string?`, `symbol?`,
 `list?`), along with file I/O, still rely on the Python runtime.
+
+The Lisp parser includes basic error reporting so malformed input is handled
+gracefully inside the toy REPL without relying on Python exceptions.
