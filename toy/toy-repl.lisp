@@ -11,9 +11,13 @@
          (quote bye)))
       (else
        (begin
-         (let ((expr (parse line)))
-           (let ((result (eval2 expr env)))
-             (if result (print result) 0)))
+         (trap-error
+           (lambda ()
+             (let ((expr (parse line)))
+               (let ((result (eval2 expr env)))
+                 (if result (print result) 0))))
+           (lambda (msg)
+             (print (string-concat "Error: " msg))))
          (toy-repl))))))
 
 (toy-repl)
