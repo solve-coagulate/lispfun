@@ -53,7 +53,7 @@
                 k)
             k)))
     (set! j (loop j))
-    (list j (string-slice text idx j))))
+    (list j (make-symbol (string-slice text idx j)))))
 
 ; Read a string token starting at index idx
 (define read-string
