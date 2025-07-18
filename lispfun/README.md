@@ -30,6 +30,8 @@ The repository now separates the main components for clarity:
   - List utilities: `null?`, `length`, `map` and `filter`.
   - String helpers: `parse-string`, `string-for-each`, `build-string`,
     `string-length`, `digits->number`.
+  - Numeric helpers `<=`, `>=`, `abs`, `max` and `min` implemented in
+    `numeric_utils.lisp`.
   - Predicates `number?` and `string?` for identifying literal types.
   - `read-line` primitive for interactive input.
   - Toy REPL prints evaluation results and accepts `'bye` as a shortcut to exit.
@@ -42,8 +44,7 @@ The repository now separates the main components for clarity:
   - Semicolon comments are recognized by the parser.
   - Command line arguments after the script name are available as the `args` list.
   - `(require "file")` loads Lisp files once to support a basic module system.
-  - Additional primitives `<=`, `>=`, `abs`, `max`, `min` and a Lisp
-    implementation of `apply` are now defined in `toy-evaluator.lisp`.
+  - A Lisp implementation of `apply` is provided in `toy-evaluator.lisp`.
     Low level primitives such as `string-slice`, `string-concat`, `make-string`,
     `char-code`, `chr` and the type predicates still come from Python along with
     environment helpers like `env-get` and `env-set!`.

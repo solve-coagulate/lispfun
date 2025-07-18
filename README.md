@@ -40,6 +40,7 @@ reimplemented purely in Lisp:
 - `filter` – select elements matching a predicate
 - `string-length` – compute the length of a string
 - `digits->number` – convert a string of digits to a number
+- Numeric helpers `<=`, `>=`, `abs`, `max` and `min`
 
 The remaining host-provided primitives are:
 - low level string helpers `string-slice`, `string-concat`, `make-string`,
