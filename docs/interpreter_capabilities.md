@@ -12,8 +12,8 @@ Evaluation is limited to a small set of special forms and primitives:
 - Arithmetic: `+`, `-`, `*`, `/`.
 - Comparisons: `>`, `<`, `>=`, `<=`, `=`.
 - List primitives: `list`, `car`, `cdr`, `cons`, and a host‑side `apply`.
-- Environment helpers: `env-get`, `env-set!`, `make-procedure`.
-- Predicates and utilities in the standard environment such as `null?`, `length`, `map`, `filter`, `number?`, `string?`, `read-file`, `read-line` and simple string helpers (`string-length`, `string-slice`, `string-concat`, `make-string`, `char-code`, `chr`).
+ - Environment helpers: `env-get`, `env-set!`, `make-procedure`.
+ - Predicates and utilities in the standard environment such as `null?`, `length`, `map`, `filter`, `number?`, `string?`, `read-file`, `read-line` and simple string helpers (`string-length`, `string-slice`, `string-concat`, `make-string`).
 - `(import "file.lisp")` loads additional Lisp source using the same parser and evaluator.
 - Error handling via `(error "msg")` and `(trap-error thunk handler)`.
 
