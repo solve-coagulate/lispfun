@@ -62,6 +62,8 @@ def kernel_env() -> Environment:
         'env-get': lambda env, var: env.find(var)[var],
         'env-set!': lambda env, var, val: env.__setitem__(var, val),
         'make-procedure': Procedure,
+        'char-code': lambda s: ord(s[0]),
+        'chr': chr,
     })
     return env
 
