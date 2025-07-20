@@ -43,15 +43,15 @@ reimplemented purely in Lisp:
 - `number?` – check if a value is numeric
 - `string?` – check if a value is a string
 - `list?` – check if a value is a list
-- `symbol?` – check if a value is a symbol
 - `char-code` – numeric code of a character (digits and `"` handled in Lisp,
   other characters fall back to the host)
 - `chr` – single character from a code (handles digit codes and `"` in Lisp,
   otherwise uses the host implementation)
 - Numeric helpers `<=`, `>=`, `abs`, `max` and `min`
 
-The remaining host-provided primitives are:
+- The remaining host-provided primitives are:
 - low level string helpers `string-slice`, `string-concat`, `make-string`
+- type predicates `symbol?`
 - symbol utility `make-symbol`
 - environment helpers `env-get`, `env-set!` and `make-procedure`
 - file I/O primitives `read-file` and `read-line`
